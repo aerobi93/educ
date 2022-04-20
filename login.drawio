@@ -1,1 +1,231 @@
-<mxfile host="app.diagrams.net" modified="2022-04-20T15:10:58.161Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.4997.0 Safari/537.36" version="17.4.5" etag="RqgUFp6drcVeYvxiPpjh" type="github"><diagram id="SCqpBvkin5opcs6J1MYX">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-04-20T15:30:27.024Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.4997.0 Safari/537.36" etag="pGorxtvZsVItj2fQAnEK" version="17.4.5" type="github">
+  <diagram id="SCqpBvkin5opcs6J1MYX" name="Page-1">
+    <mxGraphModel dx="2249" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-1" value="alt" style="shape=umlFrame;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;width=140;height=30;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;container=0;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="380" width="780" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+          <mxGeometry x="115" y="120" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-3" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontColor=#000000;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="1136" width="10" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-4" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+          <mxGeometry x="285" y="200" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="1">
+          <mxGeometry x="285" y="280" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-6" value="login &amp;amp; password&lt;br&gt;verification :&amp;nbsp;&lt;br&gt;&amp;nbsp;-no empty&lt;br&gt;- type&lt;br&gt;&amp;nbsp;..." style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="300" y="240" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="315" y="240" />
+              <mxPoint x="315" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-7" value="authentication form send" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="130" y="200" as="sourcePoint" />
+            <mxPoint x="289.5" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-8" value="loop" style="shape=umlFrame;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;width=140;height=30;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;container=0;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="110" width="830" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-9" value="if login&#xa;attempts &lt;= 3" style="text;fontColor=#0000CC;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="150" width="100" height="20" as="geometry">
+            <mxPoint x="20" y="40" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-10" value="if login&#xa;attempts &gt; 3" style="line;strokeWidth=2;dashed=1;labelPosition=center;verticalLabelPosition=bottom;align=left;verticalAlign=top;spacingLeft=20;spacingTop=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="510" width="830" height="28.400000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-11" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="320" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-12" value="sent data" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;entryX=0.1;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-11">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="300" y="320" as="sourcePoint" />
+            <mxPoint x="380" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-13" value="sent login &amp;amp; password" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="490" y="360" as="sourcePoint" />
+            <mxPoint x="685" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-14" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="685" y="359" width="10" height="351" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-15" value="if no result" style="text;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="420" width="100" height="20" as="geometry">
+            <mxPoint x="20" y="40" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-16" value="if result" style="line;strokeWidth=2;dashed=1;labelPosition=center;verticalLabelPosition=bottom;align=left;verticalAlign=top;spacingLeft=20;spacingTop=15;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="620.0000000000001" width="780" height="13.200000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-17" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="406.4" width="10" height="33.6" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-18" value="no user found" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="406.4000000000001" as="sourcePoint" />
+            <mxPoint x="600" y="406.4" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-19" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="440" width="10" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-20" value="no user found" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;entryX=0.7;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="440" as="sourcePoint" />
+            <mxPoint x="410" y="459.2" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-21" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="480" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-22" value="sent message&amp;nbsp;&lt;br&gt;(error password or login)" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="481" as="sourcePoint" />
+            <mxPoint x="125" y="481" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="250" y="481" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-23" value="sent message&amp;nbsp;&lt;br&gt;(too many authentication&lt;br&gt;attempts )&amp;nbsp;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;entryX=1.3;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="572" as="sourcePoint" />
+            <mxPoint x="128" y="573" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-24" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="570" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-25" value="user found" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;fontColor=#000000;exitX=0.6;exitY=1.003;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="Zdv-mFSh9r9p0936tsOC-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="660" as="sourcePoint" />
+            <mxPoint x="500" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="710" width="10" height="296" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-27" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontColor=#000000;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="484" y="1045" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-28" value="JWT creation" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;fontColor=#000000;exitX=0.5;exitY=1.017;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="489" y="1006.02" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="514" y="1006" />
+              <mxPoint x="514" y="1045" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-29" value="" style="shape=umlDestroy;whiteSpace=wrap;html=1;strokeWidth=3;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="105" y="575" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-30" value="sent JWT &amp;amp; data" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;fontColor=#000000;entryX=0.9;entryY=0.013;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-31">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="484" y="1085" as="sourcePoint" />
+            <mxPoint x="404" y="1085" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-31" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontColor=#000000;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="1085" width="10" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-32" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontColor=#000000;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="1166" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-33" value="change component&lt;br&gt;{home with data user }&lt;br&gt;&amp;amp;&lt;br&gt;&lt;div&gt;sockage JWT into state&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;spacingLeft=2;endArrow=block;rounded=0;fontColor=#000000;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.8;entryY=-0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Zdv-mFSh9r9p0936tsOC-31" target="Zdv-mFSh9r9p0936tsOC-32">
+          <mxGeometry x="-0.1335" y="66" relative="1" as="geometry">
+            <mxPoint x="294" y="1166" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="324" y="1136" />
+              <mxPoint x="324" y="1166" />
+            </Array>
+            <mxPoint x="300" y="1166" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-34" value="you are connected" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;fontColor=#000000;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="1136" as="sourcePoint" />
+            <mxPoint x="210" y="1136" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-35" value="alt" style="shape=umlFrame;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;width=140;height=30;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;container=0;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="720" width="730" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-36" value="if first login" style="text" vertex="1" parent="1">
+          <mxGeometry x="10" y="710" width="100" height="20" as="geometry">
+            <mxPoint x="20" y="40" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-45" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="740" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-46" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="570" as="sourcePoint" />
+            <mxPoint x="370" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-47" value="account not validate" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="484" y="748" as="sourcePoint" />
+            <mxPoint x="300" y="748" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-48" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="790" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-49" value="create new password" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;entryX=1;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-48">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="790" as="sourcePoint" />
+            <mxPoint x="210" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-50" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="840" width="10" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-51" value="field filled" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-50">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="130" y="840" as="sourcePoint" />
+            <mxPoint x="210" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-52" value="update account" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="296" y="890" as="sourcePoint" />
+            <mxPoint x="480" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-53" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="685" y="920" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-54" value="sent data&amp;nbsp;" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-53">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="490" y="920" as="sourcePoint" />
+            <mxPoint x="570" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Zdv-mFSh9r9p0936tsOC-55" value="validate OK" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;entryX=0.699;entryY=0.938;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="Zdv-mFSh9r9p0936tsOC-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="970" as="sourcePoint" />
+            <mxPoint x="610" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
