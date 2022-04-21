@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "start" : "ts-node server.ts"
+    "start": "ts-node server.ts"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@prisma/client": "^3.12.0",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
-    "koa-cors": "^0.0.16",
-    "koa-router": "^10.1.1",
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "@types/nodemailer": "^6.4.4",
     "prisma": "^3.12.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.7.0",
+    "nodemailer": "^6.7.3"
   }
 }

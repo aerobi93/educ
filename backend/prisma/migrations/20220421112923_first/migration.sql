@@ -5,8 +5,8 @@ CREATE TYPE "Roles" AS ENUM ('parent', 'student');
 CREATE TABLE "Users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "birthday" TIMESTAMP(3) NOT NULL,
-    "validate" BOOLEAN NOT NULL,
+    "birthday" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "validate" BOOLEAN NOT NULL DEFAULT false,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "role" "Roles" NOT NULL,
     "childId" TEXT,
@@ -18,7 +18,7 @@ CREATE TABLE "Users" (
 CREATE TABLE "TableContents" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "resultID" TEXT NOT NULL,
+    "resultID" TEXT,
 
     CONSTRAINT "TableContents_pkey" PRIMARY KEY ("id")
 );
