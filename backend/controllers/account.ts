@@ -1,6 +1,7 @@
 import {PrismaClient } from "@prisma/client";
-import sendmail from "../configMail";
+import sendmail from "../config/configMail";
 import {generateString} from '../utils'
+import bcrypt from "bcryptjs"
 import { Iuser } from "../interfaceTS";
 import {create as createUserService} from "../services/account";
 
@@ -9,7 +10,8 @@ const prisma = new PrismaClient()
 
 
 export const create = async (data : Iuser) => {
-    let password = generateString(32)
+    let password ='toto'
+    password= bcrypt.hashSync(password)
     data = {
         ...data,
         password

@@ -3,6 +3,7 @@ export interface IConfig {
 }
 
 export interface Iuser {
+    id : string,
     email : string,
     password : string
     birthday : Date,
