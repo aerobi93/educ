@@ -11,6 +11,7 @@ export const login = async (data : Iuser) =>  {
       },
       select : {
        id : true,
+       role : true,
        validate : true,
        password : true
       }

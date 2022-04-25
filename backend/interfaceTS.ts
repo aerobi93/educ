@@ -2,13 +2,21 @@ export interface IConfig {
     port: number | string
 }
 
-export interface Iuser {
-    id : string,
+export interface Iiduser   {
+  id : string
+}
+
+export interface Iuser extends  Iiduser   {
     email : string,
     password : string
     birthday : Date,
     role : "parent" | "student",
-    validate : boolean
+}
+
+ export interface IuserUpdate extends  Iiduser  {
+  email? : string,
+  birthday? : Date,
+  role? : "parent" | "student",
 }
 
 export interface ItableContent {

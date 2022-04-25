@@ -10,36 +10,53 @@ import JWTcreation from "../middleware/createJWT";
 const prisma  = new PrismaClient()
 export const loginController = async(data : Iuser) => {
   if (!data.password || !data.email) {
-    return  401
+    return  {
+      message : "email ou mot de passe ne peut pas etre vide ",
+      statut : 401
+    }
   }
-
-let statut
-await countUser(data)
+  await countUser(data)
   try {
     if (await countUser(data)) {
       if (await countUser(data) == 0) {
-          return statut = 204
+        return {
+          status: 204,
+          message: "aucun utilisateur trouve"
+        }
       }
       else if(await login(data)) {
         let { password}: any = await login(data)
-        if (!bcrypt.compareSync(data.password, password))
-        {return 401}
-        let {id} : any = await login(data)
-        console.log('found')
-        if (!id) {
-          return 
+        if (!bcrypt.compareSync(data.password, password)) {
+          return {
+            message : 'erreur de mot de passe',
+            status: 401
+          }
         }
-        return (
-          statut = 200,
-          JWTcreation(id)
-        )
+        let {id, role} : any = await login(data)
+        if (!id) {
+          return {
+            status : 401,
+            message: 'utilisateur non trouve'
+          }
+        }
+        return {
+           status: 200,
+          message : await JWTcreation(id, role)
+        }
       }
+
       else if (!await login(data)) {
-        return statut = 401
+        return{
+           status: 401,
+           messsage :"erreur inattendu"
+        }
       }
     }
-    else if (! await countUser(data)) {
-      return statut= 204
+    else if (!await countUser(data)) {
+      return {
+        message:'erreur inattendu',
+        status: 401
+      }
     }
   }
   catch(e) {

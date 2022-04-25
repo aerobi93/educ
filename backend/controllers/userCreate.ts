@@ -1,24 +1,28 @@
 import {PrismaClient } from "@prisma/client";
-import sendmail from "../config/configMail";
+import {sendMailCreate} from "../config/configMail";
 import {generateString} from '../utils'
 import bcrypt from "bcryptjs"
 import { Iuser } from "../interfaceTS";
-import {create as createUserService} from "../services/account";
+import {create as createUserService} from "../services/user";
 
 
 const prisma = new PrismaClient()
 
 
 export const create = async (data : Iuser) => {
-    let password ='toto'
-    password= bcrypt.hashSync(password)
+    let password = generateString(32)
+    let newPassword= bcrypt.hashSync(password)
     data = {
         ...data,
+        password : newPassword
+    }
+    let datamail = {
+        ...data, 
         password
     }
     await createUserService(data)
     try {
-        sendmail(data)
+        sendMailCreate(datamail)
         return 'utilisateur créé'
     }
     catch(err) {

@@ -3,7 +3,7 @@ import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
 
 import config from './config/config';
-import addUser from './routes/account'
+import addUser from './routes/user'
 import login from './routes/login'
 
 
