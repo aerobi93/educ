@@ -1,1 +1,1 @@
-# educ
+# Studies

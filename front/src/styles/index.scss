@@ -1,0 +1,20 @@
+@use 'src/styles/vars';
+@import  'src/styles/reset';
+
+
+body {
+  background: linear-gradient( grey , white)
+}
+.app {
+  width: 80%;
+  margin: auto;
+  background: radial-gradient(grey, white);
+  font-family: vars.$basker;
+  font-size: vars.$fontSize;
+
+  &__center {
+    height: 60vh;
+    padding-bottom: vars.$padding;
+    border-bottom: 0.75rem white dotted;
+  }
+}

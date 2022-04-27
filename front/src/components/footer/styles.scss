@@ -1,0 +1,32 @@
+@use 'src/styles/vars';
+
+.footer {
+  position: relative;
+  padding-top: 5rem;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  padding-top: vars.$padding;
+
+  &__title {
+    width: 20%;
+    font-weight: bolder;
+    font-family: vars.$penny;
+    color: vars.$titleColor;
+    font-size: vars.$fontSize * 4;
+    text-transform: capitalize;
+    text-shadow: red 3px 3px;
+  }
+  &__nav {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+  }
+  &__link {
+    width: calc((100% / 3) - vars.$margin * 2);
+    text-align: center;
+    margin: 1rem vars.$margin;
+  }
+
+}
