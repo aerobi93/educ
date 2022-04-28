@@ -1,14 +1,14 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faEnvelope, faCakeCandles, faUserNinja } from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faCakeCandles, faUserNinja, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import Input from '../../container/form/input';
 import { getAge } from "../../store/utils";
 
-const Register = ({ email, changeValue, birthday, role, errorFields, sendFormRegister, changeErrorFields }) => {  
+const Register = ({ email, password, changeValue, birthday, role, errorFields, sendFormRegister, changeErrorFields }) => {  
 
   const handlerSubmit = (evt) => {
     evt.preventDefault()
-    if (!email.trim() || !birthday.trim() || !role.trim()) {
+    if (!email.trim() || !birthday.trim() || !role.trim(), !password.trim()) {
       changeErrorFields()
     }
     else if (email.indexOf('@') <= 0 ||  email.indexOf('.') <= 0) {
@@ -26,6 +26,7 @@ const Register = ({ email, changeValue, birthday, role, errorFields, sendFormReg
   return (
     <form className="form__register" onSubmit={(evt)=> handlerSubmit(evt)}>
       <Input ico={faEnvelope} id={"email"} value={email}  type={"text"}  placeholder={"email"} />
+      <Input ico={faUnlockKeyhole} id={"password"} value={password}  type={"password"}  placeholder={"mot de passe"} />
       <Input ico={faCakeCandles} id={"birthday"} value={birthday}  type={"date"}  placeholder={"date de naissance"} />
 
       <div className="form__flexInput"> 

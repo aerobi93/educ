@@ -4,6 +4,7 @@ import { changeValue, changeErrorFields, sendFormRegister } from "../../action";
 
 const mapStateToProps = (state) => ({
   email: state.email, 
+  password: state.password,
   birthday: state.birthday,
   role: state.role,
   errorFields: state.errorFields

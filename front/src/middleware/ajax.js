@@ -21,6 +21,7 @@ const ajax = (store) => (next) => (action) =>  {
     case SEND_FORM_REGISTER : 
     axios.post('/user/adduser', {
       email: state.email,
+      password : state.password,
       birthday: new Date(state.birthday),
       role: state.role,
       })
