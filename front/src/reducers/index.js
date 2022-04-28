@@ -1,11 +1,11 @@
-import { CHANGE_VALUE } from "../action"
+import { CHANGE_VALUE, CHANGE_ERROR_FIELDS} from "../action"
 
 const initialState = {
-  pseudo: "",
   password: "",
   email:"",
   birthday:"",
-  role:""
+  role:"",
+  errorFields: false
 
 }
 
@@ -16,6 +16,11 @@ const reducer = (state = initialState, action = {})  => {
         ...state,
         [action.name] : action.value
       };
+    case CHANGE_ERROR_FIELDS : 
+      return {
+        ...state,
+        errorFields : true
+      }
 
   default: 
     return {

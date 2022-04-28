@@ -2,7 +2,9 @@ import { connect } from "react-redux";
 import Input from "../../components/form/input";
 import { changeValue } from "../../action";
 
-const mapStateToProps= () => ({})
+const mapStateToProps= (state) => ({
+  errorFields: state.errorFields
+})
 
 const mapDispatchToProps = (dispatch, props)=> ({
   changeValue: (value) => {

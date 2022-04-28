@@ -1,12 +1,20 @@
 import { connect } from "react-redux";
 import Connexion from "../../components/form/connexion";
 
+import { changeErrorFields, sendFormConnexion } from "../../action";
+
 const mapStateToProps = (state) => ({
-  pseudo: state.pseudo,
+  email: state.email,
   password: state.password,
-  
 })
 
-const mapDispatchToProps = (dispatch, props) => ({})
+const mapDispatchToProps = (dispatch) => ({
+  sendFormConnexion : () => {
+    dispatch(sendFormConnexion())
+  },
+  changeErrorFields : () => {
+    dispatch(changeErrorFields())
+  }
+})
 
 export default connect(mapStateToProps,mapDispatchToProps)(Connexion)

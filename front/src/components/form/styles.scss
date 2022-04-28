@@ -7,7 +7,7 @@
   padding: vars.$padding  0;
   &__flexTitle {
     display: flex;
-    margin-bottom: vars.$margin * 2;
+    margin-bottom: vars.$margin ;
   }
   &__title {
     width: 50%;
@@ -55,6 +55,10 @@
     font-size: vars.$fontSize * 1.25;
     font-family: vars.$penny;
 
+    &--red {
+      border: solid 2px red;
+    }
+
     &::placeholder {
       color: black;
       text-indent: 1rem;
@@ -69,7 +73,7 @@
   }
 
   &__submit {
-    margin-top: vars.$margin;
+    margin-top: vars.$margin * 0.5;
     background-color: transparent;
     border: none;
     width: 100%;
