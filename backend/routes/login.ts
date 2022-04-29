@@ -6,6 +6,7 @@ const router = new Router()
 router.post('/login', async(ctx) => {
   let {message, status} : any = await loginController(ctx.request.body)
   ctx.body = message
+  ctx.message = message
   ctx.status = +status
 })
 

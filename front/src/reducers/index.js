@@ -1,12 +1,12 @@
-import { CHANGE_VALUE, CHANGE_ERROR_FIELDS} from "../action"
+import { CHANGE_VALUE, CHANGE_ERROR_FIELDS, CHANGE_LOADING} from "../action"
 
 const initialState = {
   password: "",
   email:"",
   birthday:"",
   role:"",
-  errorFields: false
-
+  errorFields: false,
+  loading: false
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -20,6 +20,11 @@ const reducer = (state = initialState, action = {})  => {
       return {
         ...state,
         errorFields : true
+      }
+      case CHANGE_LOADING : 
+      return {
+        ...state,
+       loading : !state.loading
       }
 
   default: 

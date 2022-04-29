@@ -1,0 +1,19 @@
+@use 'src/styles/vars';
+
+.validation {
+  width: 40%;
+  padding: vars.$padding * 2 30%;
+
+  &__title {
+    font-size: vars.$fontSize * 1.5;
+    font-family: vars.$basker;
+    font-style: italic;
+    text-align: center;
+  }
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    margin-top: vars.$margin* 2;
+  }
+}

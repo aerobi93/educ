@@ -10,15 +10,15 @@ const prisma = new PrismaClient()
 
 
 export const create = async (data : Iuser) => {
-    let password = generateString(32)
-    let newPassword= bcrypt.hashSync(password)
+    let link = generateString(32)
     data = {
         ...data,
-        password : newPassword
+        password: bcrypt.hashSync(data.password),
+        validate: link
     }
     let datamail = {
         ...data, 
-        password
+        validate: link
     }
     await createUserService(data)
     try {

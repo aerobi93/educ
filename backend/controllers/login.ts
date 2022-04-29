@@ -32,10 +32,16 @@ export const loginController = async(data : Iuser) => {
             status: 401
           }
         }
-        let {id, role} : any = await login(data)
+        let {id, role, validate} : any = await login(data)
+        if (validate !== "validate") {
+          return {
+              status : 401,
+              message: 'compte non valider'
+            }
+          }
         if (!id) {
           return {
-            status : 401,
+            status : 402,
             message: 'utilisateur non trouve'
           }
         }
@@ -46,7 +52,7 @@ export const loginController = async(data : Iuser) => {
       }
 
       else if (!await login(data)) {
-        return{
+        return {
            status: 401,
            messsage :"erreur inattendu"
         }

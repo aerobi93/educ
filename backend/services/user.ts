@@ -4,12 +4,6 @@ import { Iiduser, Iuser, IuserUpdate } from "../interfaceTS";
 const prisma = new PrismaClient()
 
 export const create = async (data : Iuser) => {
-  let {birthday} = data
-  birthday = new Date(birthday)
-  data = {
-      ...data,
-      birthday
-    }
     let add = await prisma.users.create({
         data
     })

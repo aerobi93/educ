@@ -13,10 +13,11 @@ datasource db {
 
 model  Users { 
   id  String @id @default(uuid())
-  email  String @unique
-  password String 
+  email  String? @unique
+  name String?
+  password String
   birthday  DateTime @default(now())
-  validate  Boolean @default(false)
+  validate  String? 
   createAt DateTime @default(now())
   role  Roles
   childId String?
@@ -27,6 +28,7 @@ model  Users {
 enum Roles {
   parent
   student
+  child
 }
 
 

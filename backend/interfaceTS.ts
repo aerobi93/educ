@@ -11,12 +11,14 @@ export interface Iuser extends  Iiduser   {
     password : string
     birthday : Date,
     role : "parent" | "student",
+    validate? : string
 }
 
  export interface IuserUpdate extends  Iiduser  {
   email? : string,
   birthday? : Date,
   role? : "parent" | "student",
+  validate? : string
 }
 
 export interface ItableContent {
