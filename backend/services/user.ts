@@ -11,14 +11,15 @@ export const create = async (data : Iuser) => {
 }
 
 export const update =async (data: IuserUpdate) => {
-  let {id} = data
-  const updateUser =  prisma.users.update({
-    where : {
-      id
-      },
-    data
-  })
-  return updateUser
+  let {id, email} = data
+  if(email) {
+    const updateUser =  prisma.users.update({where: { email }, data })
+    return updateUser
+  }
+  if(id) {
+    const updateUser =  prisma.users.update({where: { id }, data })
+    return updateUser
+  }
 }
 
 export const deleteU = async (data :Iiduser) => {

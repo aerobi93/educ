@@ -3,19 +3,24 @@ import Input from "../../container/form/input";
 
 import { faUserPlus, faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
 
-const Connexion = ({email, password, sendFormConnexion, changeErrorFields }) => {
+const Connexion = ({email, password, sendFormConnexion, changeErrorFields, changeLoading }) => {
   const handlerSubmit = (evt) => {
     evt.preventDefault();
+    let regexMail = /[^\s]+[@]+[\w]\w*[.]\w*/g
+    
     if (!email, !password) {
       changeErrorFields()
     }
-    else if (email.indexOf('@') <= 0 && email.indexOf('.') <= 0) {
-      alert("l'email doit contenir obligatoirement un @ et un .")
+    else if (!email.match(regexMail)) {
+      alert("email non conforme")
     }
     else if (typeof password !== 'string' ) {
       alert ('mot de passe non valide')
     }
-    else sendFormConnexion()
+    else {
+      changeLoading()
+      sendFormConnexion()
+    }
   }
  
   return (

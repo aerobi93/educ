@@ -82,4 +82,30 @@
     font-size: vars.$fontSize * 1.5;
     color: vars.$titleColor;
   }
+
+  &__message {
+    width: 100%;
+    margin: vars.$margin * 2 0;
+    color: red;
+    font-family: vars.$penny;
+    font-size: vars.$fontSize * 2;
+    font-weight: bolder;
+    text-align: center;
+  }
+  &__loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: vars.$margin * 2;
+  }
+  &__sendNewCode {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: center;
+    font-family: vars.$penny;
+    color: vars.$titleColor;
+    font-size: vars.$fontSize * 1.5;
+    font-style: italic;
+  }
 }

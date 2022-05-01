@@ -4,15 +4,18 @@ import {faEnvelope, faCakeCandles, faUserNinja, faUnlockKeyhole } from "@fortawe
 import Input from '../../container/form/input';
 import { getAge } from "../../store/utils";
 
-const Register = ({ email, password, changeValue, birthday, role, errorFields, sendFormRegister, changeErrorFields }) => {  
+const Register = ({ email, password, changeValue, birthday, role, errorFields, sendFormRegister, changeErrorFields, changeLoading}) => {  
 
   const handlerSubmit = (evt) => {
     evt.preventDefault()
+    
+    let regexMail = /[^\s]+[@]+[\w]\w*[.][\w*]/g
+    
     if (!email.trim() || !birthday.trim() || !role.trim(), !password.trim()) {
       changeErrorFields()
     }
-    else if (email.indexOf('@') <= 0 ||  email.indexOf('.') <= 0) {
-      alert("l'email doit contenir obligatoirement un @ et un .")
+    else if (!email.match(regexMail)) {
+      alert("email non conforme")
     }
     else if ( role === 'parent' && getAge(birthday) < 18) {
       alert('le role de parent necessite d avoir 18ans revolue')
@@ -20,7 +23,10 @@ const Register = ({ email, password, changeValue, birthday, role, errorFields, s
     else if(role === 'student' && getAge(birthday) <= 12) {
       alert("tu n'a pas l'age passe par le compte de tes parents")
     }
-    else sendFormRegister()
+    else {
+      changeLoading()
+      sendFormRegister()
+    }
   }
  
   return (

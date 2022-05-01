@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Connexion from "../../components/form/connexion";
 
-import { changeErrorFields, sendFormConnexion } from "../../action";
+import { changeErrorFields, sendFormConnexion, changeLoading} from "../../action";
 
 const mapStateToProps = (state) => ({
   email: state.email,
@@ -14,7 +14,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeErrorFields : () => {
     dispatch(changeErrorFields())
-  }
+  },
+  changeLoading : () => {
+    dispatch(changeLoading())
+  },
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Connexion)

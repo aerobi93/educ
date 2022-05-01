@@ -11,7 +11,7 @@ const prisma  = new PrismaClient()
 export const loginController = async(data : Iuser) => {
   if (!data.password || !data.email) {
     return  {
-      message : "email ou mot de passe ne peut pas etre vide ",
+      message : "l'email ou le mot de passe ne peut pas être vide ",
       statut : 401
     }
   }
@@ -21,7 +21,7 @@ export const loginController = async(data : Iuser) => {
       if (await countUser(data) == 0) {
         return {
           status: 204,
-          message: "aucun utilisateur trouve"
+          message: "aucun utilisateur trouvé"
         }
       }
       else if(await login(data)) {
@@ -36,13 +36,13 @@ export const loginController = async(data : Iuser) => {
         if (validate !== "validate") {
           return {
               status : 401,
-              message: 'compte non valider'
+              message: 'compte non validé'
             }
           }
         if (!id) {
           return {
             status : 402,
-            message: 'utilisateur non trouve'
+            message: 'utilisateur non trouvé'
           }
         }
         return {

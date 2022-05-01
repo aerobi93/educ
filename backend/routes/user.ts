@@ -8,8 +8,9 @@ import { updateController } from "../controllers/userUpdate";
 const router = new Router()
 
 router.post("/user/adduser", async(ctx: Router.RouterContext) => {
-  
-  ctx.body =  await createAccount(ctx.request.body)  
+  const { message, status } =  await createAccount(ctx.request.body)  
+  ctx.body = message
+  ctx.status = +status
 })
 
 router.patch('/user/update', async (ctx : Router.RouterContext) => {

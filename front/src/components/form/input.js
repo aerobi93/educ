@@ -1,8 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Input = ({ ico, id, value, placeholder, type, errorFields, changeValue }) => {console.log(errorFields) 
-  return (
+const Input = ({ ico, id, value, placeholder, type, errorFields, changeValue }) => (
   <div className="form__flexInput"> 
   <label className="form__label" htmlFor={id} > {placeholder} </label>
     <div className="form__cardIco">
@@ -17,7 +16,6 @@ const Input = ({ ico, id, value, placeholder, type, errorFields, changeValue }) 
     /> 
     
   </div>
-
-)}
+)
 
 export default Input

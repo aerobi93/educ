@@ -1,14 +1,18 @@
 import{ connect }from "react-redux";
 import Validation from "../../components/validation";
-import { changeValidation } from "../../action"
+import { changeValidation, changeLoading } from "../../action"
 
 const mapStatetoProps = (state) => ({
-  loading: state.loading
+  loading: state.loading,
+  messageRequest: state.messageRequest
 })
 
 const mapDispatchtoProps = (dispatch) => ({
   changeValidation : (value) => {
     dispatch(changeValidation(value))
+  },
+  changeLoading : () => {
+    dispatch(changeLoading())
   }
 })
 

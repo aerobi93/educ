@@ -28,7 +28,7 @@ export const  deleteController = async (autorization: any) => {
   deleteU(data)
   try {
     return {
-      message: "supression effectuer",
+      message: "suppression effectuer",
       status : 200
     }
   }

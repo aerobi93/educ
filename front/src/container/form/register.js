@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
 import Register from "../../components/form/register";
-import { changeValue, changeErrorFields, sendFormRegister } from "../../action";
+import { changeValue, changeErrorFields, sendFormRegister, changeLoading } from "../../action";
 
 const mapStateToProps = (state) => ({
   email: state.email, 
   password: state.password,
   birthday: state.birthday,
   role: state.role,
-  errorFields: state.errorFields
+  errorFields: state.errorFields,
 })
 
 const mapDispatchToProps =(dispatch) => ({
@@ -19,6 +19,9 @@ const mapDispatchToProps =(dispatch) => ({
   }, 
   sendFormRegister : () => {
     dispatch(sendFormRegister())
+  },
+  changeLoading : () => {
+    dispatch(changeLoading())
   }
 })
 

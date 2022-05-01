@@ -16,4 +16,22 @@
     justify-content: center;
     margin-top: vars.$margin* 2;
   }
+
+  &__message {
+    width: 50%;
+    text-align: center;
+    margin: vars.$margin  25%;
+    padding-top: vars.$padding;
+    font-family: vars.$penny;
+    color: red;
+    font-size: vars.$fontSize * 2;
+  }
+  &__button {
+    background-color: transparent;
+    border: none;
+    color: vars.$titleColor;
+    font-family: vars.$basker;
+    font-size: vars.$fontSize;
+    padding-top: vars.$padding;
+  }
 }

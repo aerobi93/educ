@@ -3,7 +3,7 @@ import { Routes, Route, useParams } from 'react-router-dom';
 import './styles/index.scss'
 import Header from './components/header';
 import Footer from './components/footer';
-import FormConnection from './components/form';
+import FormConnection from './container/form';
 import Validation from './container/validation';
 
 
