@@ -10,7 +10,7 @@
     margin-bottom: vars.$margin ;
   }
   &__title {
-    width: 50%;
+    width: 100%;
     text-align: center;
     font-family: vars.$basker;
     font-style: italic;
@@ -107,5 +107,25 @@
     color: vars.$titleColor;
     font-size: vars.$fontSize * 1.5;
     font-style: italic;
+  }
+  &__passwordForgotten {
+    background-color: transparent;
+    width: 30%;
+    text-align: center;
+    margin: 0 35%;
+    color: vars.$titleColor;
+    border: none;
+    font-family: vars.$basker;
+    font-size: vars.$fontSize;
+    padding-bottom: vars.$padding ;
+  }
+  &__message {
+    color: black;
+    font-family: vars.$basker;
+    text-align: center;
+    font-size:  vars.$fontSize * 1.25;
+    font-weight: bolder;
+    font-style: italic;
+    margin: vars.$margin  0  vars.$margin 0;
   }
 }

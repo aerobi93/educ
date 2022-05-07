@@ -12,7 +12,7 @@ export const accountValidationController = async(data : Iuser) =>  {
     if (!await accountValidation(data)){
       return {
         status : 401,
-        message : 'lien non valide'
+        message : 'lien non valide ou compte deja valide'
       }
     }
     let {id, role }: any = await accountValidation(data)
@@ -31,7 +31,7 @@ export const accountValidationController = async(data : Iuser) =>  {
       await update(data)
       return {
         status: 200,
-        message : await JWTcreation(id, role)
+        message : await JWTcreation(id, role),
       }
     }
     else if (!await update(data)){

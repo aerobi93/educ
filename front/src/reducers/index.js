@@ -6,7 +6,6 @@ const initialState = {
   birthday:"",
   role:"",
   messageRequest:"",
-  errorFields: false,
   loading: false
 }
 
@@ -18,21 +17,16 @@ const reducer = (state = initialState, action = {})  => {
         ...state,
         [action.name] : action.value
       };
-    case CHANGE_ERROR_FIELDS : 
-      return {
-        ...state,
-        errorFields : true
-      }
     case CHANGE_LOADING : 
       return {
         ...state,
        loading : !state.loading
       }
-    case CHANGE_MESSAGE_REQUEST: 
+    case CHANGE_MESSAGE_REQUEST: {
       return {
         ...state,
         messageRequest: action.value
-      }
+      }}
     case EMPTY_FIELDS: 
       return {
         ...state, 

@@ -7,6 +7,8 @@ import addUser from './routes/user'
 import login from './routes/login'
 import newCode from './routes/sendNewCodeValidation'
 import accountValidation from './routes/accountValidation'
+import countUser from './routes/countUser'
+
 
 
 const app = new Koa()
@@ -16,7 +18,8 @@ app
     cors({
         origin: "*"
     })
-)
+) 
+  .use(countUser.routes())
   .use(addUser.routes())
   .use(login.routes())
   .use(accountValidation.routes())

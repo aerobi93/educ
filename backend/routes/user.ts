@@ -11,6 +11,8 @@ router.post("/user/adduser", async(ctx: Router.RouterContext) => {
   const { message, status } =  await createAccount(ctx.request.body)  
   ctx.body = message
   ctx.status = +status
+  console.log(message, status);
+  
 })
 
 router.patch('/user/update', async (ctx : Router.RouterContext) => {

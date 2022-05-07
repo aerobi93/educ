@@ -5,7 +5,7 @@ import { newValidationCodeController } from "../controllers/newValidationCode";
 const router = new Router()
 
 router.patch('/user/newValidationCode', async (ctx) => {
-  const {message, status} :any = await newValidationCodeController(ctx.request.body)
+  const {message, status} :any = await newValidationCodeController(ctx.request.body, 'validation')
   ctx.status = +status
   ctx.body = message
 })
