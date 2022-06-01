@@ -13,12 +13,24 @@ export interface Iuser extends  Iiduser   {
     role : "parent" | "student",
     validate? : string
 }
-
- export interface IuserUpdate extends  Iiduser  {
+export interface Ichild extends  Iiduser   {
+  birthday : Date,
+  role : "student",
+  name: string,
+  childId : string
+}
+ export interface IuserUpdate  {
+  id?: string
   email? : string,
   birthday? : Date,
   role? : "parent" | "student",
   validate? : string
+}
+
+export interface InewValidationCode {
+  type: string,
+  validate: string,
+  email: string
 }
 
 export interface ItableContent {

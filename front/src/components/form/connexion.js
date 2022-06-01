@@ -1,16 +1,22 @@
 import React, { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../../container/form/input";
 
 import {faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
 
-const Connexion = ({password, sendFormConnexion, changeLoading, loading}) => {
+const Connexion = ({password, role, status,  loading, sendFormConnexion, changeLoading}) => {
   const [passwordError, setPasswordError] = useState()
   const [typeError, setTypeError] = useState()
-
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(password.trim() !== "") {
+      setTypeError()
+    }
+  }, [password])
   const handlerSubmit = (evt) => {
     evt.preventDefault();
-    if (password.trim ==='') {
-      setTypeError(true)
+    if (password.trim() ==='') {
+      setTypeError('password')
     }
     else if (typeof password !== 'string' ) {
      setPasswordError('mot de passe non conforme')
@@ -20,6 +26,18 @@ const Connexion = ({password, sendFormConnexion, changeLoading, loading}) => {
       sendFormConnexion()
     }
   }
+  useEffect(() => {
+    console.log(status, 'test')
+    if (status !== 200) {
+      navigate(status)
+    }
+    else if (role === "parent") {
+      navigate('/interface/parent')
+    }
+    else if (role ===' student') {
+      navigate('/interface/student')
+    }
+  }, [status])
  
   return (
     <> 

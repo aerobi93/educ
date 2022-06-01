@@ -7,7 +7,6 @@ router.post('/user/count', async(ctx) => {
   let {message, status} : any = await countUserController(ctx.request.body)
   ctx.body = message
   ctx.status = +status
-  console.log( await countUserController(ctx.request.body), 'countt')
 })
 
 export default router

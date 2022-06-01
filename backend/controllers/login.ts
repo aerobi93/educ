@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs"
 
 import { Iuser } from "../interfaceTS";
 import { login } from "../services/login";
-import { countUser } from "../services/count";
 import JWTcreation from "../middleware/createJWT";
 
 
@@ -12,61 +11,44 @@ export const loginController = async(data : Iuser) => {
   if (!data.password || !data.email) {
     return  {
       message : "l'email ou le mot de passe ne peut pas être vide ",
-      statut : 401
+      status : 401
     }
   }
-  await countUser(data)
+  await login(data)
   try {
-    if (await countUser(data)) {
-      if (await countUser(data) == 0) {
-        return {
-          status: 204,
-          message: "aucun utilisateur trouvé"
-        }
-      }
-      else if(await login(data)) {
-        let { password}: any = await login(data)
-        if (!bcrypt.compareSync(data.password, password)) {
-          return {
-            message : 'erreur de mot de passe',
-            status: 401
-          }
-        }
-        let {id, role, validate} : any = await login(data)
-        if (validate !== "validate") {
-          return {
-              status : 401,
-              message: 'compte non validé'
-            }
-          }
-        if (!id) {
-          return {
-            status : 402,
-            message: 'utilisateur non trouvé'
-          }
-        }
-        return {
-           status: 200,
-          message : await JWTcreation(id, role)
-        }
-      }
-
-      else if (!await login(data)) {
-        return {
-           status: 401,
-           messsage :"erreur inattendu"
-        }
-      }
-    }
-    else if (!await countUser(data)) {
+    let { password}: any = await login(data)
+    if (!bcrypt.compareSync(data.password, password)) {
       return {
-        message:'erreur inattendu',
+        message : 'erreur de mot de passe',
         status: 401
       }
     }
+    let {id, role, validate} : any = await login(data)
+    if (validate !== "valid") {
+      return {
+        status : 401,
+        message: 'compte non validé'
+      }
+    }
+    if (!id) {
+      return {
+        status : 402,
+        message: 'utilisateur non trouvé'
+      }
+    }
+    return {
+      status: 200,
+      message : {
+        role : role,
+        token : await JWTcreation(id, role)
+      } 
+    }
   }
   catch(e) {
-    return e
+    return {
+      status: 401,
+      message : "erreur innatendu"
+      }
   }
   finally {
     prisma.$disconnect

@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCakeCandles, faUserNinja, faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
+
+
 import Input from '../../container/form/input';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faCakeCandles, faUserNinja, faUnlockKeyhole, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 import { getAge } from "../../store/utils";
 
 const Register = ({ password, changeValue, birthday, role, sendFormRegister, changeLoading, loading}) => {  
   const [error, setError] = useState()
+  const [openEyes, setOpenEyes] = useState()
   const [passwordError, setPassordError] = useState()
   const [roleError, setRoleError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
 
+  
   useEffect(()=> {
     if (password !=='') { setPassordError(false)}
     if (role !=='') { setRoleError(false)}
@@ -30,29 +36,36 @@ const Register = ({ password, changeValue, birthday, role, sendFormRegister, cha
       setError("tu n'a pas l'age passe par le compte de tes parents")
     }
     else if (birthdaydError == false && roleError == false && passwordError == false) {
-     changeLoading()
-     sendFormRegister() 
-     console.log('test');
+      setError()
+      changeLoading()
+      sendFormRegister() 
     }
   }
- 
+
   return (
     <>
-   {error && <div className="form__message"> {error} </div>}
    {!loading && <form className="form__register" onSubmit={(evt)=> handlerSubmit(evt)}>
+        <div className="form__eyes" onMouseDown={() => setOpenEyes(!openEyes)} onMouseUp={() => setOpenEyes(!openEyes)} >
+          { openEyes &&  <FontAwesomeIcon icon={faEye} className="form__ico" />}
+          { !openEyes &&  <FontAwesomeIcon icon={faEyeSlash} className="form__ico" />}
+        </div>
       <Input 
         ico={faUnlockKeyhole}
         id={"password"}
         value={password}
-        type={"password"}
+        type={openEyes ? 'text' : 'password'}
         placeholder={"mot de passe"} 
         className={ passwordError ? "form__input form__input--red" : "form__input" }
       />
+      
       <Input 
         ico={faCakeCandles}
         id={"birthday"}
         value={birthday}
-        className={ birthdaydError ? "form__input form__input--red" : "form__input" } type={"date"}  placeholder={"date de naissance"} />
+        className={ birthdaydError ? "form__input form__input--red" : "form__input" }
+        type={"date"}
+        placeholder={"date de naissance"} 
+      />
 
       <div className="form__flexInput"> 
     <label className="form__label" htmlFor="role" >role</label>

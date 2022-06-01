@@ -5,9 +5,11 @@ export const SEND_FORM_REGISTER = "SEND_FORM_REGISTER";
 export const EMPTY_FIELDS = "EMPTY_FIELDS";
 export const CHANGE_LOADING = "CHANGE_LOADING";
 export const CHANGE_MESSAGE_REQUEST= "CHANGE_MESSAGE_REQUEST";
-export const CHANGE_VALIDATION = "CHANGE_VALIDATION";
-export const SENT_NEW_VALIDATION_CODE = "SENT_NEW_VALIDATION_CODE";
-export const PASSWORD_FORGOTTEN = "PASSWORD_FORGOTTEN";
+export const VALIDATION_CODE = "VALIDATION_CODE";
+export const SENT_NEW_LINK = "SENT_NEW_LINK";
+export const UPDATE_USER = "UPDATE_USER"
+export const FIND_ALL_DATA = "FIND_ALL_DATA"
+
 
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
@@ -33,21 +35,28 @@ export const changeLoading = () => ({
   type: CHANGE_LOADING
 })
 
-export const changeMessageRequest = (value) => ({
+export const changeMessageRequest = (value, status, role) => ({
   type: CHANGE_MESSAGE_REQUEST,
+  value,
+  status,
+  role
+})
+
+
+export const validationCode = (value) =>({
+  type : VALIDATION_CODE,
   value
 })
 
-export const changeValidation = (value) => ({
-    type: CHANGE_VALIDATION,
-    value
-})
-
-export const sentNewValidationCode = () => ({
-  type: SENT_NEW_VALIDATION_CODE
-})
-
-export const passwordForgotten = (value) => ({
-  type: PASSWORD_FORGOTTEN,
+export const sentNewLink = (value) => ({
+  type: SENT_NEW_LINK,
   value
+})
+
+export const updateUser = () => ({
+  type : UPDATE_USER
+})
+
+export const findAllData = () => ({
+  type: FIND_ALL_DATA
 })

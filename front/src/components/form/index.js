@@ -1,20 +1,29 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { useParams } from "react-router-dom";
+
 import './styles.scss'
 
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import Connexion from '../../container/form/connexion'
 import Register from "../../container/form/register";
-import Spinner from "../loader/spin";
 import Input from '../../container/form/input';
 
-const Form = ( {email, changeLoading, loading, count,  message, sentNewValidationCode, passwordForgotten }) => {
-  const [forgotPassword, setforgotPassword] = useState(false)
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import Spinner from "../loader/spin";
+
+const Form = ({ message, status, email, loading, count, changeLoading, sentNewLink }) => {
   const [messageError, setMessageError] = useState(String)
   const [typeError, setTypeError] = useState(String)
+  let typeForm = useParams().typeForm
   let regexMail = /[^\s]+[@]+[\w]\w*[.]\w*/g
 
-  const Submit = (evt) => {
-   
+  useEffect(() => {
+    if(email.trim() !== "" ){
+      setTypeError(false)
+    }
+  }, [email])
+
+
+  const Submit = async (evt) => {
     evt.preventDefault()
     if (!email) {
       setTypeError("email")
@@ -23,36 +32,36 @@ const Form = ( {email, changeLoading, loading, count,  message, sentNewValidatio
       setMessageError("email non conforme")
     }
     else {
+      setMessageError()
       changeLoading()
       count()
+      
     }
   }
-   
   return (
     <div className="form">
       <div className="form__flexTitle">
-        {!forgotPassword &&<div className="form__title">connection/insciption</div>}
-        {forgotPassword &&<div className="form__title">mot de passe oublier</div>}
+       {typeForm != '' && <div className="form__title">connection/insciption</div>}
       </div>
-      {typeof message == 'String'  && <div className="form__message"> {message} </div>} 
+
+      {message !== "" && status !== 200  && <div className="form__message"> {message} </div>} 
+      { messageError && <div className="form__message">{messageError}</div>}
       { 
         message =='erreur de mot de passe' && 
-        <button className="form__passwordForgotten" onClick={() => passwordForgotten()}>mot de passe oublier</button> 
+        <button className="form__passwordForgotten" onClick={() => sentNewLink('passwordForgotten')}>mot de passe oublier</button> 
       }
       {
-      message == 'compte non validé' && 
-        <button className="form__sendNewCode" onClick={() => sentNewValidationCode()}>
+        message == 'compte non validé' && 
+        <button className="form__sendNewCode" onClick={() => sentNewLink('validation')}>
           cliquer ici pour <br/> envoyer un nouveau mail de valiation 
         </button>
       }
       {loading && <div className="form__loading"><Spinner /></div>}
-      { message === 1 && <Connexion /> }
-      { message === 0 && <Register /> }
-      { messageError && <div className="form__message">{messageError}</div>}
-      { message === 'un mail de confirmation a été envoyer' && <div className="form__message">{message}</div>}
-     
-       {
-       (!loading  && message !== 'un mail de confirmation a été envoyer' && typeof message !== 'number')  && 
+      { typeForm=== 'connexion' && message !== "nouveau lien envoyer par mail" &&<Connexion /> }
+      { typeForm === 'register' && message !== 'un mail de confirmation a été envoyer'  && <Register /> }
+      
+      {
+       (!loading && message !=='un mail de confirmation a été envoyer' && !typeForm)  && 
         <form onSubmit={(evt)=> Submit(evt)}>
           <Input 
             ico={faEnvelope}
@@ -63,7 +72,6 @@ const Form = ( {email, changeLoading, loading, count,  message, sentNewValidatio
           <button className="form__submit">envoyer</button>
         </form>
        } 
-     
     </div>
   )
 }

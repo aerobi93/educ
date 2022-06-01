@@ -15,14 +15,14 @@ model  Users {
   id  String @id @default(uuid())
   email  String? @unique
   name String?
-  password String
+  password String?
   birthday  DateTime @default(now())
   validate  String? 
   createAt DateTime @default(now())
   role  Roles
   childId String?
-  student Users?  @relation("child", fields: [childId], references: [id])
-  parent Users[] @relation("child")
+  parent Users?  @relation("child", fields: [childId], references: [id])
+  student Users[] @relation("child")
 }
 
 enum Roles {

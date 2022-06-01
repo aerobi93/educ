@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { Iuser } from "../interfaceTS";
+import { IuserUpdate } from "../interfaceTS";
 
 const prisma = new PrismaClient()
 
-export const accountValidation = (data : Iuser) =>  {
+export const accountValidation = (data : IuserUpdate) =>  {
   let {validate} = data
   let validatation = prisma.users.findFirst({
     where : {

@@ -1,4 +1,4 @@
-import { CHANGE_VALUE, CHANGE_ERROR_FIELDS, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS} from "../action"
 
 const initialState = {
   password: "",
@@ -6,6 +6,7 @@ const initialState = {
   birthday:"",
   role:"",
   messageRequest:"",
+  statusRequest:"",
   loading: false
 }
 
@@ -25,7 +26,9 @@ const reducer = (state = initialState, action = {})  => {
     case CHANGE_MESSAGE_REQUEST: {
       return {
         ...state,
-        messageRequest: action.value
+        messageRequest: action.value,
+        statusRequest : action.status,
+        role: action.role,
       }}
     case EMPTY_FIELDS: 
       return {
@@ -34,6 +37,9 @@ const reducer = (state = initialState, action = {})  => {
         email:"",
         birthday:"",
         role:"",
+        messageRequest:"",
+        statusRequest:"",
+        role:""
       }
 
   default: 

@@ -1,5 +1,5 @@
 import {PrismaClient} from "@prisma/client";
-import { Iiduser, Iuser, IuserUpdate } from "../interfaceTS";
+import { Ichild, Iiduser, Iuser, IuserUpdate } from "../interfaceTS";
 
 const prisma = new PrismaClient()
 
@@ -10,8 +10,25 @@ export const create = async (data : Iuser) => {
   return await add 
 }
 
+
+export const findAll = async (data: Iiduser) => {
+ 
+  const findData = prisma.users.findUnique({
+    where : {
+      id: data.id
+    },
+    include : {
+      student : true,
+      parent: true
+    }
+  })
+   console.log(data.id, await findData)
+  return await findData
+}
+
 export const update =async (data: IuserUpdate) => {
   let {id, email} = data
+  
   if(email) {
     const updateUser =  prisma.users.update({where: { email }, data })
     return updateUser
@@ -40,7 +57,7 @@ export const findmail = async(data :Iiduser) => {
     },
     select: {
       email : true
-    }
+    }, 
   })
   return findmail
 }

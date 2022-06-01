@@ -12,12 +12,12 @@ export const countUserController =  async(data :Iuser) => {
     if (!await countUser(data) || await countUser(data)! < 0) {
       return {
       status: 200,
-      message : await countUser(data)
+      message : 'aucun utilisateur'
       }
     }
     return {
       status : 200,
-      message :await countUser(data)
+      message : 'utilisateur trouvé'
     }
   }
   catch{

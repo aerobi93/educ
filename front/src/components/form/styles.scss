@@ -7,7 +7,6 @@
   padding: vars.$padding  0;
   &__flexTitle {
     display: flex;
-    margin-bottom: vars.$margin ;
   }
   &__title {
     width: 100%;
@@ -66,6 +65,13 @@
       font-family: vars.$penny;
     }
   }
+
+  &__eyes {
+    position: relative;
+    left: 80%;
+    top: 4rem;
+  }
+
   &__select {
     font-family: vars.$penny;
     width: 20%;

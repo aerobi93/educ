@@ -1,20 +1,15 @@
 import { PrismaClient } from "@prisma/client";
-import { Iuser } from "../interfaceTS";
+import { InewValidationCode } from "../interfaceTS";
 import JWTcreation from "../middleware/createJWT";
 import { accountValidation } from "../services/accountValidation";
 import { update } from "../services/user";
 
 const prisma  = new PrismaClient()
 
-export const accountValidationController = async(data : Iuser) =>  {
+export const accountValidationController = async(data : InewValidationCode) =>  {
+
  await accountValidation(data)
   try {
-    if (!await accountValidation(data)){
-      return {
-        status : 401,
-        message : 'lien non valide ou compte deja valide'
-      }
-    }
     let {id, role }: any = await accountValidation(data)
     if (!id || !role ) {
       return {
@@ -22,28 +17,35 @@ export const accountValidationController = async(data : Iuser) =>  {
         message: "une erreur inattendu est survenue"
       }
     }
-     data = {
+     let userdata = {
       ...data,
       id,
-      validate: 'valid'
+      validate: "valid"
     }
-    if (await update(data)) {
-      await update(data)
+    if (await update(userdata)) {
+      await update(userdata)
       return {
         status: 200,
-        message : await JWTcreation(id, role),
+        message : {
+          token : await JWTcreation(id, role),
+          message: 'valider',
+          role: role
+        }
       }
     }
-    else if (!await update(data)){
+    else if (!await update(userdata)){
       return {
         status : 401,
-        message : 'une erreur inattendu est survenue'
+        message : "une erreur inattendu est survenue"
       }
     }
-
   }
   catch(e) {
-    return e
+    return{
+        status : 401,
+        message : "lien non valide"
+    }
+    
   }
   finally {prisma.$connect}
 }

@@ -5,9 +5,10 @@ import cors from "koa2-cors";
 import config from './config/config';
 import addUser from './routes/user'
 import login from './routes/login'
-import newCode from './routes/sendNewCodeValidation'
+import newCode from './routes/sendNewCode'
 import accountValidation from './routes/accountValidation'
 import countUser from './routes/countUser'
+
 
 
 

@@ -1,38 +1,29 @@
 import { PrismaClient } from "@prisma/client";
 import { sendNewCodevalidation } from "../config/configMail";
-import { Iuser } from "../interfaceTS";
-import { countUser } from "../services/count";
+import { InewValidationCode  } from "../interfaceTS";
 import { update } from "../services/user";
 import { generateString } from "../utils";
 
 
 const prisma  = new PrismaClient()
 
-export const newValidationCodeController =  async(data :Iuser, type: string) => {
-
-  if (!await countUser(data) || await countUser(data)! < 0) {
-    return {
-      status: 401,
-      message : "aucun utilisateur trouvé"
-    }
-  }
-
-  let random = generateString(32)
+export const newCodeController =  async(data :InewValidationCode ) => {
+  const {email, type} = data
+  let random = generateString(64)
   let now : Date | number = new Date()
   now = Math.floor(now.getTime()/1000)
   
-  let link = type + '/' + random + '&' + now
-  
-  data = {
-    ...data,
+  let newData = {
+    email,
     validate: random + '&' + now
   }
 
   let datamail = {
-    ...data,
-    validate: link
+    email,
+    type,
+    validate: type + '/' + random + '&' + now ,
   }
-  await update(data)
+  await update(newData)
   try {  
     sendNewCodevalidation(datamail)
     return {
@@ -40,7 +31,7 @@ export const newValidationCodeController =  async(data :Iuser, type: string) => 
       message : "nouveau lien envoyer par mail"
     }
   }
-  catch{
+  catch(e){
     return {
       status : 401,
       message : "erreur innatendu est survenu"
