@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { sendNewCodevalidation } from "../config/configMail";
-import { InewValidationCode  } from "../interfaceTS";
-import { update } from "../services/user";
-import { generateString } from "../utils";
+import { sendNewCodevalidation } from "../../config/configMail";
+import { InewValidationCode  } from "../../interfaceTS";
+import { update } from "../../services/user";
+import { generateString } from "../../utils";
 
 
 const prisma  = new PrismaClient()

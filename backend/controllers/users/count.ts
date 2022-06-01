@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Iuser } from "../interfaceTS";
-import { countUser } from "../services/count";
+import { Iuser } from "../../interfaceTS";
+import { countUser } from "../../services/count";
 
 
 const prisma  = new PrismaClient()

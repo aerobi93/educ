@@ -1,12 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import {create} from "../services/user";
-import verifyJWT from "../middleware/authJWt";
-import { Iuser,} from "../interfaceTS";
+import {findAll} from "../../services/user";
+import verifyJWT from "../../middleware/authJWt";
 
 
 const prisma = new PrismaClient()
 
-export const createAccountChild = async(data : Iuser, autorization: any) => {
+export const  findUser = async (autorization: any) => {
   const {token} = autorization
   const  verif = await verifyJWT(token!)
   const  {status, message, id, role} : any = await verif 
@@ -16,25 +15,27 @@ export const createAccountChild = async(data : Iuser, autorization: any) => {
       status
     }
   }
-  let newData = {
-    ...data,
-    childId: id,
+  let data = {
+    id
   }
-  await create(newData)
- 
+  await findAll(data)
   try {
-      return {
-        status : 201,
-        message: 'compte enfant cree'
-      }
+    return {
+      message: {
+        message: await findAll(data),
+        role,
+      },
+      status : 200
     }
-  catch(err) {
+  }
+  catch(e) {
     return {
       status : 400,
       message: 'une erreur inattendu est survenue'
     }
   }
   finally {
-      prisma.$disconnect
+    prisma.$disconnect
   }
+
 }

@@ -1,9 +1,9 @@
 import {PrismaClient } from "@prisma/client";
-import {sendMailCreate} from "../config/configMail";
-import {generateString} from '../utils'
+import {sendMailCreate} from "../../config/configMail";
+import {generateString} from '../../utils'
 import bcrypt from "bcryptjs"
-import { Iuser } from "../interfaceTS";
-import {create as createUserService} from "../services/user";
+import { Iuser } from "../../interfaceTS";
+import {create as createUserService} from "../../services/user";
 
 
 const prisma = new PrismaClient()

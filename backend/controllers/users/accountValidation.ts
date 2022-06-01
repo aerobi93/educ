@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { InewValidationCode } from "../interfaceTS";
-import JWTcreation from "../middleware/createJWT";
-import { accountValidation } from "../services/accountValidation";
-import { update } from "../services/user";
+import { InewValidationCode } from "../../interfaceTS";
+import JWTcreation from "../../middleware/createJWT";
+import { accountValidation } from "../../services/accountValidation";
+import { update } from "../../services/user";
 
 const prisma  = new PrismaClient()
 

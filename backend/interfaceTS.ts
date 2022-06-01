@@ -34,6 +34,6 @@ export interface InewValidationCode {
 }
 
 export interface ItableContent {
-    name : string
-    result : string
+  id: string,
+  name : string
 }

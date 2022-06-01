@@ -8,6 +8,7 @@ import login from './routes/login'
 import newCode from './routes/sendNewCode'
 import accountValidation from './routes/accountValidation'
 import countUser from './routes/countUser'
+import content from './routes/content'
 
 
 
@@ -25,6 +26,7 @@ app
   .use(login.routes())
   .use(accountValidation.routes())
   .use(newCode.routes())
+  .use(content.routes())
   .listen(config.port, () => {
   console.log("listen :", config.port)
 })

@@ -1,10 +1,10 @@
 
 import Router from "koa-router";
-import  {create as createAccount} from "../controllers/userCreate";
-import { findUser } from "../controllers/userFindAll";
-import { deleteController } from "../controllers/userDelete";
-import { updateController } from "../controllers/userUpdate";
-import { createAccountChild } from "../controllers/createAccountChild";
+import  {create as createAccount} from "../controllers/users/userCreate";
+import { findUser } from "../controllers/users/userFindAll";
+import { deleteController } from "../controllers/users/userDelete";
+import { updateController } from "../controllers/users/userUpdate";
+import { createAccountChild } from "../controllers/users/createAccountChild";
 
 
 const router = new Router()

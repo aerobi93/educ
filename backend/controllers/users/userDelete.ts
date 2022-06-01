@@ -1,11 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { update } from "../services/user";
-import { IuserUpdate } from "../interfaceTS";
-import verifyJWT from "../middleware/authJWt";
+import { deleteU , findmail} from "../../services/user";
+import verifyJWT from "../../middleware/authJWt";
+import { sendMailDelete } from "../../config/configMail";
 
 const prisma = new PrismaClient()
 
-export const  updateController = async (data: IuserUpdate , autorization: any) => {
+export const  deleteController = async (autorization: any) => {
   const {token} = autorization
   const  verif = await verifyJWT(token!)
   const  {status, message, id} : any = await verif 
@@ -15,14 +15,20 @@ export const  updateController = async (data: IuserUpdate , autorization: any) =
       status
     }
   }
-  data = {
-    ...data,
+  let data = {
     id
   }
-  await update(data)
+
+  let {email}: any= await findmail(data)
+  
+  sendMailDelete(email)
+  if (!await sendMailDelete(email)) {
+    return
+  }
+  deleteU(data)
   try {
     return {
-      message: "modification effectuer",
+      message: "suppression effectuer",
       status : 200
     }
   }
@@ -32,4 +38,5 @@ export const  updateController = async (data: IuserUpdate , autorization: any) =
   finally {
     prisma.$disconnect
   }
+
 }

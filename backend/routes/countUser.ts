@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { countUserController } from "../controllers/count";
+import { countUserController } from "../controllers/users/count";
 
 const router = new Router()
 

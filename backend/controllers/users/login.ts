@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs"
 
-import { Iuser } from "../interfaceTS";
-import { login } from "../services/login";
-import JWTcreation from "../middleware/createJWT";
+import { Iuser } from "../../interfaceTS";
+import { login } from "../../services/login";
+import JWTcreation from "../../middleware/createJWT";
 
 
 const prisma  = new PrismaClient()

@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { accountValidationController } from "../controllers/accountValidation";
+import { accountValidationController } from "../controllers/users/accountValidation";
 
 const router = new Router()
 
