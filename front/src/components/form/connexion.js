@@ -7,6 +7,7 @@ import {faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
 const Connexion = ({password, role, status,  loading, sendFormConnexion, changeLoading}) => {
   const [passwordError, setPasswordError] = useState()
   const [typeError, setTypeError] = useState()
+  
   const navigate = useNavigate()
   useEffect(() => {
     if(password.trim() !== "") {
@@ -26,19 +27,7 @@ const Connexion = ({password, role, status,  loading, sendFormConnexion, changeL
       sendFormConnexion()
     }
   }
-  useEffect(() => {
-    console.log(status, 'test')
-    if (status !== 200) {
-      navigate(status)
-    }
-    else if (role === "parent") {
-      navigate('/interface/parent')
-    }
-    else if (role ===' student') {
-      navigate('/interface/student')
-    }
-  }, [status])
- 
+
   return (
     <> 
       {passwordError && <div className="form_message">{passwordError}</div>}

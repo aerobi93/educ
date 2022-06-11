@@ -39,6 +39,7 @@ export const loginController = async(data : Iuser) => {
     return {
       status: 200,
       message : {
+        message: 'connexion ok',
         role : role,
         token : await JWTcreation(id, role)
       } 

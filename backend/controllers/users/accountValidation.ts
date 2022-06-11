@@ -28,7 +28,7 @@ export const accountValidationController = async(data : InewValidationCode) =>  
         status: 200,
         message : {
           token : await JWTcreation(id, role),
-          message: 'valider',
+          message: 'validates',
           role: role
         }
       }

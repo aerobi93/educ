@@ -6,7 +6,7 @@ import { sendMailDelete } from "../../config/configMail";
 const prisma = new PrismaClient()
 
 export const  deleteController = async (autorization: any) => {
-  const {token} = autorization
+  const token = autorization
   const  verif = await verifyJWT(token!)
   const  {status, message, id} : any = await verif 
   if (await status !== 200 || !id) { 

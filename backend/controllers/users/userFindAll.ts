@@ -3,11 +3,13 @@ import {findAll} from "../../services/user";
 import verifyJWT from "../../middleware/authJWt";
 
 
+
 const prisma = new PrismaClient()
 
 export const  findUser = async (autorization: any) => {
-  const {token} = autorization
-  const  verif = await verifyJWT(token!)
+
+  let token = autorization
+   const  verif = await verifyJWT(token!)
   const  {status, message, id, role} : any = await verif 
   if (await status !== 200 || !id) { 
     return {

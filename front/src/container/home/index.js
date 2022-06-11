@@ -12,7 +12,7 @@ const mapDispatchtoProps = (dispatch) => ({
     dispatch(changeLoading())
   },
   findAllData : () => {
-      dispatch(findAllData())
+    dispatch(findAllData())
   }
 })
 

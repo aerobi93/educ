@@ -9,6 +9,7 @@ export const VALIDATION_CODE = "VALIDATION_CODE";
 export const SENT_NEW_LINK = "SENT_NEW_LINK";
 export const UPDATE_USER = "UPDATE_USER"
 export const FIND_ALL_DATA = "FIND_ALL_DATA"
+export const SET_ALL_DATA = "SET_ALL_DATA";
 
 
 export const changeValue = (value, name) =>({
@@ -59,4 +60,9 @@ export const updateUser = () => ({
 
 export const findAllData = () => ({
   type: FIND_ALL_DATA
+})
+
+export const setAllData = (data) => ({
+  type: SET_ALL_DATA,
+  data
 })
