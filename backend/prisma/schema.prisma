@@ -23,6 +23,7 @@ model  Users {
   childId String?
   parent Users?  @relation("child", fields: [childId], references: [id])
   student Users[] @relation("child")
+  results Results[] 
 }
 
 enum Roles {
@@ -36,8 +37,7 @@ enum Roles {
     id  String @id @default(uuid())
     name String @unique
     exercise Exercises[]   
-    result Results? @relation(fields: [resultID], references: [id], onDelete: Cascade)
-    resultID String?
+    result Results[]
  }
 
  model Exercises {
@@ -53,7 +53,11 @@ enum Roles {
      id  String @id @default(uuid())
      date  DateTime @default(now())
      exam   Boolean
-     note Int[]
+     note Int
      timeRest   String
-     content TableContents[]
+     content TableContents @relation(fields: [contentID], references: [id], onDelete: Cascade)
+     user Users @relation(fields: [userID], references: [id], onDelete: Cascade)
+     contentID String
+     userID String
+
  }

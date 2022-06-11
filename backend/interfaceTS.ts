@@ -37,3 +37,13 @@ export interface ItableContent {
   id: string,
   name : string
 }
+
+export interface Iresults {
+  id : string
+  exam: boolean,
+  note: number,
+  timeRest : string,
+  userID: string
+  contentID : string
+
+}
