@@ -11,19 +11,34 @@ export const create = async (data : Iuser) => {
 }
 
 
-export const findAll = async (data: Iiduser) => {
- 
+export const findAll = async (data: Iuser) => {
+  
+ if (data.role === "parent") {
   const findData = prisma.users.findUnique({
     where : {
       id: data.id
     },
-    include : {
-      student : true,
-      parent: true
+    select : {
+      student : {
+        select : {
+          name : true,
+          results : true
+        },
+      }
     }
   })
-   console.log(data.id, await findData)
   return await findData
+ }
+  else {
+    const findData = prisma.users.findUnique({
+      where : {
+        id: data.id
+      },
+      select : {
+        results : true
+      }
+    })
+  }
 }
 
 export const update =async (data: IuserUpdate) => {

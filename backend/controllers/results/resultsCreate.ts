@@ -19,7 +19,6 @@ export const  create = async (data: Iresults, autorization: any) => {
 
   let newData = {
     ...data,
-    userID: id,
   }
   await createResults(newData)
   try {

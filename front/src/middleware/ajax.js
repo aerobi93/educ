@@ -6,7 +6,7 @@ const ajax = (store) => (next) => (action) =>  {
   axios.defaults.baseURL ='http://localhost:5000'
   axios.defaults.headers.common = {
     "type" : 'JWT, json/application',
-    "Autorization": `${token}`,
+    "token": `${token}`,
   };
   
   switch (action.type) {

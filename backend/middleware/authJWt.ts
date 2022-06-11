@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import authConfig from "../config/authConfig";
 import {countUser} from "../services/count";
 
-const verifyJWT  = async (token : string, authorize? :string) => {
+const verifyJWT  = async (token : any, authorize? :string) => {
+  console.log(token)
   if (!token) {
     return {
       status: 401,
