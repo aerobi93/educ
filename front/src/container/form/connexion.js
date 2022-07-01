@@ -5,8 +5,6 @@ import { sendFormConnexion, changeLoading} from "../../action";
 
 const mapStateToProps = (state) => ({
   password: state.password,
-  status : state.statusRequest,
-  role: state.role
 })
 
 const mapDispatchToProps = (dispatch) => ({

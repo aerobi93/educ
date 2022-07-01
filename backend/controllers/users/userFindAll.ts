@@ -16,16 +16,13 @@ export const  findUser = async (autorization: any) => {
       status
     }
   }
-  let data = {
-    id,
-    role
-  }
-  await findAll(data)
+
+  await findAll(id, role)
   try {
     return {
       message: {
-        message: await findAll(data),
-        role,
+        message: await findAll(id, role),
+        role
       },
       status : 200
     }

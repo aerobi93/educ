@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, setAllData } from '../action';
+import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect} from '../action';
+import Delete from '../components/account/delete';
 
 const ajax = (store) => (next) => (action) =>  {
   let token = window.localStorage.getItem('token')
-  axios.defaults.baseURL ='http://localhost:5000'
+  axios.defaults.baseURL ='http://localhost:7000'
   axios.defaults.headers.common = {
     "type" : 'JWT, json/application',
     "token": `${token}`,
@@ -64,18 +65,39 @@ const ajax = (store) => (next) => (action) =>  {
     }
     break;
 
+    case SEND_FORM_REGISTER_CHILDREN: {
+      axios.post('/user/adduserChild', {
+        birthday: new Date(store.getState().birthday),
+        name:  store.getState().name,
+        role: "student"
+      })
+      .then((response) => {
+        store.dispatch(emptyFields())
+        store.dispatch(changeMessageRequest(response.data))
+        store.dispatch(changeLoading())
+        
+      })
+      .catch((err) => {
+        store.dispatch(changeMessageRequest(err.request.response))
+        store.dispatch(changeLoading())
+      });
+    }
+    break;
+
     case VALIDATION_CODE: {
+      console.log("valid")
       axios.post('/user/validation', {
         validate: action.value,
       })
       .then((response) => {
-        let {token, role, message} = response.data
+        let {token, message} = response.data
         window.localStorage.setItem('token', token)
-        store.dispatch(changeMessageRequest(message, response.status, role))
+        store.dispatch(changeMessageRequest(message, response.status))
+        store.dispatch(isConnect(true))
         store.dispatch(changeLoading())
       })
-      .catch((e)=> {
-        store.dispatch(changeMessageRequest(e.request.response))
+      .catch((err)=> {
+        store.dispatch(changeMessageRequest(err.request.response))
         store.dispatch(changeLoading())
         
       });
@@ -100,42 +122,44 @@ const ajax = (store) => (next) => (action) =>  {
     break
 
     case UPDATE_USER:  {
-      const data= {}
-      let token = window.localStorage.getItem('token')
-
-      let password  = store.getState().password
-      let email = store.getState().email
-      if (password !== '') { data = {...data, password }}
-      if (email !== '') { data = {...data, email }}
+      console.log("acios", store.getState().password,)
       axios.patch('/user/update', {
-        data
-      }, {headers : token})
+        password : store.getState().password,
+         email : store.getState().email
+      })
       .then((response) => {
         store.dispatch(changeMessageRequest(response.data))
+        store.dispatch(isConnect(true))
         store.dispatch(emptyFields())
+        store.dispatch(changeLoading())
       })
       .catch((err) => {
         store.dispatch(changeMessageRequest(err.request.response))
         store.dispatch(emptyFields())
+        store.dispatch(changeLoading())
       })
     }
    
     break;
     case FIND_ALL_DATA: {
-      let token = window.localStorage.getItem('token')
-      token = JSON.stringify(token)
       axios.get('/user/findAll')
       .then((response) => {
-       
-        console.log(response.data.message)
+        store.dispatch(setAllData(response.data.message))
+        store.dispatch(setRole(response.data.role))
+        store.dispatch(changeLoading())
       })
       .catch((err) => {
-        store.dispatch(changeMessageRequest(err.request))
+        store.dispatch(changeMessageRequest(err.request.message))
+        store.dispatch(changeLoading())
       })
 
     }
+    break;
     
+    case DELETE_USER : {
+      console.log("deleteuser")
       
+    }
     default: next(action)
   }
 }

@@ -13,7 +13,7 @@ body {
   font-size: vars.$fontSize;
 
   &__center {
-    height: 60vh;
+    min-height: 60vh;
     padding-bottom: vars.$padding;
     border-bottom: 0.75rem white dotted;
   }

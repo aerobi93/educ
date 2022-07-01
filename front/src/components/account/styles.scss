@@ -1,0 +1,27 @@
+@use 'src/styles/vars';
+.account {
+  width: 100%;
+  display: flex;
+  margin-top: vars.$margin * 2;
+
+  &__container {
+    width: calc(75% - vars.$margin * 3);
+    margin : 0, vars.$margin, vars.$margin 0;
+    border: gray 1px solid;
+  }
+
+  &__menu {
+    width: 25%;
+    line-height: 2rem;
+    border: gray solid 1px;
+    margin: 0 vars.$margin;
+    
+    &--link {
+      margin-bottom: vars.$margin;
+      font-family: vars.$penny;
+      font-size: vars.$fontSize * 1.25;
+      color: vars.$titleColor;
+      text-shadow: black 1px 1px;
+    }
+  }
+}

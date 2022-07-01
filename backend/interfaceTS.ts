@@ -22,6 +22,7 @@ export interface Ichild extends  Iiduser   {
  export interface IuserUpdate  {
   id?: string
   email? : string,
+  password? : string, 
   birthday? : Date,
   role? : "parent" | "student",
   validate? : string

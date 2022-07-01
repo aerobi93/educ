@@ -5,6 +5,8 @@ import './styles.scss'
 
 import Connexion from '../../container/form/connexion'
 import Register from "../../container/form/register";
+import Password from "../../container/form/password";
+import ChangeEmail from "../../container/form/email";
 import Input from '../../container/form/input';
 
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
@@ -59,7 +61,8 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
       {loading && <div className="form__loading"><Spinner /></div>}
       { typeForm=== 'connexion' && message !== "nouveau lien envoyer par mail" &&<Connexion /> }
       { typeForm === 'register' && message !== 'un mail de confirmation a été envoyer'  && <Register /> }
-      
+      { typeForm === 'password' && message !== 'un mail de confirmation a été envoyer'  && <Password /> }
+      { typeForm === 'changeMail' && message !== 'un mail de confirmation a été envoyer'  && <ChangeEmail /> }
       {
        (!loading && message !=='un mail de confirmation a été envoyer' && !typeForm)  && 
         <form onSubmit={(evt)=> Submit(evt)}>

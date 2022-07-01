@@ -4,7 +4,7 @@ import authConfig from "../config/authConfig";
 import {countUser} from "../services/count";
 
 const verifyJWT  = async (token : any, authorize? :string) => {
-  console.log(token)
+  
   if (!token) {
     return {
       status: 401,
@@ -18,8 +18,8 @@ const verifyJWT  = async (token : any, authorize? :string) => {
       message: "token non valide"
     }
   }
-  let {id, role, exp} : any = decrypt
-  if (!id || !role || !exp) { 
+  let {id, role, iat, exp} : any = decrypt
+  if (!id || !role || !iat) { 
     return {
       status: 401,
       message: "token non valide" 
@@ -30,8 +30,10 @@ const verifyJWT  = async (token : any, authorize? :string) => {
         status: 401,
         message: "aucun utilisateur trouver"
     }
-  }
- else if (Math.floor(Date.now() / 1000)  >= exp ) { 
+  } 
+
+ else if (iat > exp ) { 
+ 
     return {
       status: 401,
       message: "temp du token depassé"
@@ -48,7 +50,8 @@ const verifyJWT  = async (token : any, authorize? :string) => {
     return {
       status: 200,
       message: 'autoriser',
-      id
+      id,
+      role
     }
   }
 }

@@ -24,7 +24,6 @@ router.post("/user/adduser", async(ctx: Router.RouterContext) => {
 })
 
 router.post("/user/adduserChild", async(ctx: Router.RouterContext) => {  
-  console.log(new Date().getTime(), new Date())
   const { message, status } =  await createAccountChild(ctx.request.body,ctx.request.header.token) 
   ctx.body = message
   ctx.status = +status
@@ -32,9 +31,12 @@ router.post("/user/adduserChild", async(ctx: Router.RouterContext) => {
 })
 
 router.patch('/user/update', async (ctx : Router.RouterContext) => {
+  console.log("route")
   const  {message, status} : any = await updateController(ctx.request.body, ctx.request.header.token) 
-  ctx.body = message
+   console.log(status, message)
+   ctx.body = message
   ctx.status = +status
+ 
 })
 
 router.delete('/user/delete', async (ctx : Router.RouterContext) => {

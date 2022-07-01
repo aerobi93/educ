@@ -1,13 +1,19 @@
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS} from "../action"
+
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT} from "../action"
 
 const initialState = {
   password: "",
   email:"",
   birthday:"",
+  name: "",
   role:"",
+  data : "",
   messageRequest:"",
   statusRequest:"",
-  loading: false
+  loading: false,
+  connected : false,
+  displayResult : false,
+  displayAddChild : false
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -36,12 +42,32 @@ const reducer = (state = initialState, action = {})  => {
         password: "",
         email:"",
         birthday:"",
+        name : "",
         role:"",
         messageRequest:"",
         statusRequest:"",
-        role:""
       }
-
+    case SET_ROLE :
+      return {
+        ...state,
+        role : action.value
+      }
+    case SET_ALL_DATA : 
+      return {
+        ...state,
+        data: action.data
+      }
+    case CHANGE_DISPLAY : 
+      return {
+        ...state,
+        [action.name] : action.value
+      }
+    case IS_CONNECT : {
+      return {
+        ...state,
+        connected : action.value
+      }
+    }
   default: 
     return {
       ...state
