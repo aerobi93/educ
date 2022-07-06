@@ -10,10 +10,10 @@ import Validation from '../../container/validation';
 import Account from '../../container/account';
 import Error403 from '../error/403'
 import Error404 from '../error/404'
-import Spinner from "../loader/spin";
 import Delete from '../../container/account/delete';
 
 import { auth } from '../../utils';
+import Interface from '../../container/interface';
 
 
 
@@ -33,7 +33,6 @@ const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConn
   }
 
   useEffect(() => {
-    console.log(status, messageAjax)
     if (messageAjax === 'utilisateur trouvé') { navigate('/form/connexion')}
     else if (messageAjax === 'aucun utilisateur') { navigate('/form/register')}
     else if (status === 401 && !link.pathname.includes('form') ) {navigate('/401')}
@@ -41,7 +40,7 @@ const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConn
     
     else if(messageAjax === "validate" && status == 200){
       if(link.pathname.includes("passwordForgotten")) {navigate('/form/password')}
-      if(link.pathname.includes("validation")) {navigate('/home')}
+      if(link.pathname.includes("validation")) {navigate('/account/home')}
       if(link.pathname.includes("delete")) {navigate('/account/delete')}
     }
     else if (link.pathname.includes("connexion") && messageAjax === "connexion ok"){
@@ -66,8 +65,9 @@ const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConn
             <Route  path='/delete/:id' element={  <Validation />} />
             <Route exact path='/form/changeEmail'  element={authenticate === "logged" ? <FormConnection />  : <Navigate replace to="/403" /> } />
             <Route exact path='/403' element={<Error403 /> } /> 
-            <Route  exact path='/account/home' element={authenticate === "logged" ? <Account /> : <Navigate replace to="/403" /> } />
-            <Route  exact path='/account/delete' element={authenticate === "logged" ? <Delete /> : <Navigate replace to="/403" /> } />
+            <Route exact path='/account/home' element={authenticate === "logged" ? <Account /> :   <Navigate replace to="/403" />} />
+            <Route exact path='/account/delete' element={<Delete /> } />
+            <Route exact path='/account/exercise/:type/:name' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
           
             <Route  path='/404' element={<Error404 /> } /> 
             <Route  path='*' element={<Navigate replace to="/404" /> } />

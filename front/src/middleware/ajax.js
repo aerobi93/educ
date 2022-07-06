@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect} from '../action';
+import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT} from '../action';
 import Delete from '../components/account/delete';
 
 const ajax = (store) => (next) => (action) =>  {
@@ -68,7 +68,7 @@ const ajax = (store) => (next) => (action) =>  {
     case SEND_FORM_REGISTER_CHILDREN: {
       axios.post('/user/adduserChild', {
         birthday: new Date(store.getState().birthday),
-        name:  store.getState().name,
+        name:  store.getState().nameChild,
         role: "student"
       })
       .then((response) => {
@@ -85,7 +85,6 @@ const ajax = (store) => (next) => (action) =>  {
     break;
 
     case VALIDATION_CODE: {
-      console.log("valid")
       axios.post('/user/validation', {
         validate: action.value,
       })
@@ -122,7 +121,6 @@ const ajax = (store) => (next) => (action) =>  {
     break
 
     case UPDATE_USER:  {
-      console.log("acios", store.getState().password,)
       axios.patch('/user/update', {
         password : store.getState().password,
          email : store.getState().email
@@ -157,8 +155,16 @@ const ajax = (store) => (next) => (action) =>  {
     break;
     
     case DELETE_USER : {
-      console.log("deleteuser")
+      axios.delete("/user/delete")
+      .then((response) => {
+        store.dispatch(changeMessageRequest(response.data))
+      })
       
+    }
+    break
+    
+    case SAVE_RESULT : {
+      console.log("axios save result")
     }
     default: next(action)
   }

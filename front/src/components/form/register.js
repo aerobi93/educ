@@ -6,7 +6,7 @@ import Input from '../../container/form/input';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCakeCandles, faUserNinja, faUnlockKeyhole, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-import { getAge } from "../../store/utils";
+import { getAge } from "../../utils";
 
 const Register = ({ password, changeValue, birthday, role, sendFormRegister, changeLoading, loading}) => {  
   const [error, setError] = useState()

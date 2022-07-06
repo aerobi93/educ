@@ -11,8 +11,8 @@ const mapDispatchtoProps = (dispatch) => ({
   validationCode: (value, type) => {
     dispatch(validationCode(value, type))
   },
-  changeLoading : () => {
-    dispatch(changeLoading())
+  changeLoading : (exercice, response, result ) => {
+    dispatch(changeLoading(exercice, response, result ))
   },
 })
 

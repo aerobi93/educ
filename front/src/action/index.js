@@ -17,6 +17,9 @@ export const SET_ROLE = "SET_ROLE";
 export const VERIFY_TOKEN = "VERIFY_TOKEN";
 export const IS_CONNECT = "IS_CONNECT";
 export const CHANGE_DISPLAY = "CHANGE_DISPLAY"
+export const SENT_EXERCICES  = "SENT_EXERCICES" 
+export const SENT_RESULT_EXERCICES  = "SENT_RESULT_EXERCICES" 
+export const SAVE_RESULT = "SAVE_RESULT"
 
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
@@ -98,4 +101,20 @@ export const changeDisplay = (name, value) => ({
   type: CHANGE_DISPLAY, 
   name, 
   value
+})
+
+export const sentExercices = (value) => ({
+  type: SENT_EXERCICES,
+  value
+})
+export const sentResultExercices = (value) => ({
+  type: SENT_RESULT_EXERCICES,
+  value
+})
+
+export const saveResult = (name, typeExercise, timerest) => ({
+  type : SAVE_RESULT,
+  name,
+  typeExercise,
+  timerest
 })

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 
-const Delete = ( { deleteAccount }) => {
-  console.log('composant delete')
+const Delete = ( { deleteUser, changeLoading }) => {
   const nav = useNavigate()
+
   useEffect(() => {
-    deleteAccount()
+    deleteUser()
     window.localStorage.removeItem('token')
     nav("/")
   }, [])

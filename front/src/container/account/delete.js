@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Delete from "../../components/account/delete";
-import { deleteUser } from "../../action";
+import { changeLoading, deleteUser } from "../../action";
 
 
 const mapStatetoProps = () => ({})
@@ -8,6 +8,9 @@ const mapStatetoProps = () => ({})
 const mapDispatchtoProps = (dispatch) => ({
     deleteUser : () => {
         dispatch(deleteUser())
+    },
+    changeLoading : () => {
+        dispatch(changeLoading())
     }
 })
 

@@ -18,7 +18,6 @@ const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink
     else if(value === "delete"){sentNewLink("delete")}
    
     window.localStorage.removeItem('token')
-
     nav('/') 
    }
    
@@ -28,8 +27,9 @@ const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink
 
   }
   const handlerDisplay = (value) => {
-    changeDisplay("displayAddChild", value == "result" ? false : !displayAddChild)
-    changeDisplay("displayResult", value == "child" ? false : !displayResult)
+    // every one open
+    changeDisplay("displayAddChild",  !displayAddChild)
+    changeDisplay("displayResult",  !displayResult)
    
   }
 

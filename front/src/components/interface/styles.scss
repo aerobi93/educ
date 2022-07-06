@@ -1,0 +1,100 @@
+@use 'src/styles/vars';
+
+.interface {
+  width: 80%;
+  margin: vars.$margin auto;
+
+  &__begin {
+    position: relative;
+    top: 8rem;
+    font-size: vars.$fontSize * 4;
+    text-align: center;
+    font-family: vars.$penny;
+    font-weight: bolder;
+    color: red;
+    text-shadow: vars.$titleColor 4px 4px;
+
+  }
+  &__counter {
+    font-size: vars.$fontSize * 1.75;
+    text-align: center;
+    color: vars.$titleColor;
+    font-family: vars.$penny;
+    font-weight: bolder;
+    text-shadow: red 1px 1px;
+  }
+
+  &__game {
+    margin-top: vars.$margin * 2;
+    padding: vars.$padding;
+    border: gray 1px solid;
+  }
+  &__question {
+    display: flex;
+    margin-top: vars.$margin / 2;
+    font-size: vars.$fontSize * 1.5;
+    font-family: vars.$penny;
+  }
+
+  &__form {
+    position: relative;
+    bottom: 0.75rem;
+
+    &--text {
+      width: 4rem;
+      height: 2.5rem;
+      font-size: vars.$fontSize *1.5;
+      font-family: vars.$penny;
+      border-radius: 10px;
+      margin: 0 vars.$margin 0 vars.$margin / 2;
+    }
+
+    &--submit {
+      font-size: vars.$fontSize * 1.5;
+      font-family: vars.$penny;
+      background: none;
+      border: none;
+    }
+  }
+  .interface__containerFinished {
+    margin-top: vars.$margin;
+    border-top: dotted 5px rgb(192, 190, 190);
+    
+  }
+  &__finished {
+    text-decoration: line-through vars.$titleColor 1px;
+  }
+  &__response {
+    display: flex;
+    color: red;
+    font-size: vars.$fontSize *1.25;
+    flex-direction: column;
+    line-height: 2rem;
+  }
+  &__color {
+    &--green {
+      color: green;
+    }
+    &--red {
+      color: red;
+    }
+  }
+ &__ico {
+    font-size: vars.$fontSize * 2.5;
+    margin: 0 vars.$margin;
+    position: relative;
+    bottom:  0.5rem;
+    &--ok {
+      color: green;
+      &::after {
+        content: "\00221A";
+      }
+    }
+    &--wrong{
+      color: red;
+      &::after {
+        content: "X";
+      }
+    }
+  }
+}

@@ -16,3 +16,34 @@ export const   auth = async() => {
     .catch((err) => {return err})
     return  reponse
   }
+
+  export const  getAge = function (date) { 
+    let newDate = new Date(date)
+    let diff = Date.now() - newDate.getTime();
+    let age = new Date(diff); 
+    return Math.abs(age.getUTCFullYear() - 1970);
+  }
+
+export const createAlgo = (repetition, signMax, numberMin, numberMax, integer  ) => {
+  let equation = ''
+  const sign  =[
+    '+',
+    '-',
+    '*',
+    '/',
+  ]
+  for (let i = 0; i < repetition; i++) {
+    let number = Math.random()  * (numberMax - numberMin) + numberMin
+    if (integer) {number = Math.floor(number)}
+
+    let signNumber = Math.floor(Math.random() * (signMax - 0) - 0)
+    equation += ` ${number} ${sign[signNumber]}`
+    
+  }
+  let newEquation = equation.slice(0, equation.length - 1)
+  let question = newEquation + '='
+  return {
+    question : question.trim(),
+    result : eval(newEquation)
+  } 
+}
