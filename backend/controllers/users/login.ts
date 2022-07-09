@@ -24,7 +24,7 @@ export const loginController = async(data : Iuser) => {
       }
     }
     let {id, role, validate} : any = await login(data)
-    if (validate !== "valid") {
+    if (validate !== "valid" && validate.includes("validate")) {
       return {
         status : 401,
         message: 'compte non validé'

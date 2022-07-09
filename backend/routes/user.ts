@@ -31,9 +31,8 @@ router.post("/user/adduserChild", async(ctx: Router.RouterContext) => {
 })
 
 router.patch('/user/update', async (ctx : Router.RouterContext) => {
-  console.log("route")
+  
   const  {message, status} : any = await updateController(ctx.request.body, ctx.request.header.token) 
-   console.log(status, message)
    ctx.body = message
   ctx.status = +status
  

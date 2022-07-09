@@ -28,6 +28,12 @@
     margin-top: vars.$margin * 2;
     padding: vars.$padding;
     border: gray 1px solid;
+
+    &--50 { 
+      margin-left: vars.$margin;
+      border: black solid 1px;
+      width: 60%;
+    }
   }
   &__question {
     display: flex;
@@ -97,4 +103,90 @@
       }
     }
   }
+  &__average {
+    text-align: center;
+    font-size: vars.$fontSize  * 4;
+    margin-top: vars.$margin * 8;
+    font-family: vars.$basker;
+
+    &--green {
+      color: green;
+    }
+    &--red {
+      color: red;
+    }
+  }
+  &__loader{
+    margin-left: calc(50% - 40px);
+    margin-top: vars.$margin * 4
+  }
+  &__category {
+    font-size:  vars.$fontSize *1.75;
+    font-family: vars.$penny;
+    color : vars.$titleColor;
+    text-align: center;
+    margin-top: vars.$margin *3;
+    font-weight: bolder;
+    text-shadow: red 1px 1px;
+    
+    &--name {
+    margin-top: vars.$margin ;
+    font-size:  vars.$fontSize *1.5;
+    text-shadow: black 1px 1px;
+    }
+  }
+  &__color {
+    &--title {
+      font-size:  vars.$fontSize *1.75;
+      font-family: vars.$penny;
+      color : vars.$titleColor;
+      text-align: center;
+      font-weight: bolder;
+      text-shadow: red 1px 1px;
+    }
+    &--ico {
+      height: 5rem;
+      width: 5rem;
+      margin-left:  calc(50% - 2.5rem);
+      margin-top: vars.$margin *2;
+    }
+
+    &--icoCss {   
+      font-size: 8rem;
+      margin-left:  calc(50% - 4rem);
+      margin-top: vars.$margin *2;
+    }
+
+    &--triangle::after {
+      content: "\25B2";
+    }
+   
+    &--form {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      margin-top: vars.$margin;
+      width: 80%;
+    }
+    &--input {
+      width: 80%;
+      margin: auto;
+      padding: vars.$padding * 0.25;
+      font-size: vars.$fontSize *1.25;
+      border-radius: 10px;
+
+      &::placeholder {
+        color: vars.$titleColor;
+        text-align: center;
+      }
+    }
+    &--submit {
+      background: none;
+      border: none;
+      margin-top: vars.$margin;
+      font-size: vars.$fontSize *1.5;
+    }
+  }
+
+  
 }

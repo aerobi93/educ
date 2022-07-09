@@ -31,13 +31,17 @@ export const newCodeController =  async(data :InewValidationCode, token: any ) =
 
   let newData = {
     email : email ? email : found.email,
-    validate: random + '&' + now
+    validate: type === "validate"  ? 
+      random + type + '&' + now : 
+      random  + '&' + now
   }
 
   let datamail = {
     email : email ? email : found.email,
     type,
-    validate: type + '/' + random + '&' + now ,
+    validate: type === "validate" ? 
+      type + '/' + random +  type + '&' + now : 
+      type + '/' + random  + '&' + now
   }
   await update(newData)
   try {  

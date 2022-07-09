@@ -18,8 +18,11 @@ export const VERIFY_TOKEN = "VERIFY_TOKEN";
 export const IS_CONNECT = "IS_CONNECT";
 export const CHANGE_DISPLAY = "CHANGE_DISPLAY"
 export const SENT_EXERCICES  = "SENT_EXERCICES" 
+export const SET_RESPONSE_NEW_VALUE = "SET_RESPONSE_NEW_VALUE"
 export const SENT_RESULT_EXERCICES  = "SENT_RESULT_EXERCICES" 
 export const SAVE_RESULT = "SAVE_RESULT"
+export const GET_CATEGORIES = "GET_CATEGORIES"
+export const SET_CATEGORIES = "SET_CATEGORIES"
 
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
@@ -112,9 +115,22 @@ export const sentResultExercices = (value) => ({
   value
 })
 
+export const setResponseNewValue = (value) => ({
+  type : SET_RESPONSE_NEW_VALUE,
+  value
+})
 export const saveResult = (name, typeExercise, timerest) => ({
   type : SAVE_RESULT,
   name,
   typeExercise,
   timerest
+})
+
+export const getCategories = () => ({
+  type : GET_CATEGORIES
+})
+
+export const setCategories = (value) => ({
+  type : SET_CATEGORIES,
+  value
 })

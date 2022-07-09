@@ -22,9 +22,6 @@ export const  deleteController = async (autorization: any) => {
   let {email}: any= await findmail(data)
   
   sendMailDelete(email)
-  if (!await sendMailDelete(email)) {
-    return
-  }
   deleteU(data)
   try {
     return {

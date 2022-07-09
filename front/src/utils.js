@@ -1,3 +1,4 @@
+import reducer from "./reducers";
 
 export const   auth = async() => {
     let token = window.localStorage.getItem('token')
@@ -47,3 +48,5 @@ export const createAlgo = (repetition, signMax, numberMin, numberMax, integer  )
     result : eval(newEquation)
   } 
 }
+
+

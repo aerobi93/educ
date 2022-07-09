@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT} from '../action';
+import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT, getCategories, GET_CATEGORIES, setCategories} from '../action';
 import Delete from '../components/account/delete';
 
 const ajax = (store) => (next) => (action) =>  {
@@ -165,6 +165,18 @@ const ajax = (store) => (next) => (action) =>  {
     
     case SAVE_RESULT : {
       console.log("axios save result")
+    }
+    break
+
+    case GET_CATEGORIES :{
+      axios.get("/content/findAll")
+      .then((response) => {
+        store.dispatch(setCategories(response.data))
+        store.dispatch(changeLoading())
+      })
+      .catch((e) => {
+        store.dispatch(changeLoading())
+      })
     }
     default: next(action)
   }

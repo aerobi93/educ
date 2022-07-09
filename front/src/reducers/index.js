@@ -1,5 +1,5 @@
 
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES} from "../action"
 
 const initialState = {
   password: "",
@@ -15,7 +15,9 @@ const initialState = {
   displayResult : false,
   displayAddChild : false,
   exercices : "",
-  exercicesFinished : ""
+  exercicesFinished : "", 
+  allCategories : "",
+  responseNewValue : "",
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -89,6 +91,16 @@ const reducer = (state = initialState, action = {})  => {
         exercices : "",
         exercicesFinished : ""
         
+      }
+    case SET_RESPONSE_NEW_VALUE : 
+      return {
+        ...state,
+        responseNewValue : action.value
+      }
+    case SET_CATEGORIES : 
+      return {
+        ...state, 
+        allCategories : action.value
       }
   default: 
     return {

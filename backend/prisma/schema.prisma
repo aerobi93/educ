@@ -21,7 +21,7 @@ model  Users {
   createAt DateTime @default(now())
   role  Roles
   childId String?
-  parent Users?  @relation("child", fields: [childId], references: [id])
+  parent Users?  @relation("child", fields: [childId], references: [id], onDelete : Cascade)
   student Users[] @relation("child")
   results Results[] 
 }
