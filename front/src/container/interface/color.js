@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Color from "../../components/interface/color";
 
-import { setResponseNewValue, sentExercices, sentResultExercices} from '../../action'
+import { setResponseNewValue, sentExercices, sentResultExercices, begin, sentAverage} from '../../action'
 const mapStateToProps = (state) => ({
   exercices : state.exercices,
   responseNewValue : state.responseNewValue,
@@ -18,6 +18,12 @@ const mapDispatchToProps = (dispatch) => ({
   sentResultExercices : (value) => {
     dispatch(sentResultExercices(value))
   },
+  setBegin : () => {
+    dispatch(begin())
+  },
+  sentAverage : (name, value) => {
+    dispatch(sentAverage(name, value))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Color)

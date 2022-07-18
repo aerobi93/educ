@@ -150,16 +150,14 @@
       margin-left:  calc(50% - 2.5rem);
       margin-top: vars.$margin *2;
     }
-
-    &--icoCss {   
-      font-size: 8rem;
-      margin-left:  calc(50% - 4rem);
-      margin-top: vars.$margin *2;
+    &--listIcon {
+      width: calc(25% - vars.$margin) ;
+      height: 4rem;
+      margin-right: vars.$margin;
+      margin-bottom: vars.$margin;
+      border: solid  black 1px;
     }
 
-    &--triangle::after {
-      content: "\25B2";
-    }
    
     &--form {
       display: flex;
@@ -169,7 +167,7 @@
       width: 80%;
     }
     &--input {
-      width: 80%;
+      width: 25%;
       margin: auto;
       padding: vars.$padding * 0.25;
       font-size: vars.$fontSize *1.25;
@@ -186,7 +184,57 @@
       margin-top: vars.$margin;
       font-size: vars.$fontSize *1.5;
     }
+
+    &--containerFlex {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: vars.$margin;
+      font-size: vars.$fontSize * 1.25;
+    
+      text-align: center;
+      font-weight: bolder;
+
+      &--title {
+        width: 100%;
+        margin-bottom: vars.$margin;
+        color: vars.$titleColor;  
+        font-family: vars.$penny;
+        font-size: vars.$fontSize * 1.5;
+        text-shadow: red 1px  1px;
+      }
+    }
+    &--elementText {
+      width: 25%;
+   
+      margin: vars.$margin * 0.5  0;
+    }
+
+   
+  }
+  &__finish {
+    display: flex;
+    flex-direction: column;
+    margin-top : vars.$margin * 4;
+    text-align: center;
+    font-size: vars.$fontSize * 1.75;
+    font-weight: bold; 
+    text-shadow: black 2px 2px;
+
+    &--good {
+      color: yellowgreen;
+     
+    }
+    &--bad {
+      color: red;
+    }
+    &--min {
+      font-size: vars.$fontSize;
+      text-shadow: none;
+      margin-top: vars.$margin;
+      color: black;
+    }
   }
 
-  
 }

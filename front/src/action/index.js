@@ -23,6 +23,8 @@ export const SENT_RESULT_EXERCICES  = "SENT_RESULT_EXERCICES"
 export const SAVE_RESULT = "SAVE_RESULT"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const SET_CATEGORIES = "SET_CATEGORIES"
+export const BEGIN = "BEGIN"
+export const SENT_AVERAGE = "SENT_AVERAGE"
 
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
@@ -119,11 +121,11 @@ export const setResponseNewValue = (value) => ({
   type : SET_RESPONSE_NEW_VALUE,
   value
 })
-export const saveResult = (name, typeExercise, timerest) => ({
+export const saveResult = (timerest, exam, nameChild) => ({
   type : SAVE_RESULT,
-  name,
-  typeExercise,
-  timerest
+  timerest, 
+  exam,
+  nameChild
 })
 
 export const getCategories = () => ({
@@ -134,3 +136,13 @@ export const setCategories = (value) => ({
   type : SET_CATEGORIES,
   value
 })
+
+export const begin = () => ({
+  type: BEGIN
+})
+
+export const sentAverage = (name, value) => ({
+  type: SENT_AVERAGE,
+  name,
+  value
+}) 

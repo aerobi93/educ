@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import Calculated from "../../components/interface/calculated";
 
-import { setResponseNewValue, sentExercices, sentResultExercices} from '../../action'
+import { setResponseNewValue, sentExercices, sentResultExercices,begin, sentAverage} from '../../action'
 const mapStateToProps = (state) => ({
   exercices : state.exercices,
   responseNewValue : state.responseNewValue,
-  resultExercices : state.exercicesFinished
+  resultExercices : state.exercicesFinished,
+  begin : state.begin
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,6 +19,12 @@ const mapDispatchToProps = (dispatch) => ({
   sentResultExercices : (value) => {
     dispatch(sentResultExercices(value))
   },
+  sentAverage : (name, value) => {
+    dispatch(sentAverage(name, value))
+  },
+  setBegin : () => {
+    dispatch(begin())
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calculated)

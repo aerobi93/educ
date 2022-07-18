@@ -2,7 +2,7 @@ import reducer from "./reducers";
 
 export const   auth = async() => {
     let token = window.localStorage.getItem('token')
-    if(!token) { console.log("no token"); return "no logged" }
+    if(!token) {return "no logged" }
     let reponse = fetch("http://localhost:7000/token/verifyToken", {
       method : "GET",
       headers : {
@@ -49,4 +49,6 @@ export const createAlgo = (repetition, signMax, numberMin, numberMax, integer  )
   } 
 }
 
-
+export const randomNumber = (min, max ) => {
+  return Math.floor((Math.random()  * (max - min) ) - min)
+}

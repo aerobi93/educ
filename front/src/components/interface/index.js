@@ -8,17 +8,30 @@ import Color from "../../container/interface/color"
 
 import './styles.scss'
 
-  const Interface =  ({ exercices, sentExercices, resultExercices,  saveResult, loading, changeLoading, allCategories, getCategories}) => {
+  const Interface =  ({ exercices, sentExercices, resultExercices,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin, average}) => {
   const params = useParams()
   let typeExercise = params.type
   const [choiceCategory, setChoiceCategory] = useState()
-  const [begin, setBegin] = useState()
+  const [totalExercices, setTotalExercices] = useState()
   
+  useEffect(() => {
+    if(average) {
+      let timerest = minutes + " : " + seconde 
+      setChoiceCategory()
+      saveResult(timerest)
+    }
+  }, [average])
+
+  useEffect(() => {
+    let allExercices = []
+    allExercices.push(choiceCategory)
+    
+  },[choiceCategory])
+  
+
   // timer
   let [minutes, setMinutes] = useState(Number)
   let [seconde, setSecond] = useState(Number)
-  const [newValue, setNewValue] = useState(Number)
-  let [finish, setFinish] = useState(Boolean)
   
   const  intervalAsc = () => {
     setTimeout(()=> {
@@ -41,7 +54,8 @@ import './styles.scss'
   useEffect(() => {
     changeLoading()
     getCategories()
-  }, [])
+    
+  }, [begin == false])
 
   useEffect(() => {
     // the exam time is 10 minutes
@@ -49,38 +63,22 @@ import './styles.scss'
   }, [exercices, begin])
 
   useEffect(() => {
-    if(exercices && begin === "simulation") {
+    if(exercices && begin && typeExercise=== "simulation") {
         intervalAsc()
     }
-    else if (exercices && begin === "exam") {
+    else if (exercices && begin && typeExercise === "exam") {
       intervalDesc()
   }
   }, [seconde, exercices])
-  
-  useEffect(() => {
-    //if never response sent in exament mode
-    if((params.type == "exam" && minutes == 0) && !resultExercices) {setBegin(false)}
-    if(resultExercices) {
-      let totalRight = resultExercices.filter((element) => element.result == "ok").length
-      let timerest = minutes + '' + seconde
-      setFinish({result : totalRight})
-      saveResult(params.name, typeExercise, timerest )
-      setTimeout(() => {
-        setFinish()
-        setBegin(false)
-      }, 1000 * 10)
-     
-    }
-  }, [resultExercices.length >= 20 , (params.type == "exam" && minutes == 0 && seconde == 0)])
 
- 
+
   return (
     <div className="interface">
 
       {loading && <div className="interface__loader"><Spinner /></div>}
       {
         // selection one category in mode exercices
-        (!begin && params.type === "simulation" && !loading && !choiceCategory   && allCategories) &&
+        (!begin && params.type === "simulation" && !loading && !choiceCategory  && allCategories) &&
         <div className="interface__category"> Choisir une categorie d' exercice
           {
              allCategories.map((element) => 
@@ -100,17 +98,16 @@ import './styles.scss'
       (!begin && params.type === "simulation" && !loading && choiceCategory) && 
         <div className="interface__begin" onClick={() => setBegin(typeExercise)}>commencer</div>
       }
-      
+      {}
       {(begin) && 
         <>
           <div className="interface__counter">
             {minutes}  { minutes > 1 ? ' minutes' : " minute"} et  {seconde} {seconde > 1 ? "secondes" : "seconde" }
           </div>
-          {choiceCategory === "arythmetique" && <Calculated  repetition={20} />}
+          {(choiceCategory === "arythmetique" && totalExercices[0] === "arythmetique" ) && <Calculated  repetition={20} />}
           {choiceCategory === "couleurs et formes" && <Color repetition={20} />}
         </>  
       }
-      {finish && <div className={`interface__average ${finish.result < 10 ? "interface__average--red" : "interface__average--green"}`}> {finish.result}/20</div>}
     </div>
     
   )

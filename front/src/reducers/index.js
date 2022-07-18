@@ -1,5 +1,5 @@
 
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE} from "../action"
 
 const initialState = {
   password: "",
@@ -18,6 +18,8 @@ const initialState = {
   exercicesFinished : "", 
   allCategories : "",
   responseNewValue : "",
+  begin: false,
+  average : ""
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -43,6 +45,7 @@ const reducer = (state = initialState, action = {})  => {
     case EMPTY_FIELDS: 
       return {
         ...state, 
+
         password: "",
         email:"",
         birthday:"",
@@ -101,6 +104,25 @@ const reducer = (state = initialState, action = {})  => {
       return {
         ...state, 
         allCategories : action.value
+      }
+    case SENT_AVERAGE :
+      return {
+        ...state,
+        average : {
+          ...state.average,
+          [action.name] : action.value
+        },
+        exercicesFinished: ""
+      }
+    case BEGIN : 
+      return {
+        ...state,
+        begin : !state.begin,
+        average : "", 
+        exercices : "",
+        exercicesFinished : "", 
+        allCategories : "",
+        responseNewValue : ""
       }
   default: 
     return {

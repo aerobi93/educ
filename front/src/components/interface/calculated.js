@@ -1,8 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { createAlgo } from "../../utils"
 
 
-const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue, repetition }) => {
+const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue, repetition, begin,setBegin,   sentAverage }) => {
+  const [finish , setFinish] = useState()
+  
   useEffect(() => {
     let exerciseArray = []
     for(let i = 0; i <= repetition; i++) {
@@ -14,6 +16,19 @@ const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExerc
   sentExercices(exerciseArray)
   },[])
 
+
+
+  useEffect(() => {
+    if(exercices.length =='0' && resultExercices.length > 0) {
+      let note = resultExercices.filter((element) =>  element.result === "ok").length
+      setFinish ("note a l'exercice : " + note+"/"+"20" )
+      setTimeout(() => {
+        setFinish("")
+        setBegin()
+        sentAverage("arythmetique", note + '/'+"20")
+      }, 1000 * 3)
+    }
+  }, [exercices.length == 0 && resultExercices.length > 0] )
 
   const handlerSubmit = (evt) => {
     evt.preventDefault()
@@ -43,7 +58,8 @@ const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExerc
   } 
   return (
     <div className="interface__game">
-    { exercices &&
+      {finish && <div className="interface__finish--text">{finish}</div>}
+    { (exercices && ! finish )&&
       exercices.slice(0,4).reverse().map((element,index) => {
         //for display top to bottom
         if (index === exercices.slice(0,4).length - 1) {
