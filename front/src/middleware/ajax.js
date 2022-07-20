@@ -164,7 +164,7 @@ const ajax = (store) => (next) => (action) =>  {
     break
     
     case SAVE_RESULT : {
-      console.log("axios save result")
+      
     }
     break
 

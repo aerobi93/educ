@@ -25,6 +25,10 @@ export const GET_CATEGORIES = "GET_CATEGORIES"
 export const SET_CATEGORIES = "SET_CATEGORIES"
 export const BEGIN = "BEGIN"
 export const SENT_AVERAGE = "SENT_AVERAGE"
+export const SET_TIMER = "SET_TIMER"
+export const SET_MINUTE = "SET_MINUTE"
+export const SET_SECONDE = "SET_SECONDE"
+
 
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
@@ -121,11 +125,13 @@ export const setResponseNewValue = (value) => ({
   type : SET_RESPONSE_NEW_VALUE,
   value
 })
-export const saveResult = (timerest, exam, nameChild) => ({
+export const saveResult = (timerest, idChild, type, category, note) => ({
   type : SAVE_RESULT,
   timerest, 
-  exam,
-  nameChild
+  idChild,
+  type,
+  category,
+  note
 })
 
 export const getCategories = () => ({
@@ -141,8 +147,17 @@ export const begin = () => ({
   type: BEGIN
 })
 
-export const sentAverage = (name, value) => ({
+export const sentAverage = (value) => ({
   type: SENT_AVERAGE,
-  name,
   value
-}) 
+})
+
+
+export const setMinute = (value) => ({
+  type : SET_MINUTE,
+  value
+})
+export const setSeconde = (value) => ({
+  type : SET_SECONDE,
+  value
+})

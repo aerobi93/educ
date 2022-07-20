@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Interface from '../../components/interface';
 
-import { saveResult, sentExercices, sentResultExercices, getCategories, changeLoading, begin  } from '../../action';
+import { saveResult, getCategories, changeLoading, begin, setMinute, setSeconde } from '../../action';
 
 const mapStatetoProps = (state) => ({
     exercices: state.exercices,
@@ -9,7 +9,9 @@ const mapStatetoProps = (state) => ({
     allCategories : state.allCategories,
     loading : state.loading,
     begin : state.begin,
-    average : state.average
+    average : state.average,
+    minute : state.minute,
+    seconde : state.seconde
   })
   
   const mapDispatchtoProps = (dispatch) => ({
@@ -26,6 +28,12 @@ const mapStatetoProps = (state) => ({
     setBegin : () => {
       dispatch(begin())
     },
+    setMinute : (value) => {
+      dispatch(setMinute(value))
+    },
+    setSeconde : (value) => {
+      dispatch(setSeconde(value))
+    }
   })
   
   export default connect(mapStatetoProps, mapDispatchtoProps)(Interface)

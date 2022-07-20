@@ -67,7 +67,7 @@ const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConn
             <Route exact path='/403' element={<Error403 /> } /> 
             <Route exact path='/account/home' element={authenticate === "logged" ? <Account /> :   <Navigate replace to="/403" />} />
             <Route exact path='/account/delete' element={<Delete /> } />
-            <Route exact path='/account/exercise/:type/:name' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
+            <Route exact path='/account/exercise/:type/:id' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
           
             <Route  path='/404' element={<Error404 /> } /> 
             <Route  path='*' element={<Navigate replace to="/404" /> } />

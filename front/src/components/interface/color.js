@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark, faCircle, faHouse, faTree, faCow, faDog, faCat, faChild, faPersonDress, faCloud, faTriangleCircleSquare} from "@fortawesome/free-solid-svg-icons";
 import { randomNumber } from "../../utils";
 
 
-const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue, repetition}) => {
-  let [ finish, setFinish] = useState()
+
+const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue}) => {
+  let [finish, setFinish] = useState()
   let [badResponse, setBadResponse] = useState(Number)
   let [goodResponse, setGoodResponse] = useState(Number)
-  
+  let params = useParams()
+  let typeExercise = params.type
+  const repetition =  typeExercise == "exam" ? 20 : 10
+ //end exercices
   useEffect(() => {
-    console.log("total bon", goodResponse)
-    console.log("total movais", badResponse)
-  }, [exercices.length === 0 ])
+    if (exercices.length == 20 && minute === 0 && seconde == 0 && typeExercise== "exam") {
+      setBegin()
+      return
+    }
+    else if ((exercices.length == 0 && (badResponse + goodResponse == 20)) || (minute === 0 && seconde == 0 && typeExercise === "exam" && exercices.length > 0)) {
+      setFinish(<div className="interface__finish--text">note a l'exercice : {goodResponse}/20</div>)
+      setTimeout(() => {      
+        setBegin()
+        setFinish("")
+        typeExercise === "exam" ?  sentAverage(goodResponse+'/20') : sentAverage(goodResponse * 2 +'/20')
+      },1000 * 3)
+    }
+  }, [exercices.length === 0, (minute === 0 && seconde == 0 && typeExercise === "exam" )])
 
   const colorExercices = [
     { color: "red", colorName : "rouge" },
@@ -58,9 +73,7 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
       let arrayIcon = []
       let question  = ''
       let randomForm  = randomNumber(0 , formExercices.length )
-      randomForm = 0
       let randomcolor  = randomNumber(0 , colorExercices.length )
-      randomcolor = 3
      // actual random color with name
       let color = colorExercices[randomcolor]
       let colorName = color.colorName
@@ -71,8 +84,6 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
       // random question
       let indexQuestion = randomNumber(0 , randomQuestion.length +2)
       //add new question 
-      indexQuestion = 4
-
       if(indexQuestion  > randomQuestion.length - 1) {
         if( indexQuestion === randomQuestion.length ) {
           question =  "trouve la représentation d'" + " " + formName
@@ -129,7 +140,7 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
             arrayIcon.push({color :  color, icon : listForm.awesome, formName  })
           }
 
-          else if (newColor.colorName !== colorName && listForm.awesome.iconName !== newForm.awesome.iconName) {
+          else  {
             let found = ''
             arrayIcon.map((element) => {
               if( element.color.colorName == newColor.colorName &&  element.icon.iconName  == newForm.awesome.iconName) {found = 'true'}
@@ -177,13 +188,39 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
     let exercicesForm  = exercices[0].form
     let exercicesColor = exercices[0].color
     let resultQuestion = ""
-
+    
+    
+    //verfication question with found  therm with a  awesome
+    if( exercicesQuestion.includes("trouve")) {
+      let splitName = exercicesForm.formName.split(/[,]/g)
+      let newValue = value.split(/[+]/)
+      let UserColor = newValue[0]
+      let userName = newValue[1].split(/[,]/g)
+      let found =''
+      
+      splitName.map((responseName) => {
+          if(!exercices.includes("couleur") && exercicesQuestion.includes("représentation")) {
+            if(userName.includes(responseName)) {
+              found = "found"
+              return
+            }
+          }
+          if(exercices.includes("couleur") && exercicesQuestion.includes("représentation")) { 
+            if( UserColor == exercicesColor && userName.includes(responseName))  {
+              found = "found"
+              return
+            }
+          }
+      })
+     found === "found" ? resultQuestion ="ok" : resultQuestion ="wrong"
+  
+      
+    }
     //verification the question whith representation && color 
     if (exercicesQuestion.includes("représent") && exercicesQuestion.includes('couleur')) {
       let splitName = exercicesForm.formName.split(/[,]/g)
       splitName.map((element) => {
         let newElement = element.trim()
-        console.log(newElement + ' ' + exercicesColor.colorName, 'value', value, value.length)
         if (element.includes("une")) {
           if(exercicesColor.feminine) {
             if (value.trim() === newElement + " " + exercicesColor.feminine) {
@@ -197,7 +234,6 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
           }
         }
         else if (element.includes("un") && value == newElement + ' ' + exercicesColor.colorName)  {
-          console.log("un")
           resultQuestion = "ok"
           return
         }
@@ -219,13 +255,15 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
     else if(exercicesQuestion == randomQuestion[1] || exercicesQuestion == randomQuestion[5]) {
       exercicesColor.colorName === value ? resultQuestion = "ok" : resultQuestion = "wrong"
     }
-   
+
 
     //treating of  the result at this question 
     if( resultQuestion === "ok"){
       setFinish(<div className="interface__finish  interface__finish--good">bonne response</div>) 
+      setGoodResponse(goodResponse + 1)
     }
     else {
+      setBadResponse(badResponse + 1) 
       if (exercicesQuestion == randomQuestion[0] || exercicesQuestion == randomQuestion[3]) {
         setFinish(
           <div className=" interface__finish  interface__finish--bad" >
@@ -243,7 +281,7 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
           </div>
           )
       }
-      else if(exercicesQuestion.includes("représent") && exercicesQuestion.includes('couleur')) {
+      else if(exercicesQuestion.includes("représent") && exercicesQuestion.includes('couleur') && !exercicesQuestion.includes("trouve")) {
         setFinish(
           <div className=" interface__finish  interface__finish--bad" >
             mauvaise response :
@@ -255,11 +293,24 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
           </div>
           )
       }
+      else if(exercicesQuestion.includes('trouve')){
+        setFinish(
+          <div className=" interface__finish  interface__finish--bad" >
+            mauvaise response :
+            <div className="interface__finish--min"> la bonne response est : </div>
+            <FontAwesomeIcon    
+              icon={exercices[0].form.awesome} 
+              className="interface__color--responseIcon"  
+              style={{color: exercices[0].color.color}}
+            />
+          </div>
+          )  
+      }
+  
     }
 
-
     //timer differential in function if it' s good or not good and  slice exercices for display the next
-    let duration  = resultQuestion === "ok" ? 1000 : 1000 * 4
+    let duration  = resultQuestion === "ok" ? 1000 : 1000 * 3
     setTimeout(() => {
       setFinish("")
       sentExercices(exercices.slice(1, exercices.length))
@@ -270,7 +321,7 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
   return (
     <>
       {finish && finish}
-      {!finish && <div className="interface__game">
+      {(!finish && exercices.length > 0)&& <div className="interface__game">
             
         { //display the question 
           exercices && <div className="interface__color--title"> {exercices[0].question} </div> 
@@ -314,7 +365,7 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
       </div>
       }
       {//display list of color 
-      exercices && (exercices[0].question == randomQuestion[1] || exercices[1].question == randomQuestion[2]) && 
+      exercices && (exercices[0].question == randomQuestion[1] || exercices[0].question == randomQuestion[2]) && 
       <div className="interface__color--containerFlex">
         <span className="interface__color--containerFlex--title">liste des couleurs</span>
         {exercices[0].arrayColor.map((element, index) => 
@@ -336,20 +387,22 @@ const Color = ({exercices, sentExercices, resultExercices, sentResultExercices,r
       exercices && (exercices[0].question.includes("trouve")) && 
       <div className="interface__color--containerFlex">
         <span className="interface__color--containerFlex--title">liste des icones</span>
-          {exercices[0].arrayIcon.map((element) =>  { 
+          {exercices[0].arrayIcon.map((element, index) =>  { 
             return (
                 <FontAwesomeIcon 
+                key={index}
                 icon={element.icon} 
                 className="interface__color--listIcon"  
                 style={{color: element.color.color}}
                 onClick = {(evt) => {
-                  hanlderClick(exercices[0].color.color +'+'+exercices[0].form.formName)}}
+                  hanlderClick(element.color.colorName +'+'+element.formName)}}
               />
             )
           })}
       </div>
       }
-      </div> }
+      </div> 
+      }
     </>
 
   )

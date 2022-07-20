@@ -5,7 +5,10 @@ import { setResponseNewValue, sentExercices, sentResultExercices, begin, sentAve
 const mapStateToProps = (state) => ({
   exercices : state.exercices,
   responseNewValue : state.responseNewValue,
-  resultExercices : state.exercicesFinished
+  resultExercices : state.exercicesFinished,
+  minute : state.minute,
+  seconde : state.seconde,
+  begin : state.begin
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,8 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
   setBegin : () => {
     dispatch(begin())
   },
-  sentAverage : (name, value) => {
-    dispatch(sentAverage(name, value))
+  sentAverage : (value) => {
+    dispatch(sentAverage(value))
   }
 })
 

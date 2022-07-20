@@ -1,17 +1,43 @@
 import React, { useEffect, useState } from "react"
 import { createAlgo } from "../../utils"
+import { useParams } from "react-router-dom"
+import { getAge } from "../../utils"
 
+const Calculated  = ({seconde, minute,  childrenData, exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue,begin, setBegin,sentAverage }) => {
+  let [finish , setFinish] = useState()
 
-const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue, repetition, begin,setBegin,   sentAverage }) => {
-  const [finish , setFinish] = useState()
+  const  params = useParams()
+  const typeExercise = params.type
+  const  repetition = typeExercise === "simulation" ?  10 : 20
   
+  // with id params get name and age of the child
+  const child = childrenData.filter((element) => element.id === params.id)
+  const childage = getAge(child[0].birthday)
+ 
+
   useEffect(() => {
     let exerciseArray = []
+    let numbermin = 0
+    let numberMax = 20
+    
+    let integer = childage > 15 ? false  : true
+    let arythmetiqueSign = childage > 10 ? 4  : 2
+    let NumberOperation = childage > 10 ? 5  : 4
+    if (typeExercise === "exam") {NumberOperation +=1}
+    
     for(let i = 0; i <= repetition; i++) {
-      if (i < 5) {exerciseArray.push(createAlgo(4, 2, 0, 10, true))}
-      else if(i < 10) {exerciseArray.push(createAlgo(4, 2, 0, 15, true))}
-      else if(i < 15) {exerciseArray.push(createAlgo(6, 2, 0, 15, true))}
-      else if(i > 15) {exerciseArray.push(createAlgo(6, 2, 0, 20, true))}
+      if(i % 5 == 0 && i > 0) {
+        if(childage >= 5) {
+          numberMax += 5
+         
+        }
+        if (childage > 10) {
+          numbermin += -100
+          numberMax += 100
+        }
+        NumberOperation +=1
+      }
+      exerciseArray.push(createAlgo(NumberOperation , arythmetiqueSign, numbermin, numberMax, integer))
     }
   sentExercices(exerciseArray)
   },[])
@@ -19,16 +45,20 @@ const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExerc
 
 
   useEffect(() => {
-    if(exercices.length =='0' && resultExercices.length > 0) {
+    if( begin && (exercices.length == 0 && resultExercices.length > 0) || (typeExercise === "exam" && minute === 0 && seconde === 0 && exercices.length > 0) )  {
+      // if  have no response in 20 min
+      if (resultExercices.length == 0 && exercices.length > 0){ setBegin(); return} 
+      // save note 
       let note = resultExercices.filter((element) =>  element.result === "ok").length
-      setFinish ("note a l'exercice : " + note+"/"+"20" )
+      setFinish(<div className="interface__finish--text">note a l'exercice : {note}/{repetition}</div>)
+      
       setTimeout(() => {
         setFinish("")
+        sentAverage(note + '/'+repetition)
         setBegin()
-        sentAverage("arythmetique", note + '/'+"20")
       }, 1000 * 3)
     }
-  }, [exercices.length == 0 && resultExercices.length > 0] )
+  }, [exercices, resultExercices, minute ,seconde] )
 
   const handlerSubmit = (evt) => {
     evt.preventDefault()
@@ -55,10 +85,12 @@ const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExerc
     sentExercices(exercices.slice(1, exercices.length))
     setResponseNewValue("") 
 
-  } 
+  }
+  
   return (
     <div className="interface__game">
-      {finish && <div className="interface__finish--text">{finish}</div>}
+     
+      {finish && finish}
     { (exercices && ! finish )&&
       exercices.slice(0,4).reverse().map((element,index) => {
         //for display top to bottom
@@ -87,7 +119,7 @@ const Calculated  = ({exercices, sentExercices, resultExercices, sentResultExerc
     {
     
       //slice length for haver every last result  with 2 reverse for slice the  4 result
-    resultExercices && resultExercices.slice(-4).reverse().map((element, index) => (
+    (resultExercices && typeExercise === "simulation")&& resultExercices.slice(-4).reverse().map((element, index) => (
       <div className="interface__question" key={index}> 
         <span className="interface__finished">{element.question}?</span>
         <span className={`interface__ico interface__ico--${element.result}`}/>

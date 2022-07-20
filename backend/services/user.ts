@@ -21,7 +21,9 @@ export const findAll = async (id: string, role : "student" | "parent") => {
       email : true,
       student : {
         select : {
+          id : true,
           name : true,
+          birthday: true,
           results : true
         },
       }

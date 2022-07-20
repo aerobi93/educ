@@ -1,5 +1,5 @@
 
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE, SET_MINUTE, SET_SECONDE} from "../action"
 
 const initialState = {
   password: "",
@@ -19,7 +19,9 @@ const initialState = {
   allCategories : "",
   responseNewValue : "",
   begin: false,
-  average : ""
+  average : "",
+  minute : 0,
+  seconde : 0,
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -108,22 +110,32 @@ const reducer = (state = initialState, action = {})  => {
     case SENT_AVERAGE :
       return {
         ...state,
-        average : {
-          ...state.average,
-          [action.name] : action.value
-        },
-        exercicesFinished: ""
+        average : action.value,
+        exercicesFinished: "",
+        exercices : ""
       }
     case BEGIN : 
       return {
         ...state,
         begin : !state.begin,
-        average : "", 
         exercices : "",
         exercicesFinished : "", 
         allCategories : "",
         responseNewValue : ""
       }
+   
+ 
+  case SET_MINUTE : 
+    return {
+      ...state,
+      minute : action.value
+    }
+
+  case SET_SECONDE : 
+  return {
+    ...state,
+    seconde : action.value
+  }
   default: 
     return {
       ...state

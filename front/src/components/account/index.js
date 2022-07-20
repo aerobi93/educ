@@ -95,8 +95,8 @@ const Account = ({ role, loading, changeLoading,changeDisplay, displayAddChild, 
                 data.student.map((child) => (
                   <div  className="account__result--flex" key = {child.name}>
                     <Result data ={child} role = {role} /> 
-                    <Link className= "account__result--link" to={`/account/exercise/simulation/${encode(child.name)}`}>s'entrainer</Link>
-                    <Link className= "account__result--link" to={`/account/exercise/exam/${encode(child.name)}`}>mode examen</Link>
+                    <Link className= "account__result--link" to={`/account/exercise/simulation/${child.id}`}>s'entrainer</Link>
+                    <Link className= "account__result--link" to={`/account/exercise/exam/${child.id}`}>mode examen</Link>
                   </div>
                 ))
               

@@ -2,23 +2,28 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router"
 
 
+
 import Spinner from '../loader/spin'
 import Calculated from "../../container/interface/calculated"
 import Color from "../../container/interface/color"
 
 import './styles.scss'
 
-  const Interface =  ({ exercices, sentExercices, resultExercices,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin, average}) => {
+const Interface =  ({ exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
   const params = useParams()
-  let typeExercise = params.type
+  const typeExercise = params.type
   const [choiceCategory, setChoiceCategory] = useState()
-  const [totalExercices, setTotalExercices] = useState()
-  
+
+  const [minuteState, setMinuteState] = useState()
+  const [secondeState, setSecondeState] = useState()
+
   useEffect(() => {
     if(average) {
-      let timerest = minutes + " : " + seconde 
+      let timerest = 'fait en '
+      typeExercise == "simulation" ? timerest+= minute + ' : ' + seconde : timerest +=(20 - minute) + ' : ' (60 - seconde)
+      saveResult(timerest, params.name, typeExercise, choiceCategory, average)
       setChoiceCategory()
-      saveResult(timerest)
+    
     }
   }, [average])
 
@@ -29,48 +34,67 @@ import './styles.scss'
   },[choiceCategory])
   
 
-  // timer
-  let [minutes, setMinutes] = useState(Number)
-  let [seconde, setSecond] = useState(Number)
-  
-  const  intervalAsc = () => {
-    setTimeout(()=> {
-      if (seconde === 60) {
-        setSecond(0)
-        setMinutes(minutes + 1)
+
+  useEffect(() => {
+    if(!begin) {
+      changeLoading()
+      getCategories() 
+    } 
+    if (begin) {
+      if (typeExercise == "simulation") {
+        setMinute(0)
+        setMinuteState(0)
+        setSeconde(0)
+        setSecondeState(0)
       }
-      else setSecond(seconde + 1)},1000)
-  }
-
-  const  intervalDesc = () => {
-    setTimeout(()=> {
-      if (seconde == 0) {
-        setSecond(60)
-        setMinutes(minutes - 1)
+      else {
+        setMinute(0)
+        setMinuteState(0)
+        setSeconde(10)
+        setSecondeState(10)
       }
-      else setSecond(seconde - 1)},1000)
-  }
-
-  useEffect(() => {
-    changeLoading()
-    getCategories()
-    
-  }, [begin == false])
-
-  useEffect(() => {
-    // the exam time is 10 minutes
-    typeExercise == 'simulation' ? setMinutes(0) : setMinutes(10)
-  }, [exercices, begin])
-
-  useEffect(() => {
-    if(exercices && begin && typeExercise=== "simulation") {
-        intervalAsc()
     }
-    else if (exercices && begin && typeExercise === "exam") {
-      intervalDesc()
-  }
-  }, [seconde, exercices])
+  }, [begin])
+  
+  useEffect(() => {
+    if (begin) {
+      if(typeExercise === "exam") {
+        if(seconde === 0) {
+          setTimeout(() => { 
+            setSeconde(60)
+            setSecondeState(60)
+            setMinute(minuteState - 1)
+            setMinuteState(minuteState - 1)
+          }, 1000)  
+        }
+        else {
+          setTimeout(() => {
+            setSeconde(secondeState - 1)
+            setSecondeState(secondeState - 1)
+          },1000)
+        }
+      }
+      if(typeExercise === "simulation") {
+        if(seconde === 60) {
+          setTimeout(() => { 
+            setSeconde(0)
+            setSecondeState(0)
+            setMinute(minuteState + 1)
+            setMinuteState(minuteState + 1)
+          }, 1000)  
+        }
+        else {
+          setTimeout(() => {
+            setSeconde(secondeState + 1)
+            setSecondeState(secondeState + 1)
+          },1000)
+        }
+      }
+   
+    }
+  }, [secondeState])
 
+    
 
   return (
     <div className="interface">
@@ -78,7 +102,7 @@ import './styles.scss'
       {loading && <div className="interface__loader"><Spinner /></div>}
       {
         // selection one category in mode exercices
-        (!begin && params.type === "simulation" && !loading && !choiceCategory  && allCategories) &&
+        (!begin  && !loading && !choiceCategory  && allCategories) &&
         <div className="interface__category"> Choisir une categorie d' exercice
           {
              allCategories.map((element) => 
@@ -95,17 +119,16 @@ import './styles.scss'
       }
       
       { // begin the exercices
-      (!begin && params.type === "simulation" && !loading && choiceCategory) && 
-        <div className="interface__begin" onClick={() => setBegin(typeExercise)}>commencer</div>
+      (!begin  && !loading && choiceCategory) && 
+        <div className="interface__begin" onClick={() => setBegin(!begin)}>commencer</div>
       }
-      {}
-      {(begin) && 
+      {begin && 
         <>
           <div className="interface__counter">
-            {minutes}  { minutes > 1 ? ' minutes' : " minute"} et  {seconde} {seconde > 1 ? "secondes" : "seconde" }
+            {minute}  { minute > 1 ? ' minutes' : " minute"} et  {seconde} {seconde > 1 ? "secondes" : "seconde" } 
           </div>
-          {(choiceCategory === "arythmetique" && totalExercices[0] === "arythmetique" ) && <Calculated  repetition={20} />}
-          {choiceCategory === "couleurs et formes" && <Color repetition={20} />}
+          {choiceCategory === "arythmetique"&& <Calculated />}
+          {choiceCategory === "couleurs et formes" && <Color />}
         </>  
       }
     </div>

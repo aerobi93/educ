@@ -103,6 +103,7 @@
       }
     }
   }
+ 
   &__average {
     text-align: center;
     font-size: vars.$fontSize  * 4;
@@ -149,6 +150,12 @@
       width: 5rem;
       margin-left:  calc(50% - 2.5rem);
       margin-top: vars.$margin *2;
+    }
+    &--responseIcon {
+      width: 6rem;
+      height: 6rem;
+      margin: auto;
+      margin-top: vars.$margin;
     }
     &--listIcon {
       width: calc(25% - vars.$margin) ;
@@ -234,6 +241,12 @@
       text-shadow: none;
       margin-top: vars.$margin;
       color: black;
+    }
+    &--text {
+      font-size: vars.$fontSize * 2;
+      margin: auto;
+      margin-top: vars.$margin * 3;
+      text-align: center;
     }
   }
 

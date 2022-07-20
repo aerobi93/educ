@@ -1,5 +1,3 @@
-import reducer from "./reducers";
-
 export const   auth = async() => {
     let token = window.localStorage.getItem('token')
     if(!token) {return "no logged" }
@@ -35,17 +33,17 @@ export const createAlgo = (repetition, signMax, numberMin, numberMax, integer  )
   ]
   for (let i = 0; i < repetition; i++) {
     let number = Math.random()  * (numberMax - numberMin) + numberMin
-    if (integer) {number = Math.floor(number)}
-
     let signNumber = Math.floor(Math.random() * (signMax - 0) - 0)
-    equation += ` ${number} ${sign[signNumber]}`
+    if (integer || signNumber >= 2 ) {number = Math.floor(number)}
+    else  number = Math.round(number * 100) /100
+    equation += `${sign[signNumber] + " "}  ${number}`
     
   }
-  let newEquation = equation.slice(0, equation.length - 1)
+  let newEquation = equation.slice(1, equation.length)
   let question = newEquation + '='
   return {
     question : question.trim(),
-    result : eval(newEquation)
+    result :   Math.round(eval(newEquation) *100)  /100 
   } 
 }
 
