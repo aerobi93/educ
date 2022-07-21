@@ -113,6 +113,7 @@ const reducer = (state = initialState, action = {})  => {
         average : action.value,
         exercicesFinished: "",
         exercices : ""
+        
       }
     case BEGIN : 
       return {

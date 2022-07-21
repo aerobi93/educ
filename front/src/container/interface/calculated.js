@@ -22,8 +22,8 @@ const mapDispatchToProps = (dispatch) => ({
   sentResultExercices : (value) => {
     dispatch(sentResultExercices(value))
   },
-  sentAverage : (name, value) => {
-    dispatch(sentAverage( value))
+  sentAverage : (value) => {
+    dispatch(sentAverage(value))
   },
   setBegin : () => {
     dispatch(begin())

@@ -41,23 +41,24 @@ enum Roles {
  }
 
  model Exercises {
-    id  String @id @default(uuid())
-    question String @unique
-    response String @unique
-    contentId String 
-    content TableContents @relation(fields: [contentId], references: [id], onDelete : Cascade)
-
+  id  String @id @default(uuid())
+  question String @unique
+  response String @unique
+  contentId String 
+  content TableContents @relation(fields: [contentId], references: [id], onDelete : Cascade)
  }
 
  model Results {
-     id  String @id @default(uuid())
-     date  DateTime @default(now())
-     exam   Boolean
-     note Int
-     timeRest   String
-     content TableContents @relation(fields: [contentID], references: [id], onDelete: Cascade)
-     user Users @relation(fields: [userID], references: [id], onDelete: Cascade)
-     contentID String
-     userID String
+    id  String @id @default(uuid())
+    date  DateTime @default(now())
+    exam   Boolean
+    note Int
+    timeRest   String
+    content TableContents @relation(fields: [contentName], references: [id], onDelete: Cascade)
+    user Users @relation(fields: [userID], references: [id], onDelete : Cascade)
+    contentName String
+    userID String
 
  }
+
+ 

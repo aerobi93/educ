@@ -164,13 +164,26 @@ const ajax = (store) => (next) => (action) =>  {
     break
     
     case SAVE_RESULT : {
-      
+      axios.post("/results/add", {
+        exam : action.exam ,
+        note: action.note,
+        timeRest : action.timerest, 
+        userID : action.idChild, 
+        contentName : action.category,
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
     break
 
     case GET_CATEGORIES :{
       axios.get("/content/findAll")
       .then((response) => {
+        console.log(response.data)
         store.dispatch(setCategories(response.data))
         store.dispatch(changeLoading())
       })

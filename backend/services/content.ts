@@ -12,7 +12,7 @@ export const createContent = async (data : ItableContent) =>  {
 
 export const findAllContent = async () =>  {
   const findAll = prisma.tableContents.findMany({
-    select : { name : true}
+    
   })
   return await findAll
 }

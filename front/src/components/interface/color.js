@@ -9,6 +9,7 @@ import { randomNumber } from "../../utils";
 
 const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue}) => {
   let [finish, setFinish] = useState()
+  let [responseAnswer, setResponseAnswer] = useState()
   let [badResponse, setBadResponse] = useState(Number)
   let [goodResponse, setGoodResponse] = useState(Number)
   let params = useParams()
@@ -16,18 +17,17 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
   const repetition =  typeExercise == "exam" ? 20 : 10
  //end exercices
   useEffect(() => {
-    if (exercices.length == 20 && minute === 0 && seconde == 0 && typeExercise== "exam") {
-      setBegin()
-      return
-    }
-    else if ((exercices.length == 0 && (badResponse + goodResponse == 20)) || (minute === 0 && seconde == 0 && typeExercise === "exam" && exercices.length > 0)) {
-      setFinish(<div className="interface__finish--text">note a l'exercice : {goodResponse}/20</div>)
+    if(begin && !finish && (exercices.length === 0 && ((badResponse + goodResponse == 20 && typeExercise == "exam") || (badResponse + goodResponse == 10 && typeExercise == "simulation") ) || (typeExercise === "exam" && minute === 0 && seconde === 0 && exercices.length > 0))) {
+      console.log("test")
+      if (exercices.length == 20 && minute === 0 && seconde == 0 && typeExercise== "exam") {setBegin() ;return}  
+      setFinish(<div className="interface__finish--text">note a l'exercice : {goodResponse}/20 </div>)
+      typeExercise === "exam" ?  sentAverage(goodResponse) : sentAverage(goodResponse * 2)
       setTimeout(() => {      
         setBegin()
         setFinish("")
-        typeExercise === "exam" ?  sentAverage(goodResponse+'/20') : sentAverage(goodResponse * 2 +'/20')
       },1000 * 3)
     }
+      
   }, [exercices.length === 0, (minute === 0 && seconde == 0 && typeExercise === "exam" )])
 
   const colorExercices = [
@@ -41,6 +41,14 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
     { color: "orange", colorName : "orange" },
     { color: "brown", colorName : "marron" }
   ]
+  const countColor = () => {
+    let counter = 0
+    colorExercices.map((element) => {
+      //count colorName && colorFeminine
+      element.feminine ?  counter += 2 : counter +=1
+     })
+     return counter
+  }
 
   const formExercices = [
     { awesome : faXmark, formName : "une croix"},
@@ -84,6 +92,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
       // random question
       let indexQuestion = randomNumber(0 , randomQuestion.length +2)
       //add new question 
+
       if(indexQuestion  > randomQuestion.length - 1) {
         if( indexQuestion === randomQuestion.length ) {
           question =  "trouve la représentation d'" + " " + formName
@@ -94,21 +103,20 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
       }
       else question = randomQuestion[indexQuestion]
 
-
+    
      //create the liste of color as arrayColor but in desorder
       if((indexQuestion == 1 || indexQuestion == 2 ) && arrayColor.length < colorExercices.length) {
-        let randomPlacement = randomNumber(0, colorExercices.length)
         do {
           let newRandomColor = randomNumber(0, colorExercices.length)
-          let newColor = colorExercices[newRandomColor].colorName
-          // add the actual response color  in random placement
-          if(arrayColor.length === randomPlacement) {
-            arrayColor.push(colorName)
+          let newColor = colorExercices[newRandomColor]
+          
+          if(!arrayColor.includes(newColor.colorName) ) {
+            if(newColor.feminine && !arrayColor.includes(newColor.feminine)) {
+              arrayColor.push(newColor.feminine)
+            }
+           else  arrayColor.push(newColor.colorName)
           }
-          else if(!arrayColor.includes(newColor) && newColor !== colorName) {
-            arrayColor.push(newColor)
-          }
-        } while (arrayColor.length < colorExercices.length)
+        } while (arrayColor.length < countColor())
       }
       //create list of name in desorder
       if((indexQuestion == 0 || indexQuestion == 2) && arrayForm.length < formExercices.length ) {
@@ -166,16 +174,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
   }, [])
 
   const hanlderClick = (value) => {
-    let question  = exercices[0].question
-    if(question != randomQuestion[2]) {
-      treatQuestion(value)
-    }
-    else {
-      if(value.match(/[+]/)) {
-       treatQuestion(value)
-      }
-      else return
-    }
+    treatQuestion(value)
   }
 
   const handlerSubmit = (evt) => {
@@ -222,7 +221,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
       splitName.map((element) => {
         let newElement = element.trim()
         if (element.includes("une")) {
-          if(exercicesColor.feminine) {
+          if(exercicesColor.feminine && exercicesQuestion) {
             if (value.trim() === newElement + " " + exercicesColor.feminine) {
               resultQuestion = "ok"
               return 
@@ -259,13 +258,13 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
 
     //treating of  the result at this question 
     if( resultQuestion === "ok"){
-      setFinish(<div className="interface__finish  interface__finish--good">bonne response</div>) 
+      setResponseAnswer(<div className="interface__finish  interface__finish--good">bonne response</div>) 
       setGoodResponse(goodResponse + 1)
     }
     else {
       setBadResponse(badResponse + 1) 
       if (exercicesQuestion == randomQuestion[0] || exercicesQuestion == randomQuestion[3]) {
-        setFinish(
+        setResponseAnswer(
           <div className=" interface__finish  interface__finish--bad" >
             mauvaise response 
             <div className="interface__finish--min"> bonne reponse possible : </div>
@@ -274,7 +273,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
           )
       }
       else if (exercicesQuestion == randomQuestion[1] || exercicesQuestion == randomQuestion[5]) {
-        setFinish(
+        setResponseAnswer(
           <div className=" interface__finish  interface__finish--bad" >
             mauvaise response 
             <div className="interface__finish--min"> la bonne response est : {exercices[0].color.colorName} </div>
@@ -282,7 +281,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
           )
       }
       else if(exercicesQuestion.includes("représent") && exercicesQuestion.includes('couleur') && !exercicesQuestion.includes("trouve")) {
-        setFinish(
+        setResponseAnswer(
           <div className=" interface__finish  interface__finish--bad" >
             mauvaise response :
             
@@ -294,7 +293,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
           )
       }
       else if(exercicesQuestion.includes('trouve')){
-        setFinish(
+        setResponseAnswer(
           <div className=" interface__finish  interface__finish--bad" >
             mauvaise response :
             <div className="interface__finish--min"> la bonne response est : </div>
@@ -310,9 +309,13 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
     }
 
     //timer differential in function if it' s good or not good and  slice exercices for display the next
-    let duration  = resultQuestion === "ok" ? 1000 : 1000 * 3
+    let duration  = 0
+    if(typeExercise  !== "exam") {
+      resultQuestion === "ok" ?duration = 1000 :  duration = 1000 * 3 
+    }
+   
     setTimeout(() => {
-      setFinish("")
+      setResponseAnswer('')
       sentExercices(exercices.slice(1, exercices.length))
     }, duration)
     setResponseNewValue('')
@@ -321,7 +324,8 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
   return (
     <>
       {finish && finish}
-      {(!finish && exercices.length > 0)&& <div className="interface__game">
+      {(responseAnswer && typeExercise !== "exam") && responseAnswer}
+      {(!finish &&! responseAnswer && exercices.length > 0)&& <div className="interface__game">
             
         { //display the question 
           exercices && <div className="interface__color--title"> {exercices[0].question} </div> 
@@ -346,7 +350,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
         </form> 
       }
 
-      {// display the list of name name 
+      {// display the list of name 
       exercices && (exercices[0].question === randomQuestion[0] || exercices[0].question === randomQuestion[2]) && 
       <div className="interface__color--containerFlex">
         <span className="interface__color--containerFlex--title">liste resprésentations</span>
@@ -355,8 +359,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
             className="interface__color--elementText"
             key={index}
             onClick={() =>  {
-            responseNewValue  =="" ? setResponseNewValue(element) : setResponseNewValue(element + '+' + responseNewValue)
-            responseNewValue  =="" ? hanlderClick(element) : hanlderClick(element + '+' +responseNewValue)
+            exercices[0].question === randomQuestion[2] ? setResponseNewValue(element) : treatQuestion(element)
             }}
           >
         {element}
@@ -365,7 +368,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
       </div>
       }
       {//display list of color 
-      exercices && (exercices[0].question == randomQuestion[1] || exercices[0].question == randomQuestion[2]) && 
+      exercices && ((exercices[0].question == randomQuestion[1] || (exercices[0].question == randomQuestion[2] && responseNewValue != ""))) && 
       <div className="interface__color--containerFlex">
         <span className="interface__color--containerFlex--title">liste des couleurs</span>
         {exercices[0].arrayColor.map((element, index) => 
@@ -373,8 +376,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
             className="interface__color--elementText"
             key={index}
             onClick={() =>  {
-              responseNewValue == "" ? setResponseNewValue(element) : setResponseNewValue(element + '+' + responseNewValue)
-              responseNewValue  =="" ? hanlderClick(element) : hanlderClick(element + '+'+responseNewValue)
+              exercices[0].question == randomQuestion[2] ?  hanlderClick(responseNewValue.trim()+" "+element.trim()) : treatQuestion(element)
             }}
           >
             {element}

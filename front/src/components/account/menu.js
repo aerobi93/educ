@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink }) => {
@@ -47,9 +46,6 @@ const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink
       </div>
       <div className="account__menu--link" onClick={() => handlerClick("email")}>
         modifier mon email
-      </div>
-      <div className="account__menu--link" onClick={() => handlerDisplay("result")}>
-        tous mes resultat
       </div>
     </div>
   )

@@ -7,7 +7,8 @@ const mapStateToProps = (state) => ({
   messageAjax: state.messageRequest,
   status : state.statusRequest,
   role: state.role,
-  loading : state.loading
+  loading : state.loading,
+  student : state.data.student
 })
 
 const mapDispatchToProps = (dispatch) => ({

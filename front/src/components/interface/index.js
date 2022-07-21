@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useParams} from "react-router"
 
 
 
@@ -9,20 +9,23 @@ import Color from "../../container/interface/color"
 
 import './styles.scss'
 
-const Interface =  ({ exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
+const Interface =  ({sentAverage, exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
   const params = useParams()
   const typeExercise = params.type
   const [choiceCategory, setChoiceCategory] = useState()
+  const [choiceCategoryID, setChoiceCategoryID] = useState()
 
   const [minuteState, setMinuteState] = useState()
   const [secondeState, setSecondeState] = useState()
 
   useEffect(() => {
-    if(average) {
+    if(average !== "") {
+
       let timerest = 'fait en '
-      typeExercise == "simulation" ? timerest+= minute + ' : ' + seconde : timerest +=(20 - minute) + ' : ' (60 - seconde)
-      saveResult(timerest, params.name, typeExercise, choiceCategory, average)
+      typeExercise == "simulation" ? timerest+= minute + 'minute et ' + seconde + " seconde": timerest +=(20 - minute) + 'minute et ' + (60 - seconde) + " seconde"
+      saveResult(timerest, params.id, typeExercise === "exam", choiceCategoryID, average)
       setChoiceCategory()
+      sentAverage("")
     
     }
   }, [average])
@@ -109,7 +112,9 @@ const Interface =  ({ exercices, minute, seconde, setMinute, setSeconde,  saveRe
               <div  
                 key={element.name}
                 className="interface__category--name" 
-                onClick={() => setChoiceCategory(element.name)}
+                onClick={() => {
+                  setChoiceCategory(element.name)
+                  setChoiceCategoryID(element.id)}}
               > 
                 {element.name}
               </div>

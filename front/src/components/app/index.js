@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate, useParams } from 'react-router-dom';
 
 import './index.scss'
 
@@ -17,8 +17,9 @@ import Interface from '../../container/interface';
 
 
 
-const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConnect }) => {
+const App =  ({ student, messageAjax, status, loading, changeLoading, findAllData, isConnect }) => {
   const navigate = useNavigate()
+  const params = useParams()
   const link  = useLocation()
   const [authenticate, setAuthentificate] = useState()
   // auth is async function so he send a promise
@@ -46,6 +47,13 @@ const App =  ({ messageAjax, status, loading, changeLoading, findAllData, isConn
     else if (link.pathname.includes("connexion") && messageAjax === "connexion ok"){
       changeAuth()
       navigate('/')
+    }
+    //redirection if user key in params no found
+    if(link.pathname.includes("account/exercise/")) {
+      let split = link.pathname.split(/[/]/g)
+     if(!student) {navigate('/403'); return}
+      let countId = student.filter((element) => element.id == split[split.length - 1]).length
+      if(countId && countId > 0) {navigate('/403'); return }
     }
   }, [messageAjax]) 
 

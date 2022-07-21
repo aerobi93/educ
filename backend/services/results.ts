@@ -3,9 +3,10 @@ import { Iresults } from "../interfaceTS";
 
 const prisma = new PrismaClient()
 
-export const createResults = async (data : Iresults) =>  {
+export const createResults = async (data : any) =>  {
+
  const add = prisma.results.create({
-    data
+ data
   })
   return await add
 }

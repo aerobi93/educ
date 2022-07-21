@@ -16,9 +16,8 @@ export const  create = async (data: Iresults, autorization: any) => {
       status
     }
   }
-
   let newData = {
-    ...data,
+    ...data
   }
   await createResults(newData)
   try {

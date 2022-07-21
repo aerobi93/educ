@@ -45,17 +45,17 @@ const Calculated  = ({seconde, minute,  childrenData, exercices, sentExercices, 
 
 
   useEffect(() => {
-    if( begin && (exercices.length == 0 && resultExercices.length > 0) || (typeExercise === "exam" && minute === 0 && seconde === 0 && exercices.length > 0) )  {
+    if( begin && !finish && (exercices.length == 0 && resultExercices.length > 0) || (typeExercise === "exam" && minute === 0 && seconde === 0 && exercices.length > 0) )  {
       // if  have no response in 20 min
       if (resultExercices.length == 0 && exercices.length > 0){ setBegin(); return} 
       // save note 
       let note = resultExercices.filter((element) =>  element.result === "ok").length
       setFinish(<div className="interface__finish--text">note a l'exercice : {note}/{repetition}</div>)
-      
+      typeExercise === "exam" ?  sentAverage(note) : sentAverage(note * 2)
       setTimeout(() => {
-        setFinish("")
-        sentAverage(note + '/'+repetition)
         setBegin()
+        setFinish("")
+       
       }, 1000 * 3)
     }
   }, [exercices, resultExercices, minute ,seconde] )

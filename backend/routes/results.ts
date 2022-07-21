@@ -9,9 +9,12 @@ import { deleteR } from "../controllers/results/resultsDeletes";
 const router = new Router()
 
 router.post('/results/add', async (ctx) => {
+  console.log(ctx.body)
   const { status, message} : any= await create(ctx.request.body, ctx.request.header.token)
+  
   ctx.body = message
   ctx.status = status
+  
 })
 router.get('/results/findAll', async (ctx) => {
   const { status, message} : any= await findAll(ctx.request.header.token)

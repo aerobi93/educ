@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Interface from '../../components/interface';
 
-import { saveResult, getCategories, changeLoading, begin, setMinute, setSeconde } from '../../action';
+import { saveResult, getCategories, changeLoading, begin, setMinute, setSeconde, sentAverage } from '../../action';
 
 const mapStatetoProps = (state) => ({
     exercices: state.exercices,
@@ -11,13 +11,13 @@ const mapStatetoProps = (state) => ({
     begin : state.begin,
     average : state.average,
     minute : state.minute,
-    seconde : state.seconde
+    seconde : state.seconde,
   })
   
   const mapDispatchtoProps = (dispatch) => ({
 
-    saveResult : (name, typeExercise, timerest) => {
-      dispatch(saveResult(name, typeExercise, timerest))
+    saveResult : (timerest, name, exam, category, note) => {
+      dispatch(saveResult(timerest, name, exam, category, note))
     },
     getCategories : () => {
       dispatch(getCategories())
@@ -33,7 +33,10 @@ const mapStatetoProps = (state) => ({
     },
     setSeconde : (value) => {
       dispatch(setSeconde(value))
-    }
+    },
+    sentAverage : (value) => {
+      dispatch(sentAverage(value))
+    },
   })
   
   export default connect(mapStatetoProps, mapDispatchtoProps)(Interface)
