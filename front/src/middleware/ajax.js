@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT, getCategories, GET_CATEGORIES, setCategories} from '../action';
-import Delete from '../components/account/delete';
+
 
 const ajax = (store) => (next) => (action) =>  {
   let token = window.localStorage.getItem('token')
@@ -191,7 +191,10 @@ const ajax = (store) => (next) => (action) =>  {
         store.dispatch(changeLoading())
       })
     }
+    break
+
     default: next(action)
   }
+  
 }
 export default ajax

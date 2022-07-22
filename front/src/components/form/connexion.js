@@ -1,12 +1,19 @@
 import React, { useState, useEffect} from "react";
 import Input from "../../container/form/input";
-
+import { useLocation, useNavigate } from 'react-router-dom'
 import {faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
 
-const Connexion = ({password,  loading, sendFormConnexion, changeLoading}) => {
+const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email}) => {
   const [passwordError, setPasswordError] = useState()
   const [typeError, setTypeError] = useState()
-  
+  const link = useLocation()
+  const nav = useNavigate()
+
+  useEffect(() => {
+    if(link.pathname.includes("form/connexion") && email=="") {
+      nav("/")
+    }
+  }, [])
 
   useEffect(() => {
     if(password.trim() !== "") {

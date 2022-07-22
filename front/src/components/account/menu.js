@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink }) => {
+const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPassword }) => {
   
   const nav = useNavigate()
 
@@ -13,28 +13,32 @@ const Menu = ({ role, changeDisplay, displayResult, displayAddChild, sentNewLink
    let confirm = window.confirm(text )
    if(!confirm) {return}
    if (value === "password"  || value === "delete"&& confirm) {
-    if (value === "password"){ sentNewLink("passwordForgotten")}
-    else if(value === "delete"){sentNewLink("delete")}
+    if (value === "password"){
+      sentAskPassword("password")
+    }
+    else if(value === "delete"){
+      sentAskPassword("delete")
+    }
    
-    window.localStorage.removeItem('token')
-    nav('/') 
    }
    
    if (value === "email" && confirm) {
-    nav('/form/changeMail') 
+    sentAskPassword("changeEmail")
    }
 
   }
-  const handlerDisplay = (value) => {
-    // every one open
-    changeDisplay("displayAddChild",  !displayAddChild)
-    changeDisplay("displayResult",  !displayResult)
-   
+  const handlerDisplay = () => {
+    if(displayAddChild == true ) {
+      console.log('true menu')
+      changeDisplay("displayAddChild",  !displayAddChild)
+      changeDisplay("displayResult",  !displayResult)
+    }
+    else sentAskPassword("changeDisplay")
   }
 
   return(
     <div className="account__menu">
-      { role === "parent" &&  <div className="account__menu--link" onClick={() => handlerDisplay("child")}>
+      { role === "parent" &&  <div className="account__menu--link" onClick={() => handlerDisplay()}>
         ajouter un compte enfant
       </div> }
   

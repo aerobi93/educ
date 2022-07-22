@@ -36,7 +36,7 @@ const App =  ({ student, messageAjax, status, loading, changeLoading, findAllDat
   useEffect(() => {
     if (messageAjax === 'utilisateur trouvé') { navigate('/form/connexion')}
     else if (messageAjax === 'aucun utilisateur') { navigate('/form/register')}
-    else if (status === 401 && !link.pathname.includes('form') ) {navigate('/401')}
+    else if (status === 401 && !link.pathname.includes('form') && !link.pathname.includes("account/home")) {navigate('/401')}
     else if (status === 403 ) {navigate('/403')}
     
     else if(messageAjax === "validate" && status == 200){

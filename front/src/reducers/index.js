@@ -1,5 +1,5 @@
 
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE, SET_MINUTE, SET_SECONDE} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE, SET_MINUTE, SET_SECONDE, SENT_ASK_PASSWORD} from "../action"
 
 const initialState = {
   password: "",
@@ -12,7 +12,7 @@ const initialState = {
   statusRequest:"",
   loading: false,
   connected : false,
-  displayResult : false,
+  displayResult : true,
   displayAddChild : false,
   exercices : "",
   exercicesFinished : "", 
@@ -22,6 +22,7 @@ const initialState = {
   average : "",
   minute : 0,
   seconde : 0,
+  askLogin : ""
 }
 
 const reducer = (state = initialState, action = {})  => {
@@ -136,6 +137,12 @@ const reducer = (state = initialState, action = {})  => {
   return {
     ...state,
     seconde : action.value
+  }
+
+  case SENT_ASK_PASSWORD : 
+  return {
+    ...state,
+    askLogin : action.value
   }
   default: 
     return {

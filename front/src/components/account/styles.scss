@@ -75,4 +75,24 @@
 
     }
   }
+  &__askLogin {
+    margin-left: vars.$margin;
+    display: flex;
+    flex-direction: column;
+
+    &--title {
+      margin-bottom: vars.$margin;
+      text-align: center;
+      line-height: 2.5rem;
+      font-family: vars.$basker;
+      font-size: vars.$fontSize * 1.25;
+    }
+    &--error {
+      font-weight: bolder;
+      color: red;
+      text-align: center;
+      margin: vars.$margin 0;
+      font-size: vars.$fontSize * 1.25;
+    }
+  }
 }

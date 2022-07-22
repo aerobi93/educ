@@ -1,7 +1,7 @@
 import React,  { useEffect, useState }from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {faUser, faCakeCandles} from "@fortawesome/free-solid-svg-icons";
-import { encode } from "base-64";
+import Connexion from "../../container/form/connexion";
 
 import './styles.scss'
 
@@ -13,17 +13,48 @@ import Spinner from "../loader/spin";
 import { getAge } from "../../utils";
 
 
-const Account = ({ role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData }) => {
+const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
+  const [displayLogin, setDisplayLogin] = useState()
+  const [displayLoginError, setDisplayLoginError] = useState()
+  const nav = useNavigate()
+  
   useEffect(() => {
-    changeLoading()
-    findAllData()
-    changeDisplay("displayAddChild", false)
-    changeDisplay("displayResult", true)
+    if (messageAjax !== "connection ok" && messageAjax!== 'erreur de mot de passe') {
+      changeLoading()
+      findAllData()
+    }
+    if(messageAjax === "erreur de mot de passe") {
+      setDisplayLoginError(true) 
+      changeMessageRequest("")
+      changeValue("", "password")
+      setTimeout(() => {
+        setDisplayLoginError(false)    
+      }, 1000 * 4)
+    }
+
+    if(messageAjax === "connexion ok") {
+      console.log('ok')
+      if(askLogin === "password" || askLogin === "delete") {
+        askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
+        window.localStorage.removeItem('token')
+        nav('/') 
+      }
+      else if(askLogin ==="changeEmail") {
+          nav('/form/changeMail') 
+      }
+      else if(askLogin == "changeDisplay") {
+        console.log(displayResult, displayAddChild)
+          changeDisplay("displayAddChild",  !displayAddChild)
+          changeDisplay("displayResult",  !displayResult) 
+      }
+      sentAskPassword('')
+      changeMessageRequest("")
+    }
+    
   }, [messageAjax])
- 
 
   useEffect(()=> {
     if (nameChild !=='') { setNameChildError(false)}
@@ -48,7 +79,12 @@ const Account = ({ role, loading, changeLoading,changeDisplay, displayAddChild, 
       sendFormRegisterChildren() 
     }
   }
-
+  useEffect(() => {
+    if(askLogin) {
+      setDisplayLogin(true)
+    }
+    if(!askLogin) {setDisplayLogin(false)}
+  }, [askLogin])
 
   return (
     <>
@@ -57,7 +93,13 @@ const Account = ({ role, loading, changeLoading,changeDisplay, displayAddChild, 
     {(data && !error && !loading)  &&  
     <div className="account">
       <Menu />
-      <div className="account__container">
+      {displayLogin &&
+       <div className="account__askLogin">
+      <div className="account__askLogin--title">Accés restreint au parent <br />veillez entrez votre mot de passe </div>
+      {displayLoginError && <div className="account__askLogin--error">Autorisation refusée</div>}
+      <Connexion />
+      </div> }
+     {!displayLogin && <div className="account__container">
         {displayAddChild && 
           <form className="account__form" onSubmit={(evt)=> handlerSubmit(evt)}>
             
@@ -104,6 +146,7 @@ const Account = ({ role, loading, changeLoading,changeDisplay, displayAddChild, 
           </>
         }
       </div>
+      }
     </div>}
    </>
   )

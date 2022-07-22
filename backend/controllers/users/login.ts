@@ -4,10 +4,33 @@ import bcrypt from "bcryptjs"
 import { Iuser } from "../../interfaceTS";
 import { login } from "../../services/login";
 import JWTcreation from "../../middleware/createJWT";
+import verifyJWT from "../../middleware/authJWt";
+import { findmail } from "../../services/user";
 
 
 const prisma  = new PrismaClient()
-export const loginController = async(data : Iuser) => {
+export const loginController = async(data : Iuser, autorization: any) => {
+  if( !data.email ) {
+    let token = autorization
+    console.log(token, "token")
+    const  verif = await verifyJWT(token!)
+    const  {status, message, id} : any = await verif 
+    if (await status !== 200 || !id) { 
+      return {
+        message,
+        status
+      }
+    }
+    let ID = {
+      id
+    }
+    let {email}: any= await findmail(ID)
+    data = {
+      ...data,
+      email
+    }
+  }
+
   if (!data.password || !data.email) {
     return  {
       message : "l'email ou le mot de passe ne peut pas être vide ",

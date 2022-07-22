@@ -43,7 +43,7 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
   return (
     <div className="form">
       <div className="form__flexTitle">
-       {typeForm != '' && <div className="form__title">connection/insciption</div>}
+       {typeForm != '' && <div className="form__title">{typeForm =="changeMail" ? "modifier mon email" : "connection/insciption" }</div>}
       </div>
 
       {message !== "" && status !== 200  && <div className="form__message"> {message} </div>} 
