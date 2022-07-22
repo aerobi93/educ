@@ -4,7 +4,7 @@ import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHI
 
 const ajax = (store) => (next) => (action) =>  {
   let token = window.localStorage.getItem('token')
-  axios.defaults.baseURL ='http://localhost:7000'
+  axios.defaults.baseURL ='http://localhost:5000'
   axios.defaults.headers.common = {
     "type" : 'JWT, json/application',
     "token": `${token}`,
@@ -168,7 +168,7 @@ const ajax = (store) => (next) => (action) =>  {
         exam : action.exam ,
         note: action.note,
         timeRest : action.timerest, 
-        userID : action.idChild, 
+        userID : store.getState().childId, 
         contentName : action.category,
       })
       .then((response) => {

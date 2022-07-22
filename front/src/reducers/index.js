@@ -4,6 +4,7 @@ import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET
 const initialState = {
   password: "",
   email:"",
+  childId : "",
   birthday:"",
   nameChild: "",
   role:"",
@@ -22,7 +23,9 @@ const initialState = {
   average : "",
   minute : 0,
   seconde : 0,
-  askLogin : ""
+  askLogin : "",
+  displayResultExercices : false
+ 
 }
 
 const reducer = (state = initialState, action = {})  => {

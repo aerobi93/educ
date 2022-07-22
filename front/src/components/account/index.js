@@ -7,13 +7,13 @@ import './styles.scss'
 
 import Input from "../../container/form/input";
 import Menu from "../../container/account/menu";
-import Result from "./result";
+import Result from "../../container/account/result";
 import Spinner from "../loader/spin";
 
 import { getAge } from "../../utils";
 
 
-const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue }) => {
+const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
@@ -36,7 +36,6 @@ const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displ
     }
 
     if(messageAjax === "connexion ok") {
-      console.log('ok')
       if(askLogin === "password" || askLogin === "delete") {
         askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
         window.localStorage.removeItem('token')
@@ -46,7 +45,6 @@ const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displ
           nav('/form/changeMail') 
       }
       else if(askLogin == "changeDisplay") {
-        console.log(displayResult, displayAddChild)
           changeDisplay("displayAddChild",  !displayAddChild)
           changeDisplay("displayResult",  !displayResult) 
       }
@@ -85,7 +83,6 @@ const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displ
     }
     if(!askLogin) {setDisplayLogin(false)}
   }, [askLogin])
-
   return (
     <>
     {loading &&  <div className="account__loading"><Spinner /></div>}
@@ -137,8 +134,7 @@ const Account = ({sentNewLink, role, loading, changeLoading,changeDisplay, displ
                 data.student.map((child) => (
                   <div  className="account__result--flex" key = {child.name}>
                     <Result data ={child} role = {role} /> 
-                    <Link className= "account__result--link" to={`/account/exercise/simulation/${child.id}`}>s'entrainer</Link>
-                    <Link className= "account__result--link" to={`/account/exercise/exam/${child.id}`}>mode examen</Link>
+                   
                   </div>
                 ))
               

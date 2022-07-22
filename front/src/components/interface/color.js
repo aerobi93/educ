@@ -18,7 +18,6 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
  //end exercices
   useEffect(() => {
     if(begin && !finish && (exercices.length === 0 && ((badResponse + goodResponse == 20 && typeExercise == "exam") || (badResponse + goodResponse == 10 && typeExercise == "simulation") ) || (typeExercise === "exam" && minute === 0 && seconde === 0 && exercices.length > 0))) {
-      console.log("test")
       if (exercices.length == 20 && minute === 0 && seconde == 0 && typeExercise== "exam") {setBegin() ;return}  
       setFinish(<div className="interface__finish--text">note a l'exercice : {goodResponse}/20 </div>)
       typeExercise === "exam" ?  sentAverage(goodResponse) : sentAverage(goodResponse * 2)

@@ -12,6 +12,7 @@ const mapStatetoProps = (state) => ({
     average : state.average,
     minute : state.minute,
     seconde : state.seconde,
+    childId: state.childId
   })
   
   const mapDispatchtoProps = (dispatch) => ({

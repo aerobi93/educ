@@ -7,7 +7,8 @@ const mapStatetoProps = (state) => ({
  role : state.role,
  displayResult : state.displayResult,
  displayAddChild : state.displayAddChild,
- askLogin : state.askLogin
+ askLogin : state.askLogin,
+ childId : state.childId
 })
 
 const mapDispatchtoProps = (dispatch) => ({

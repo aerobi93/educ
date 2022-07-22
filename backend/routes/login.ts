@@ -7,6 +7,7 @@ router.post('/login', async(ctx) => {
   let {message, status} : any = await loginController(ctx.request.body, ctx.request.header.token)
   ctx.body = message
   ctx.status = +status
+  console.log(message)
 
 })
 

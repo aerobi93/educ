@@ -30,6 +30,7 @@ export const SET_MINUTE = "SET_MINUTE"
 export const SET_SECONDE = "SET_SECONDE"
 export const SENT_ASK_PASSWORD = "SENT_ASK_PASSWORD"
 
+
 export const changeValue = (value, name) =>({
   type: CHANGE_VALUE,
   value,
@@ -166,3 +167,4 @@ export const sentAskPassword = (value) => ({
   type : SENT_ASK_PASSWORD,
   value
 })
+

@@ -15,6 +15,7 @@
       color: vars.$titleColor;
   }
   &__title {
+    text-decoration: none;
       font-size: vars.$fontSize * 3;
       text-transform: capitalize;
       text-shadow: red 3px 3px;

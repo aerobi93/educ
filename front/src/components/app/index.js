@@ -17,7 +17,7 @@ import Interface from '../../container/interface';
 
 
 
-const App =  ({ student, messageAjax, status, loading, changeLoading, findAllData, isConnect }) => {
+const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect }) => {
   const navigate = useNavigate()
   const params = useParams()
   const link  = useLocation()
@@ -48,15 +48,8 @@ const App =  ({ student, messageAjax, status, loading, changeLoading, findAllDat
       changeAuth()
       navigate('/')
     }
-    //redirection if user key in params no found
-    if(link.pathname.includes("account/exercise/")) {
-      let split = link.pathname.split(/[/]/g)
-     if(!student) {navigate('/403'); return}
-      let countId = student.filter((element) => element.id == split[split.length - 1]).length
-      if(countId && countId > 0) {navigate('/403'); return }
-    }
+   
   }, [messageAjax]) 
-
   useEffect(() => {changeAuth()}, [link.pathname])
   return (
     
@@ -75,7 +68,7 @@ const App =  ({ student, messageAjax, status, loading, changeLoading, findAllDat
             <Route exact path='/403' element={<Error403 /> } /> 
             <Route exact path='/account/home' element={authenticate === "logged" ? <Account /> :   <Navigate replace to="/403" />} />
             <Route exact path='/account/delete' element={<Delete /> } />
-            <Route exact path='/account/exercise/:type/:id' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
+            <Route exact path='/account/exercise/:type' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
           
             <Route  path='/404' element={<Error404 /> } /> 
             <Route  path='*' element={<Navigate replace to="/404" /> } />

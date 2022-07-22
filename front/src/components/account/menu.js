@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
-const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPassword }) => {
+
+
+const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPassword, childId }) => {
   
   const nav = useNavigate()
 
@@ -29,7 +31,6 @@ const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPass
   }
   const handlerDisplay = () => {
     if(displayAddChild == true ) {
-      console.log('true menu')
       changeDisplay("displayAddChild",  !displayAddChild)
       changeDisplay("displayResult",  !displayResult)
     }
@@ -38,6 +39,10 @@ const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPass
 
   return(
     <div className="account__menu">
+      {childId &&  <Link className= "account__menu--link  account__menu--red" to={`/account/exercise/simulation`}>s'entrainer</Link>}
+      {childId &&  <Link className= "account__menu--link  account__menu--red" to={`/account/exercise/exam`}>mode examen</Link>}
+
+
       { role === "parent" &&  <div className="account__menu--link" onClick={() => handlerDisplay()}>
         ajouter un compte enfant
       </div> }

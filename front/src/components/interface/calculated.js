@@ -3,7 +3,7 @@ import { createAlgo } from "../../utils"
 import { useParams } from "react-router-dom"
 import { getAge } from "../../utils"
 
-const Calculated  = ({seconde, minute,  childrenData, exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue,begin, setBegin,sentAverage }) => {
+const Calculated  = ({childId, seconde, minute,  childrenData, exercices, sentExercices, resultExercices, sentResultExercices,responseNewValue, setResponseNewValue,begin, setBegin,sentAverage }) => {
   let [finish , setFinish] = useState()
 
   const  params = useParams()
@@ -11,7 +11,7 @@ const Calculated  = ({seconde, minute,  childrenData, exercices, sentExercices, 
   const  repetition = typeExercise === "simulation" ?  10 : 20
   
   // with id params get name and age of the child
-  const child = childrenData.filter((element) => element.id === params.id)
+  const child = childrenData.filter((element) => element.id === childId)
   const childage = getAge(child[0].birthday)
  
 

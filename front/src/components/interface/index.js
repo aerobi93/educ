@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams} from "react-router"
+import { useNavigate, useParams} from "react-router"
 
 
 
@@ -9,7 +9,7 @@ import Color from "../../container/interface/color"
 
 import './styles.scss'
 
-const Interface =  ({sentAverage, exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
+const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
   const params = useParams()
   const typeExercise = params.type
   const [choiceCategory, setChoiceCategory] = useState()
@@ -17,13 +17,18 @@ const Interface =  ({sentAverage, exercices, minute, seconde, setMinute, setSeco
 
   const [minuteState, setMinuteState] = useState()
   const [secondeState, setSecondeState] = useState()
-
+  const nav = useNavigate()
+  useEffect(() => {
+    if(!childId) {
+      nav("/")
+    }
+  }, [])
   useEffect(() => {
     if(average !== "") {
 
       let timerest = 'fait en '
       typeExercise == "simulation" ? timerest+= minute + 'minute et ' + seconde + " seconde": timerest +=(20 - minute) + 'minute et ' + (60 - seconde) + " seconde"
-      saveResult(timerest, params.id, typeExercise === "exam", choiceCategoryID, average)
+      saveResult(timerest, typeExercise === "exam", choiceCategoryID, average)
       setChoiceCategory()
       sentAverage("")
     

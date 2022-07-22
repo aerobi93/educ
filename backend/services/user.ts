@@ -24,7 +24,22 @@ export const findAll = async (id: string, role : "student" | "parent") => {
           id : true,
           name : true,
           birthday: true,
-          results : true
+          results : {
+            select : {
+              content : {
+                select : {
+                  name : true,
+                  
+                }
+              },
+              exam : true,
+              note : true,
+              date : true, 
+              timeRest : true,
+
+              
+            },
+          }
         },
       }
     }

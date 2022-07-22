@@ -9,7 +9,8 @@ const mapStateToProps = (state) => ({
   begin : state.begin,
   childrenData : state.data.student,
   minute : state.minute,
-  seconde : state.seconde
+  seconde : state.seconde,
+  childId: state.childId
 })
 
 const mapDispatchToProps = (dispatch) => ({

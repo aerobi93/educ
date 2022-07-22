@@ -13,6 +13,7 @@ const mapStatetoProps = (state) => ({
  displayAddChild : state.displayAddChild,
  messageAjax : state.messageRequest,
  askLogin : state.askLogin,
+ childId : state.childId
 })
 
 const mapDispatchtoProps = (dispatch) => ({
