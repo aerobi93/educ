@@ -1,22 +1,27 @@
 import react, { useEffect } from "react"
 import { useState } from "react"
 
-const Result  = ({ data, role, changeValue, childId, displayResultExercices, changeDisplay, allCategories, getCategories}) => {
+
+const Result  = ({ data, role, changeValue, childId, displayResultExercices, changeDisplay, allCategories, getCategories, sentAskPassword}) => {
 
   const [categories, setCategories] = useState("all")
   const [SliceresultExercices, setSliceExercices] = useState()
   const [toogleExam, setToogleExam] = useState(true)
 
   useEffect(() => {
-   console.log("ttogle")
+    if(!allCategories) {
+       getCategories()
+    }
+   
+  }, [])
+  useEffect(() => {
     let resultExamChild = []
     let resultExercicesChild = []
-
     data.results.map((element) => {
       if (categories === "all") {
         element.exam === true ? 
           resultExamChild.push(element) : 
-          resultExercicesChild.push(element)
+          resultExercicesChild.push(element) 
       }
       else {
         if(element.content.name === categories) {
@@ -26,19 +31,18 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
         }
       }
     })
-    toogleExam ? setSliceExercices(resultExamChild.slice(0,10)) :  setSliceExercices(resultExercicesChild.slice(0, 10))
-  }, [categories, toogleExam])
+    toogleExam ? setSliceExercices(resultExamChild.reverse().slice(0,10)) :  setSliceExercices(resultExercicesChild.reverse().slice(0, 10))
+  }, [categories, toogleExam, data])
 
-  useEffect(() => {
-    getCategories()
-  }, [])
+
 
   const handlerChange = (evt) => {
     setCategories(evt.target.value)
   }
   return (
 		<div className= "account__result--container">
-			<div className= "account__result--name" onClick={() => changeValue(data.id, "childId")}>
+			<div className= "account__result--name" onClick={() => {
+        childId ? sentAskPassword({id : data.id}) :  changeValue(data.id, "childId")}}>
 				{role === "student" ? "mes resultats" : `voir le profil de ${data.name}` }
 			</div>
 
@@ -62,32 +66,38 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
             }
             </select>
             <table className="account__result--flexRow">
-              <tr>
-                <th colspan = "2" className="account__result--toogleExam" onClick={() => setToogleExam(true)}> resultats d'examen</th>
-                <th colspan="2"className="account__result--toogleExam" onClick={() => setToogleExam(false)}> resultats au exercices</th>
+              <tbody>
+                  <tr>
+                <th colSpan = "2" className="account__result--toogleExam" onClick={() => setToogleExam(true)}> resultats d'examen</th>
+                <th colSpan="2" className="account__result--toogleExam" onClick={() => setToogleExam(false)}> resultats au exercices</th>
               </tr>
-              <tr>
+              </tbody>
+            
+             { SliceresultExercices &&  SliceresultExercices.length > 0 &&  
+             <tbody>
+             <tr>
                 <th>date</th> 
                 <th>matiére</th>
                 <th>temp mis</th>
                 <th>note</th>
               </tr>
                 {
-                  SliceresultExercices.map((element) =>  {
+                  SliceresultExercices &&  SliceresultExercices.map((element, index) =>  {
                     let newDate  = new Date(element.date)
                     return (
-                      <tr>
-                        <td>{'le ' + newDate.getDay() + "/"+ newDate.getMonth() + "/" + newDate.getFullYear()}</td>
+                      <tr key={index}>
+                        <td>{'le ' + newDate.getUTCDate() + "/"+ newDate.getMonth() + "/" + newDate.getFullYear()}</td>
                         <td>{element.content.name}</td>
                         <td>{element.timeRest}</td>
                         <td className={element.note > 10 ? "account__note--green" : "account__note--red"}>{element.note}</td>
                       </tr>
                     )
-                  }
+                  })
+                  } 
                   
-                  )
+                  </tbody>
                 }
-             
+             {SliceresultExercices &&  SliceresultExercices.length == 0 && <tr><td colSpan="4" > aucun resultat</td></tr>} 
             </table>
 
             </>

@@ -12,7 +12,6 @@ const prisma  = new PrismaClient()
 export const loginController = async(data : Iuser, autorization: any) => {
   if( !data.email ) {
     let token = autorization
-    console.log(token, "token")
     const  verif = await verifyJWT(token!)
     const  {status, message, id} : any = await verif 
     if (await status !== 200 || !id) { 

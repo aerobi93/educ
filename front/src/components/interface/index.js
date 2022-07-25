@@ -26,11 +26,14 @@ const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute
   useEffect(() => {
     if(average !== "") {
 
-      let timerest = 'fait en '
-      typeExercise == "simulation" ? timerest+= minute + 'minute et ' + seconde + " seconde": timerest +=(20 - minute) + 'minute et ' + (60 - seconde) + " seconde"
+      
+      let timerest =  typeExercise == "simulation" ? 
+        timerest= "fait en " +minute + 'minute et ' + seconde + " seconde":
+        timerest = "temp restant: " + minute + " minute et " + seconde + "seconde sur 20 minutes"
       saveResult(timerest, typeExercise === "exam", choiceCategoryID, average)
       setChoiceCategory()
       sentAverage("")
+      nav('/')
     
     }
   }, [average])

@@ -126,10 +126,9 @@ export const setResponseNewValue = (value) => ({
   type : SET_RESPONSE_NEW_VALUE,
   value
 })
-export const saveResult = (timerest, idChild, exam, category, note) => ({
+export const saveResult = (timerest, exam, category, note) => ({
   type : SAVE_RESULT,
   timerest, 
-  idChild,
   exam,
   category,
   note

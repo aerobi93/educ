@@ -17,8 +17,8 @@ const mapStatetoProps = (state) => ({
   
   const mapDispatchtoProps = (dispatch) => ({
 
-    saveResult : (timerest, name, exam, category, note) => {
-      dispatch(saveResult(timerest, name, exam, category, note))
+    saveResult : (timerest, exam, category, note) => {
+      dispatch(saveResult(timerest, exam, category, note))
     },
     getCategories : () => {
       dispatch(getCategories())

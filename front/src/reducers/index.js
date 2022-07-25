@@ -124,8 +124,7 @@ const reducer = (state = initialState, action = {})  => {
         ...state,
         begin : !state.begin,
         exercices : "",
-        exercicesFinished : "", 
-        allCategories : "",
+        exercicesFinished : "",
         responseNewValue : ""
       }
    

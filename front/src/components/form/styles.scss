@@ -19,7 +19,12 @@
   &__connexion, &__register {
     width: 100%;
   }
-
+  &__messagError{
+    color: red;
+    margin: 1rem 0;
+    font-size: 1rem;
+    text-align: center;
+  }
   &__flexInput {
     display: flex;
     flex-wrap: wrap;

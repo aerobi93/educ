@@ -9,7 +9,6 @@ import { deleteR } from "../controllers/results/resultsDeletes";
 const router = new Router()
 
 router.post('/results/add', async (ctx) => {
-  console.log(ctx.body)
   const { status, message} : any= await create(ctx.request.body, ctx.request.header.token)
   
   ctx.body = message

@@ -7,7 +7,8 @@ export const login = async (data : Iuser) =>  {
   const {email} = data
     const user =  prisma.users.findFirst({
       where : {
-        email
+        email, 
+        childId : null
       },
       select : {
        id : true,

@@ -23,6 +23,10 @@ const ChangePassword = ({password,  loading, updateUser, changeLoading}) => {
      setPasswordError('mot de passe non conforme')
      setTypeError('password')
     }
+    else if (!password.match(/[A-Z]+[a-z]+[0-9]/g)) {
+      setTypeError("password")
+      setPasswordError("le mot de passe doit obligatoirement contenir  Majuscule, 1 minuscule, 1 chiffre et un caractere special")
+    }
     else {
       changeLoading()
       updateUser()

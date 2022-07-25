@@ -19,6 +19,7 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
   const [birthdaydError, setBirthdayError] = useState()
   const [displayLogin, setDisplayLogin] = useState()
   const [displayLoginError, setDisplayLoginError] = useState()
+  const [displayMessage, setDisplayMessage] = useState()
   const nav = useNavigate()
   
   useEffect(() => {
@@ -30,6 +31,7 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
       setDisplayLoginError(true) 
       changeMessageRequest("")
       changeValue("", "password")
+      
       setTimeout(() => {
         setDisplayLoginError(false)    
       }, 1000 * 4)
@@ -38,8 +40,13 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
     if(messageAjax === "connexion ok") {
       if(askLogin === "password" || askLogin === "delete") {
         askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
-        window.localStorage.removeItem('token')
-        nav('/') 
+        setDisplayMessage("vous allez recevoir un mail dans quelque instant")
+        setTimeout(() => {
+          setDisplayMessage("")
+          window.localStorage.removeItem('token')
+          nav('/')
+        }, 1000 * 4)
+        
       }
       else if(askLogin ==="changeEmail") {
           nav('/form/changeMail') 
@@ -47,6 +54,9 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
       else if(askLogin == "changeDisplay") {
           changeDisplay("displayAddChild",  !displayAddChild)
           changeDisplay("displayResult",  !displayResult) 
+      }
+      else if(askLogin.id) {
+        changeValue( askLogin.id, "childId")
       }
       sentAskPassword('')
       changeMessageRequest("")
@@ -87,7 +97,8 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
     <>
     {loading &&  <div className="account__loading"><Spinner /></div>}
     {error  &&  <div className="account__errorText">{error}</div>}
-    {(data && !error && !loading)  &&  
+    {displayMessage && <div className="account__errorText">{displayMessage}</div>}
+    {(data && !error && !loading && !displayMessage)  &&  
     <div className="account">
       <Menu />
       {displayLogin &&
@@ -120,7 +131,7 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
              <button className="form__submit">enregistrer</button>
           </form>
         }
-        { displayResult && 
+        { (displayResult && data) && 
           <>
             {
               role === "student" ? 
@@ -134,7 +145,6 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
                 data.student.map((child) => (
                   <div  className="account__result--flex" key = {child.name}>
                     <Result data ={child} role = {role} /> 
-                   
                   </div>
                 ))
               
