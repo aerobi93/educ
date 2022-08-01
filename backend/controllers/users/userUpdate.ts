@@ -3,7 +3,7 @@ import { update, findmail } from "../../services/user";
 import { IuserUpdate } from "../../interfaceTS";
 import verifyJWT from "../../middleware/authJWt";
 
-import {sendMailCreate, sendMailChangePassword} from "../../config/configMail";
+import {sendMailCreate, sendMailChangePassword} from "../../config/mail";
 import { generateString } from "../../utils";
 import bcrypt from "bcryptjs"
 

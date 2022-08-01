@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { sendNewCodevalidation } from "../../config/configMail";
+import { sendNewCodevalidation } from "../../config/mail";
 import { InewValidationCode  } from "../../interfaceTS";
 import { update, findmail } from "../../services/user";
 import { generateString } from "../../utils";
@@ -28,7 +28,7 @@ export const newCodeController =  async(data :InewValidationCode, token: any ) =
     found = await findmail(data)
   }
 
-
+  console.log(type, "test")
   let newData = {
     email : email ? email : found.email,
     validate: type === "validate"  ? 

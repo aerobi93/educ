@@ -1,5 +1,5 @@
 import {PrismaClient } from "@prisma/client";
-import {sendMailCreate} from "../../config/configMail";
+import {sendMailCreate} from "../../config/mail";
 import {generateString} from '../../utils'
 import bcrypt from "bcryptjs"
 import { Iuser } from "../../interfaceTS";

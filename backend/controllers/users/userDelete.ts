@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { deleteU , findmail} from "../../services/user";
 import verifyJWT from "../../middleware/authJWt";
-import { sendMailDelete } from "../../config/configMail";
+import { sendMailDelete } from "../../config/mail";
 
 const prisma = new PrismaClient()
 

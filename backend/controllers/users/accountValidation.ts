@@ -7,7 +7,6 @@ import { update } from "../../services/user";
 const prisma  = new PrismaClient()
 
 export const accountValidationController = async(data : InewValidationCode) =>  {
-
  await accountValidation(data)
   try {
     let {id, role }: any = await accountValidation(data)
