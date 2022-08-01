@@ -27,7 +27,7 @@ const Register = ({ password, changeValue, birthday, role, sendFormRegister, cha
   const handlerSubmit = (evt) => {
     evt.preventDefault()
     if(password.trim() == "") {setPassordError(true)}
-    else if(!password.match(/[A-Z]+[a-z]+[0-9]/g)) {
+    else if(!password.match(/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g)) {
       setErrorToDisplay(true)
       setTimeout(() => {
         setErrorToDisplay(false)
@@ -56,7 +56,7 @@ const Register = ({ password, changeValue, birthday, role, sendFormRegister, cha
 
         {errorToDisplay && <div className="form__messagError">
           le mot de passe doit obligatoirement contenir : <br/>
-          Une majuscule, Une minuscule et Un chiffre
+          Une majuscule, Une minuscule et Un chiffre et un minimum de 10 caractére
          </div>}   
         <div className="form__eyes" onMouseDown={() => setOpenEyes(!openEyes)} onMouseUp={() => setOpenEyes(!openEyes)} >
           { openEyes &&  <FontAwesomeIcon icon={faEye} className="form__ico" />}
