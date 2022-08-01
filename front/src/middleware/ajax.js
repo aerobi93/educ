@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT, getCategories, GET_CATEGORIES, setCategories, changeDisplay} from '../action';
+import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT, getCategories, GET_CATEGORIES, setCategories, changeDisplay, DELETE_CHILD, changeValue} from '../action';
 
 
 const ajax = (store) => (next) => (action) =>  {
@@ -21,7 +21,6 @@ const ajax = (store) => (next) => (action) =>  {
         store.dispatch(changeLoading())
       })
       .catch((err) => {
-        console.log(err)
         store.dispatch(changeMessageRequest(err.request.response, err.request.status))
         store.dispatch(changeLoading())
       })
@@ -99,7 +98,6 @@ const ajax = (store) => (next) => (action) =>  {
         store.dispatch(changeLoading())
       })
       .catch((err)=> {
-        console.log(err.request.status)
         store.dispatch(changeMessageRequest(err.request.response,err.request.status))
         store.dispatch(changeLoading())
         
@@ -190,6 +188,20 @@ const ajax = (store) => (next) => (action) =>  {
       })
       .catch((e) => {
         store.dispatch(changeLoading())
+      })
+    }
+    break
+
+    case DELETE_CHILD : {
+      axios.post("/user/deleteChild", {id : store.getState().childId})
+      .then((response) => {
+        store.dispatch((changeLoading()))
+        store.dispatch(changeMessageRequest(response.data,response.status))
+        store.dispatch(changeValue("", "childId"))
+      }) 
+      .catch((err) => {
+        changeLoading()
+        store.dispatch(changeMessageRequest(err.request.response,err.request.status))
       })
     }
     break

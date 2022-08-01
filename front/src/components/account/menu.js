@@ -1,7 +1,5 @@
 import { useNavigate, Link } from "react-router-dom"
 
-
-
 const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPassword, childId }) => {
   
   const nav = useNavigate()
@@ -21,13 +19,11 @@ const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPass
     else if(value === "delete"){
       sentAskPassword("delete")
     }
-   
    }
    
    if (value === "email" && confirm) {
     sentAskPassword("changeEmail")
    }
-
   }
   const handlerDisplay = () => {
     if(displayAddChild == true ) {

@@ -29,6 +29,8 @@ export const SET_TIMER = "SET_TIMER"
 export const SET_MINUTE = "SET_MINUTE"
 export const SET_SECONDE = "SET_SECONDE"
 export const SENT_ASK_PASSWORD = "SENT_ASK_PASSWORD"
+export const SET_WIDTH_WINDOW = "SET_WITH_WINDOW"
+export const DELETE_CHILD = "DELETE_CHILD"
 
 
 export const changeValue = (value, name) =>({
@@ -167,3 +169,10 @@ export const sentAskPassword = (value) => ({
   value
 })
 
+export const setWidthWindow  = () => ({
+  type: SET_WIDTH_WINDOW,
+})
+
+export const deleteChild = () => ({
+  type : DELETE_CHILD,
+})

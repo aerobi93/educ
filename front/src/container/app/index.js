@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import App from "../../components/app";
 
-import { emptyFields, changeLoading, findAllData, isConnect } from "../../action"
+import { emptyFields, changeLoading, findAllData, isConnect, setWidthWindow } from "../../action"
 
 const mapStateToProps = (state) => ({
   messageAjax: state.messageRequest,
@@ -23,6 +23,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   isConnect : (value) => {
     dispatch(isConnect(value))
+  },
+  setWidthWindow : () => {
+    dispatch(setWidthWindow())
   }
 })
 

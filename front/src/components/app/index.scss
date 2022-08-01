@@ -6,6 +6,11 @@ body {
   background: linear-gradient( grey , white)
 }
 .app {
+  @media screen and (max-width : 800px) {
+    width: 100%;
+    margin: none;
+
+  }
   width: 80%;
   margin: auto;
   background: radial-gradient(grey, white);

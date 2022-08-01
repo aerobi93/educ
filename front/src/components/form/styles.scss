@@ -1,6 +1,10 @@
 @use 'src/styles/vars';
 
 .form {
+  @media screen and (max-width : 800px) {
+    width: 80%;
+    margin:0;
+  }
   width: 40%;
   height: 45vh;
   border: solid 1px rgb(114, 113, 113);

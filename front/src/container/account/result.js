@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Result from "../../components/account/result";
 
-import { changeValue, changeDisplay, getCategories, sentAskPassword } from "../../action";
+import { changeValue, changeDisplay, getCategories, sentAskPassword, deleteChild, changeLoading } from "../../action";
 
 const mapStateToProps = (state) => ({
   childId : state.childId,
@@ -22,6 +22,12 @@ const mapDispatchtoProps = (dispatch) => ({
   sentAskPassword : (value) => {
     dispatch(sentAskPassword(value))
   },
+  deleteChild : () => {
+    dispatch(deleteChild())
+  },
+  changeLoading : () => {
+    dispatch(changeLoading())
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Result)

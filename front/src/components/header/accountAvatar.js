@@ -3,14 +3,12 @@ import { Link, useNavigate }from 'react-router-dom'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { changeDisplay } from '../../action';
+
 
 const AccountAvatar = ({ isConnect, connected }) => {
   const [display, setDisplay] = useState(false)
 
-  useEffect(() => {
-    changeDisplay(connected)
-  }, [connected])
+
   const nav = useNavigate()
 
   const disconect = () => {
@@ -25,7 +23,7 @@ const AccountAvatar = ({ isConnect, connected }) => {
      </div>
      {(display && connected) && 
       <>
-        <Link to ="/account" className="header__avatar--link"> mon compte</Link>
+        <Link to ="/account/home" className="header__avatar--link"> mon compte</Link>
         <div className="header__avatar--link" onClick={() => disconect()}> deconnection</div>
       </>
      }

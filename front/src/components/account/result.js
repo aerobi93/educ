@@ -14,6 +14,7 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
     }
    
   }, [])
+
   useEffect(() => {
     let resultExamChild = []
     let resultExercicesChild = []
@@ -47,7 +48,7 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
 			</div>
 
       {childId === data.id  && <div className= "account__result--container">
-       
+       <div className="account__result--link"  onClick={() => sentAskPassword("deleteChild")}>supprime le compte de {data.name}</div>
         <div 
           className={`account__result--link ${displayResultExercices ? "account__result--open" : "account__result--close"}`}
           onClick={() => changeDisplay("displayResultExercices", !displayResultExercices)}

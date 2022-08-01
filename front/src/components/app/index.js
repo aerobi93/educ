@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, useLocation, Navigate, useParams } from 're
 
 import './index.scss'
 
-import Header from '../header';
+import Header from '../../container/header';
 import Footer from '../footer';
 import FormConnection from '../../container/form';
 import Validation from '../../container/validation';
@@ -17,7 +17,7 @@ import Interface from '../../container/interface';
 
 
 
-const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect }) => {
+const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect, setWidthWindow }) => {
   const navigate = useNavigate()
   const params = useParams()
   const link  = useLocation()
@@ -30,7 +30,6 @@ const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConne
       isConnect(true)
       findAllData()
     }
-
   }
 
   useEffect(() => {
@@ -47,9 +46,13 @@ const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConne
     else if (link.pathname.includes("connexion") && messageAjax === "connexion ok"){
       changeAuth()
       navigate('/')
-    }
-   
+   }
   }, [messageAjax]) 
+
+     
+  useEffect(() => {
+    setWidthWindow()
+  }, [window.innerWidth] )
   useEffect(() => {changeAuth()}, [link.pathname])
   return (
     

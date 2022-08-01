@@ -5,15 +5,26 @@
   flex-wrap: wrap;
   justify-content: center;
   height: 20vh;
+  position: relative;
   
   &__title, &__descript {
+    @media screen and (max-width : 800px) {
+      width: 70%;
+    }
+
       width: 100%;
       margin-top: vars.$margin;
       font-weight: bolder;
       font-family: vars.$penny;
       text-align: center;
       color: vars.$titleColor;
+      &--80 {
+        width: 50%;
+       
+      }
   }
+
+
   &__title {
     text-decoration: none;
       font-size: vars.$fontSize * 3;
@@ -23,12 +34,50 @@
   &__descript {
       font-size: vars.$fontSize * 1.5;
   }
+  &__trigram { 
+    margin-bottom: vars.$margin  / 2;
+
+    &::before{
+    content: '\2630';
+    font-size: vars.$fontSize * 3;
+    font-weight: bolder;
+    padding-bottom: vars.$margin;
+   
+    }
+    &--flex {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      top: -8rem;
+      right: 30%;
+      width: 40%;
+      
+    }
+    &--link {
+      text-decoration: none;
+      font-size: vars.$fontSize * 1.25;
+      margin-bottom: vars.$margin ;
+      font-family: vars.$basker;
+      color: black;
+      
+      &:active {
+        color: black;
+      }
+      &:hover {
+        color: black
+      }
+    }
+  }
+  
+  
+  
   &__avatar {
     width: 10%;
     margin-top: vars.$margin ;
     position: absolute;
     left: calc(80% - 2rem);
-    display: flex;
+    display: flex; 
+    margin-top: 1rem;
     flex-direction: column;
     justify-content: center;
     

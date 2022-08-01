@@ -5,6 +5,7 @@ import { findUser } from "../controllers/users/userFindAll";
 import { deleteController } from "../controllers/users/userDelete";
 import { updateController } from "../controllers/users/userUpdate";
 import { createAccountChild } from "../controllers/users/createAccountChild";
+import {deleteChildController} from "../controllers/users/deleteAccountChild";
 
 
 const router = new Router()
@@ -40,6 +41,12 @@ router.patch('/user/update', async (ctx : Router.RouterContext) => {
 
 router.delete('/user/delete', async (ctx : Router.RouterContext) => {
   const {message, status} : any = await deleteController(ctx.request.header.token)
+  ctx.body = message
+  ctx.status = +status
+})
+
+router.post("/user/deleteChild" , async(ctx : Router.RouterContext) => {
+  const {message, status} : any = await deleteChildController(ctx.request.body, ctx.request.header.token)
   ctx.body = message
   ctx.status = +status
 })

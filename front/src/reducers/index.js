@@ -1,5 +1,5 @@
 
-import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE, SET_MINUTE, SET_SECONDE, SENT_ASK_PASSWORD} from "../action"
+import { CHANGE_VALUE, CHANGE_LOADING, CHANGE_MESSAGE_REQUEST, EMPTY_FIELDS, SET_ALL_DATA, SET_ROLE, CHANGE_DISPLAY, IS_CONNECT, SENT_EXERCICES, SENT_RESULT_EXERCICES, SAVE_RESULT, SET_RESPONSE_NEW_VALUE, SET_CATEGORIES, BEGIN, SENT_AVERAGE, SET_MINUTE, SET_SECONDE, SENT_ASK_PASSWORD, SET_WIDTH_WINDOW} from "../action"
 
 const initialState = {
   password: "",
@@ -24,7 +24,9 @@ const initialState = {
   minute : 0,
   seconde : 0,
   askLogin : "",
-  displayResultExercices : false
+  displayResultExercices : false,
+  widthWindow : "",
+  displayTrigram : false
  
 }
 
@@ -146,6 +148,11 @@ const reducer = (state = initialState, action = {})  => {
     ...state,
     askLogin : action.value
   }
+  case SET_WIDTH_WINDOW :
+    return {
+      ...state,
+      widthWindow : window.innerWidth
+    }
   default: 
     return {
       ...state

@@ -13,7 +13,7 @@ import Spinner from "../loader/spin";
 import { getAge } from "../../utils";
 
 
-const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue }) => {
+const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
@@ -22,6 +22,7 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
   const [displayMessage, setDisplayMessage] = useState()
   const nav = useNavigate()
   
+
   useEffect(() => {
     if (messageAjax !== "connection ok" && messageAjax!== 'erreur de mot de passe') {
       changeLoading()
@@ -36,7 +37,12 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
         setDisplayLoginError(false)    
       }, 1000 * 4)
     }
-
+    if (messageAjax == "compte enfant supprimer") {
+      setDisplayMessage('le compte a été supprimer')
+      setTimeout(() =>{
+        setDisplayMessage("")
+      }, 1000 * 3)
+    }
     if(messageAjax === "connexion ok") {
       if(askLogin === "password" || askLogin === "delete") {
         askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
@@ -57,6 +63,11 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
       }
       else if(askLogin.id) {
         changeValue( askLogin.id, "childId")
+      }
+      else if( askLogin === "deleteChild") {
+       changeLoading()
+       deleteChild()
+       
       }
       sentAskPassword('')
       changeMessageRequest("")
@@ -99,8 +110,8 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
     {error  &&  <div className="account__errorText">{error}</div>}
     {displayMessage && <div className="account__errorText">{displayMessage}</div>}
     {(data && !error && !loading && !displayMessage)  &&  
-    <div className="account">
-      <Menu />
+    <div className={displayTrigram ? "account--80 account" : "account"}>
+    {widthWindow > 800 && <Menu />}
       {displayLogin &&
        <div className="account__askLogin">
       <div className="account__askLogin--title">Accés restreint au parent <br />veillez entrez votre mot de passe </div>
