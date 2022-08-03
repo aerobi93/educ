@@ -1,0 +1,21 @@
+{
+  "name": "educ",
+  "version": "1.0.0",
+  "description": "",
+  "main": "front/index.js",
+  "scripts": {
+    "frontend": "cd front && npm  start",
+    "api": "cd backend && nvm use 16 && npm  start",
+    "heroku-postbuild": "cd front && npm install && npm build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aerobi93/educ.git"
+  },
+  "author": "aerobi93",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aerobi93/educ/issues"
+  },
+  "homepage": "https://github.com/aerobi93/educ#readme"
+}

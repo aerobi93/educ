@@ -8,22 +8,22 @@ import { deleteC } from "../controllers/content/contentDelete";
 
 const router = new Router()
 
-router.post('/content/add', async (ctx) => {
+router.post('/content/add', async (ctx: Router.RouterContext) => {
   const { status, message} : any= await create(ctx.request.body)
   ctx.body = message
   ctx.status = status
 })
-router.get('/content/findAll', async (ctx) => {
+router.get('/content/findAll', async (ctx: Router.RouterContext) => {
   const { status, message} : any= await findAll()
   ctx.body = message
   ctx.status = status
 })
-router.patch('/content/update', async (ctx) => {
+router.patch('/content/update', async (ctx: Router.RouterContext) => {
   const { status, message} : any= await update(ctx.request.body)
   ctx.body = message
   ctx.status = status
 })
-router.delete('/content/delete', async (ctx) => {
+router.delete('/content/delete', async (ctx: Router.RouterContext) => {
   const { status, message} : any= await deleteC(ctx.request.body)
   ctx.body = message
   ctx.status = status

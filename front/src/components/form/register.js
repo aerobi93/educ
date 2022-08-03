@@ -5,22 +5,25 @@ import Input from '../../container/form/input';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCakeCandles, faUserNinja, faUnlockKeyhole, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 import { getAge } from "../../utils";
 
-const Register = ({ password, changeValue, birthday, role, sendFormRegister, changeLoading, loading}) => {  
+const Register = ({ password, changeValue, birthday, role, sendFormRegister, changeLoading, loading, email}) => {  
   const [error, setError] = useState()
   const [openEyes, setOpenEyes] = useState()
   const [passwordError, setPassordError] = useState()
   const [roleError, setRoleError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
   const [errorToDisplay, setErrorToDisplay] = useState()
+  const nav = useNavigate()
 
   
   useEffect(()=> {
     if (password !=='') { setPassordError(false)}
     if (role !=='') { setRoleError(false)}
     if (birthday !=='') { setBirthdayError(false)}
+    if (!email) { nav('/')}
   },[password, role, birthday] )
 
 
@@ -29,6 +32,7 @@ const Register = ({ password, changeValue, birthday, role, sendFormRegister, cha
     if(password.trim() == "") {setPassordError(true)}
     else if(!password.match(/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g)) {
       setErrorToDisplay(true)
+      setPassordError(true)
       setTimeout(() => {
         setErrorToDisplay(false)
       }, 1000 * 4)

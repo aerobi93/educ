@@ -1,17 +1,16 @@
 
-import jwt from "jsonwebtoken";
-import authConfig from "../config/authConfig";
+import jwt, { Secret } from "jsonwebtoken";
 import {countUser} from "../services/count";
 
 const verifyJWT  = async (token : any, authorize? :string) => {
-  
+  const secret: Secret = process.env.SECRET!
   if (!token) {
     return {
       status: 401,
       message: 'aucun token trouve'
     }
   }
-  let decrypt = jwt.verify(token,authConfig)
+  let decrypt = jwt.verify(token,secret)
   if (!decrypt) { 
     return {
       status: 401,

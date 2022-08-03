@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer'
 import {InewValidationCode, Iuser, IuserUpdate } from '../interfaceTS'
 import {connexion} from '../config/configMail'
 
@@ -32,6 +31,7 @@ export const sendMailCreate =  async(data: IuserUpdate  ) => {
   }
   
   export const sendNewCodevalidation =  async(data: InewValidationCode  ) => {
+    console.log(process.env.MAIL_PASS, process.env.MAIL_ADD)
    let title
    let link
   console.log(data)

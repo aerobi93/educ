@@ -4,7 +4,7 @@ import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHI
 
 const ajax = (store) => (next) => (action) =>  {
   let token = window.localStorage.getItem('token')
-  axios.defaults.baseURL ='http://localhost:5000'
+  axios.defaults.baseURL ='https://studies-back.herokuapp.com'
   axios.defaults.headers.common = {
     "type" : 'JWT, json/application',
     "token": `${token}`,

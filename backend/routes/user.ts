@@ -19,6 +19,7 @@ router.get("/user/findAll", async(ctx: Router.RouterContext) => {
 
 router.post("/user/adduser", async(ctx: Router.RouterContext) => {
   const { message, status } =  await createAccount(ctx.request.body)  
+  console.log(ctx.request.body, 'test')
   ctx.body = message
   ctx.status = +status
   
@@ -50,4 +51,6 @@ router.post("/user/deleteChild" , async(ctx : Router.RouterContext) => {
   ctx.body = message
   ctx.status = +status
 })
+
+
 export default router

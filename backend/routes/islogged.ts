@@ -3,7 +3,7 @@ import verifyJWT from "../middleware/authJWt";
 
 const router = new Router()
 
-router.get('/token/verifyToken', async(ctx) => {
+router.get('/token/verifyToken', async(ctx: Router.RouterContext) => {
   const  verif = await verifyJWT(ctx.header.token) 
     let {message}: any = verif
     if(message === "autoriser") {

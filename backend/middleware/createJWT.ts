@@ -1,10 +1,11 @@
-import jwt from "jsonwebtoken";
-import config from "../config/authConfig";
+import jwt, { Secret } from "jsonwebtoken";
+
 
 const JWTcreation = (iduser : string, roleuser : string) => {
+    const secret: Secret = process.env.SECRET!
     let jwtc =  jwt.sign(
     {id : iduser, role: roleuser, exp : Math.floor(Date.now() / 1000)  + 3600},
-    config, 
+    secret, 
     
     )
     return jwtc
