@@ -1,12 +1,21 @@
 import jwt, { Secret } from "jsonwebtoken";
+import { IJWT } from "../interfaceTS";
 
-
-const JWTcreation = (iduser : string, roleuser : string) => {
+const JWTcreation = (iduser : string, delay : number, roleuser? : string,) => {
     const secret: Secret = process.env.SECRET!
+    let data :  IJWT = {
+      id : iduser,
+      exp : Math.floor(Date.now() / 1000)  + delay
+    }
+    if(roleuser) {
+      data = {
+        ...data, 
+        role : roleuser
+      }
+    }
     let jwtc =  jwt.sign(
-    {id : iduser, role: roleuser, exp : Math.floor(Date.now() / 1000)  + 3600},
-    secret, 
-    
+      data,
+      secret, 
     )
     return jwtc
 } 

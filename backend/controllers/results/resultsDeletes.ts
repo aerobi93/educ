@@ -25,7 +25,7 @@ export const  deleteR = async (data: Iresults, autorization: any) => {
   await deleteResults(data)
   try {
     return {
-      message: "resultats suprimer",
+      message: "resultats supprimer",
       status : 200
     }
   }

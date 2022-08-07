@@ -1,9 +1,9 @@
 import {PrismaClient } from "@prisma/client";
 import {sendMailCreate} from "../../config/mail";
-import {generateString} from '../../utils'
-import bcrypt from "bcryptjs"
 import { Iuser } from "../../interfaceTS";
-import {create as createUserService} from "../../services/user";
+import {create as createUserService, findId} from "../../services/user";
+import JWTcreation from "../../middleware/createJWT";
+import bcrypt from "bcryptjs"
 
 
 const prisma = new PrismaClient()
@@ -11,29 +11,45 @@ const prisma = new PrismaClient()
 
 export const create = async (data : Iuser) => {
 
-  let random = generateString(64)
-  let now : Date | number = new Date()
-  let newtype = 'validation'
-
-  now = Math.floor(now.getTime()/1000)
-  
-  data = {
-      ...data,
-      password: bcrypt.hashSync(data.password!),
-      validate: random + '&' + now
+  let newData = {
+    ...data, 
+    password: bcrypt.hashSync(data.password!),
   }
-  let datamail = {
-      ...data, 
-      validate:  newtype + '/' + random + '&' + now
-  }
-  await createUserService(data)
+  await createUserService(newData)
   try {
-    await sendMailCreate(datamail)
-      return {
-        status : 201,
-        message: 'un mail de confirmation a été envoyer'
+    //if found we search the id for create the validation token 
+    let newdata = await findId(newData) 
+    try {
+       let token = await JWTcreation(newdata!.id , 60 * 15, newdata!.role)
+      try {
+        await sendMailCreate(data.email, token)
+        try {
+          return {
+            status : 201,
+            message: 'un email de confirmation a ete envoyer'
+          }
+        }
+        catch{
+          return {
+            status : 400,
+            message: 'une erreur inattendu est survenue'
+          }
+        }
+      }
+      catch {
+        return {
+          status : 400,
+          message: 'une erreur inattendu est survenue'
+        }
       }
     }
+    catch {
+      return {
+        status : 400,
+        message: 'une erreur inattendu est survenue'
+      }
+    }
+  }
   catch(err) {
     return {
       status : 400,

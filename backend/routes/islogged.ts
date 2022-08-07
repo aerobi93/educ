@@ -5,14 +5,15 @@ const router = new Router()
 
 router.get('/token/verifyToken', async(ctx: Router.RouterContext) => {
   const  verif = await verifyJWT(ctx.header.token) 
-    let {message}: any = verif
-    if(message === "autoriser") {
-      ctx.body=  {message : 'logged'}
-      ctx.status = 200
+    const {status}: any = verif
+    if(status === 200) {
+     
+      ctx.status = 200 
+      ctx.message = 'logged'
     }
-    else  { 
-      ctx.body = { message : 'nologged'}
-      ctx.status = 403
+    else  {  
+      ctx.status = 403 
+      ctx.message = 'nologged'
     }
   })
 export default router

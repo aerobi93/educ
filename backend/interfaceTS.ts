@@ -2,6 +2,12 @@ export interface IConfig {
     port: number | string
 }
 
+export interface IJWT  {
+  id : string, 
+  exp : number, 
+  role? : string
+}
+
 export interface Iiduser   {
   id : string
 }
@@ -28,11 +34,6 @@ export interface Ichild extends  Iiduser   {
   validate? : string
 }
 
-export interface InewValidationCode {
-  type: string,
-  validate: string,
-  email: string
-}
 
 export interface ItableContent {
   id: string,

@@ -8,7 +8,7 @@ export const  deleteC = async (data: ItableContent) => {
   await deleteContent(data)
   try {
     return {
-      message: "contenu suprimme",
+      message: "contenu supprime",
       status : 200
     }
   }

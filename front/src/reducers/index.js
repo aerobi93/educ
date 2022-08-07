@@ -53,14 +53,11 @@ const reducer = (state = initialState, action = {})  => {
     case EMPTY_FIELDS: 
       return {
         ...state, 
-
         password: "",
         email:"",
         birthday:"",
         name : "",
         role:"",
-        messageRequest:"",
-        statusRequest:"",
       }
     case SET_ROLE :
       return {

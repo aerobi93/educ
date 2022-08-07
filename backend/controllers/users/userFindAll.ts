@@ -20,10 +20,8 @@ export const  findUser = async (autorization: any) => {
   await findAll(id, role)
   try {
     return {
-      message: {
-        message: await findAll(id, role),
-        role
-      },
+      message: "user data trouver",
+      data: await findAll(id, role),
       status : 200
     }
   }

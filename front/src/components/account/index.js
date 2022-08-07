@@ -13,7 +13,7 @@ import Spinner from "../loader/spin";
 import { getAge } from "../../utils";
 
 
-const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild }) => {
+const Account = ({childId, sentNewLink, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild, isConnect }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
@@ -43,6 +43,13 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
         setDisplayMessage("")
       }, 1000 * 3)
     }
+
+    if(messageAjax == "un email de confirmation a ete envoyer") {
+      localStorage.removeItem("token")
+      isConnect(false)
+      nav("/")
+      
+    }
     if(messageAjax === "connexion ok") {
       if(askLogin === "password" || askLogin === "delete") {
         askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
@@ -50,6 +57,7 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
         setTimeout(() => {
           setDisplayMessage("")
           window.localStorage.removeItem('token')
+          isConnect(false)
           nav('/')
         }, 1000 * 4)
         
@@ -67,7 +75,6 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
       else if( askLogin === "deleteChild") {
        changeLoading()
        deleteChild()
-       
       }
       sentAskPassword('')
       changeMessageRequest("")
@@ -142,25 +149,28 @@ const Account = ({childId, sentNewLink, role, loading, changeLoading,changeDispl
              <button className="form__submit">enregistrer</button>
           </form>
         }
-        { (displayResult && data) && 
+        { (displayResult && data.student.length > 0) && 
           <>
             {
-              role === "student" ? 
+              data.role === "student" ? 
               (
                 <div className="account__result--flex">
-                  <Result data ={data} role = {role} /> 
+                  <Result data ={data} role = {data.role} /> 
                   <Link className= "account__result--link" to='/account/exercise/simulation'>s'entrainer</Link>
                   <Link className= "account__result--link" to='/account/exercise/exam'>mode examen</Link>
                 </div>
               ):
                 data.student.map((child) => (
                   <div  className="account__result--flex" key = {child.name}>
-                    <Result data ={child} role = {role} /> 
+                    <Result data ={child} role = {data.role} /> 
                   </div>
                 ))
               
             }   
           </>
+        }
+        {
+          (data && data.student.length == 0) && <div className="account__message"> aucun enfant associer au compte</div>
         }
       </div>
       }

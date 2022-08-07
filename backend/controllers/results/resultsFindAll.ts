@@ -20,8 +20,9 @@ export const  findAll = async (autorization: any) => {
   await findAllResults(id)
   try {
     return {
-      message: await findAllResults(id),
-      status : 200
+      data: await findAllResults(id),
+      status : 200,
+      message : "result data trouver"
     }
   }
   catch(e) {

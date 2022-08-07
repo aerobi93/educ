@@ -191,4 +191,14 @@ td {
       font-weight: bolder;
     }
   }
+  &__message {
+    font-family: vars.$penny;
+    font-size: vars.$fontSize * 2;
+    line-height: 4rem;
+    padding-top: vars.$padding *2;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    font-weight: bolder;
+  }
 }

@@ -61,7 +61,7 @@ const Color = ({sentAverage, minute, seconde, setBegin, begin, exercices, sentEx
     { awesome : faDog, formName : "un chien, un animal, un canidé"},
     { awesome : faCat, formName : "un chat, un animal, un félin"}
   ] 
-
+ console.log(typeof formExercices[1].awesome,formExercices[1].awesome )
   const randomQuestion  = [
     "qu'est ce que ca représente?",
     "c'est de quel couleur?",

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 
 
 import Input from '../../container/form/input';
+import InputPassword from "../../container/form/inputPassword";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCakeCandles, faUserNinja, faUnlockKeyhole, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,6 @@ import { getAge } from "../../utils";
 
 const Register = ({ password, changeValue, birthday, role, sendFormRegister, changeLoading, loading, email}) => {  
   const [error, setError] = useState()
-  const [openEyes, setOpenEyes] = useState()
   const [passwordError, setPassordError] = useState()
   const [roleError, setRoleError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
@@ -62,19 +62,7 @@ const Register = ({ password, changeValue, birthday, role, sendFormRegister, cha
           le mot de passe doit obligatoirement contenir : <br/>
           Une majuscule, Une minuscule et Un chiffre et un minimum de 10 caractére
          </div>}   
-        <div className="form__eyes" onMouseDown={() => setOpenEyes(!openEyes)} onMouseUp={() => setOpenEyes(!openEyes)} >
-          { openEyes &&  <FontAwesomeIcon icon={faEye} className="form__ico" />}
-          { !openEyes &&  <FontAwesomeIcon icon={faEyeSlash} className="form__ico" />}
-        </div>
-      <Input 
-        ico={faUnlockKeyhole}
-        id={"password"}
-        value={password}
-        type={openEyes ? 'text' : 'password'}
-        placeholder={"mot de passe"} 
-        className={ passwordError ? "form__input form__input--red" : "form__input" }
-      />
-      
+      <InputPassword  passwordError={passwordError}/>
       <Input 
         ico={faCakeCandles}
         id={"birthday"}

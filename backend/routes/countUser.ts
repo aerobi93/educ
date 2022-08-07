@@ -4,9 +4,10 @@ import { countUserController } from "../controllers/users/count";
 const router = new Router()
 
 router.post('/user/count', async(ctx: Router.RouterContext) => {
-  let {message, status} : any = await countUserController(ctx.request.body)
-  ctx.body = message
+  const {message, status} : any = await countUserController(ctx.request.body)
+  
   ctx.status = +status
+  ctx.message = message
 })
 
 export default router

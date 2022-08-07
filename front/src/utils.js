@@ -1,20 +1,4 @@
-export const   auth = async() => {
-    let token = window.localStorage.getItem('token')
-    if(!token) {return "no logged" }
-    let reponse = fetch("https://studies-back.herokuapp.com/token/verifyToken", {
-      method : "GET",
-      headers : {
-        "type" : 'JWT, json/application',
-        token
-      }
-    })
-    .then((response) => response.json())
-    .then((response) => {
-      return response.message}
-    )
-    .catch((err) => {return err})
-    return  reponse
-  }
+
 
   export const  getAge = function (date) { 
     let newDate = new Date(date)

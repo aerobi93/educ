@@ -5,11 +5,13 @@ import { validationCode, changeLoading, updateUser, emptyFields } from "../../ac
 const mapStatetoProps = (state) => ({
   loading: state.loading,
   password: state.password,
+  messageAjax : state.messageResquet,
+  status : state.statusRequest
 })
 
 const mapDispatchtoProps = (dispatch) => ({
-  validationCode: (value, type) => {
-    dispatch(validationCode(value, type))
+  validationCode: (value, typeAsk) => {
+    dispatch(validationCode(value, typeAsk))
   },
   changeLoading : (exercice, response, result ) => {
     dispatch(changeLoading(exercice, response, result ))

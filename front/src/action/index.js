@@ -1,13 +1,13 @@
 
 export const CHANGE_VALUE = "CHANGE_VALUE";
 export const COUNT = "COUNT";
-export const SEND_FORM_CONNEXION = "SEND_FORM_CONNEXION";
 export const SEND_FORM_REGISTER = "SEND_FORM_REGISTER";
+export const VALIDATION_CODE = "VALIDATION_CODE";
+export const SEND_FORM_CONNEXION = "SEND_FORM_CONNEXION";
 export const SEND_FORM_REGISTER_CHILDREN = "SEND_FORM_REGISTER_CHILDREN";
 export const EMPTY_FIELDS = "EMPTY_FIELDS";
 export const CHANGE_LOADING = "CHANGE_LOADING";
 export const CHANGE_MESSAGE_REQUEST= "CHANGE_MESSAGE_REQUEST";
-export const VALIDATION_CODE = "VALIDATION_CODE";
 export const SENT_NEW_LINK = "SENT_NEW_LINK";
 export const UPDATE_USER = "UPDATE_USER"
 export const DELETE_USER = "DELETE_USER"
@@ -31,6 +31,7 @@ export const SET_SECONDE = "SET_SECONDE"
 export const SENT_ASK_PASSWORD = "SENT_ASK_PASSWORD"
 export const SET_WIDTH_WINDOW = "SET_WITH_WINDOW"
 export const DELETE_CHILD = "DELETE_CHILD"
+export const AUTH = "AUTH"
 
 
 export const changeValue = (value, name) =>({
@@ -41,12 +42,19 @@ export const changeValue = (value, name) =>({
 export const count = () => ({
   type: COUNT
 })
-export const sendFormConnexion = () => ({
-  type: SEND_FORM_CONNEXION
-})
 
 export const sendFormRegister = () => ({
   type: SEND_FORM_REGISTER
+})
+
+export const validationCode = (value, typeAsk) =>({
+  type : VALIDATION_CODE,
+  value,
+  typeAsk
+})
+
+export const sendFormConnexion = () => ({
+  type: SEND_FORM_CONNEXION
 })
 
 export const sendFormRegisterChildren = () => ({
@@ -65,12 +73,6 @@ export const changeMessageRequest = (value, status) => ({
   type: CHANGE_MESSAGE_REQUEST,
   value,
   status,
-})
-
-
-export const validationCode = (value) =>({
-  type : VALIDATION_CODE,
-  value
 })
 
 export const sentNewLink = (value) => ({
@@ -175,4 +177,7 @@ export const setWidthWindow  = () => ({
 
 export const deleteChild = () => ({
   type : DELETE_CHILD,
+})
+export const auth = () => ({
+  type : AUTH
 })

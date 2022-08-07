@@ -15,9 +15,9 @@ export const countUserController =  async(data :Iuser) => {
       message : 'aucun utilisateur'
       }
     }
-    return {
+    else return {
       status : 200,
-      message : 'utilisateur trouvé'
+      message : 'utilisateur trouver'
     }
   }
   catch{

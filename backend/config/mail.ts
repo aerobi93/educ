@@ -1,17 +1,16 @@
-import {InewValidationCode, Iuser, IuserUpdate } from '../interfaceTS'
 import {connexion} from '../config/configMail'
 
-export const sendMailCreate =  async(data: IuserUpdate  ) => {
+export const sendMailCreate =  async(email : string, token? : string )  => {
     const message = {
     from: '"Studies" <studies-rom@outlook.fr>',
-    to: data.email,
+    to: email,
     subject: "creation de compte studies",
     html: `
       <strong>bienvenue sur studies </strong>
       <br/>
       votre compte doit etre valider
       <br/>
-      <a href="http://localhost:3000/${data.validate}"> validez le compte </a>
+      <a href="http://localhost:3000/validation/validation/${token}"> validez le compte </a>
       <br/>
       `
     }
@@ -30,22 +29,21 @@ export const sendMailCreate =  async(data: IuserUpdate  ) => {
     return send
   }
   
-  export const sendNewCodevalidation =  async(data: InewValidationCode  ) => {
-    console.log(process.env.MAIL_PASS, process.env.MAIL_ADD)
+  export const sendNewCodevalidation =  async(email : string, type: string,  token: string ) => {
    let title
    let link
-  console.log(data)
-   if (data.type === 'passwordForgotten') {
+   console.log(email, type, token, "mail")
+   if (type === 'passwordForgotten') {
     title = "demande de changement de mot de passe"
     link = "changer de mot de passe"
    }
   
-   if (data.type == "validate") {
+   if (type == "validation") {
     title = "validation du compte"
     link = "valider le compte"
    }
    
-   if (data.type == 'delete') {
+   if (type == 'delete') {
     title = "demande de supression de compte"
     link = "suprimer deffinitivement"
    }
@@ -53,11 +51,11 @@ export const sendMailCreate =  async(data: IuserUpdate  ) => {
     
     const message = {
     from: '"Studies" <studies-rom@outlook.fr>',
-    to: data.email,
+    to: email,
     subject: title,
     html: `
   
-      <a href="http://localhost:3000/${data.validate}"> ${link} </a>
+      <a href="http://localhost:3000/validation/${type}/${token}"> ${link} </a>
       <br/>
       `
     }
@@ -66,7 +64,6 @@ export const sendMailCreate =  async(data: IuserUpdate  ) => {
   }
   
   export const sendMailChangePassword =  async(data: any  ) => {
-    console.log(data, data.email, "email")
     const message = {
     from: '"Studies" <studies-rom@outlook.fr>',
     to: data.email,

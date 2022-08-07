@@ -26,7 +26,7 @@ export const createAccountChild = async(data : Iuser, autorization: any) => {
   try {
       return {
         status : 201,
-        message: 'compte enfant cree'
+        message: 'compte enfant creer'
       }
     }
   catch(err) {

@@ -8,7 +8,8 @@ export const  findAll = async () => {
   await findAllContent()
   try {
     return {
-      message: await findAllContent(),
+      message : "content data trouver",
+      data: await findAllContent(),
       status : 200
     }
   }

@@ -18,8 +18,19 @@ body {
   font-size: vars.$fontSize;
 
   &__center {
-    min-height: 60vh;
+    min-height: 40vh;
     padding-bottom: vars.$padding;
     border-bottom: 0.75rem white dotted;
+  }
+  &__message {
+    font-size: vars.$fontSize * 2;
+    font-family: vars.$penny;
+    line-height: 4rem;
+    text-align: center;
+    width: 50%;
+    padding-top : vars.$margin * 4;
+    margin-left: 25%;
+    background-color: transparent;
+    border: none;
   }
 }

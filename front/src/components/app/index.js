@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Routes, Route, useNavigate, useLocation, Navigate, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 
 import './index.scss'
 
@@ -12,72 +12,75 @@ import Error403 from '../error/403'
 import Error404 from '../error/404'
 import Delete from '../../container/account/delete';
 
-import { auth } from '../../utils';
 import Interface from '../../container/interface';
 
 
 
-const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect, setWidthWindow }) => {
+const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect, setWidthWindow, sentNewLink , auth, connected}) => {
   const navigate = useNavigate()
-  const params = useParams()
   const link  = useLocation()
-  const [authenticate, setAuthentificate] = useState()
   // auth is async function so he send a promise
-  const changeAuth = async() => {
-    setAuthentificate(await auth())
-    if (await auth() === 'logged') {
-      changeLoading()
-      isConnect(true)
-      findAllData()
-    }
-  }
-
   useEffect(() => {
-    if (messageAjax === 'utilisateur trouvé') { navigate('/form/connexion')}
+    auth()
+  }, [connected, link.pathname])
+  
+  useEffect(() => {
+    if (messageAjax === 'utilisateur trouver') { navigate('/form/connexion')}
     else if (messageAjax === 'aucun utilisateur') { navigate('/form/register')}
-    else if (status === 401 && !link.pathname.includes('form') && !link.pathname.includes("account/home")) {navigate('/401')}
-    else if (status === 403 ) {navigate('/403')}
-    
-    else if(messageAjax === "validate" && status == 200){
-      if(link.pathname.includes("passwordForgotten")) {navigate('/form/password')}
-      if(link.pathname.includes("validation")) {navigate('/account/home')}
-      if(link.pathname.includes("delete")) {navigate('/account/delete')}
-    }
+
     else if (link.pathname.includes("connexion") && messageAjax === "connexion ok"){
-      changeAuth()
+      auth()
       navigate('/')
    }
+   else if(messageAjax === "validation ok" && status == 200){
+    if(link.pathname.includes("passwordForgotten")) {navigate('/form/password')}
+    if(link.pathname.includes("validation/validation")) {navigate('/account/home')}
+    if(link.pathname.includes("delete")) {navigate('/account/delete')}
+  }
   }, [messageAjax]) 
 
      
   useEffect(() => {
     setWidthWindow()
   }, [window.innerWidth] )
-  useEffect(() => {changeAuth()}, [link.pathname])
+  
   return (
     
     <div className="app">
       <Header />
-      <div className="app__center">
-        { authenticate && 
-    
-          <Routes  > 
-            <Route exact path='/' element={authenticate === "logged" ?  <Navigate replace to="/account/home" /> : <FormConnection />} />
+      {
+       ( messageAjax.includes("un email") && messageAjax.includes("a ete envoyer")) && 
+        <div className='app__center'> 
+          <div className='app__message'>{messageAjax}</div> 
+        </div>
+      }
+      {
+        messageAjax == 'compte non valider' && 
+        <div className='app__center'> 
+          <button className="app__message" onClick={() => sentNewLink('validation')}>
+            cliquer ici pour <br/> envoyer un nouveau mail de validation 
+          </button>
+        </div>
+      }
+      {
+        (!messageAjax.includes("un email") && !messageAjax.includes("a ete envoyer") && messageAjax !== "compte non valider") &&  
+        <div className="app__center">
+          {connected !== undefined && 
+           <Routes  > 
+            <Route exact path='/' element={connected ?  <Navigate replace to="/account/home" /> : <FormConnection />} />
             <Route exact path='/form/:typeForm' element={ <FormConnection /> } />
-            <Route exact path='/validation/:id' element={ <Validation /> } />
-            <Route exact path='/passwordForgotten/:id' element={ <Validation /> } />
-            <Route  path='/delete/:id' element={  <Validation />} />
-            <Route exact path='/form/changeEmail'  element={authenticate === "logged" ? <FormConnection />  : <Navigate replace to="/403" /> } />
+            <Route exact path='/validation/:type/:token' element={ <Validation /> } />
+            <Route exact path='/form/changeEmail'  element={connected ? <FormConnection />  : <Navigate replace to="/403" /> } />
             <Route exact path='/403' element={<Error403 /> } /> 
-            <Route exact path='/account/home' element={authenticate === "logged" ? <Account /> :   <Navigate replace to="/403" />} />
+            <Route exact path='/account/home' element={connected ? <Account />  :   <Navigate replace to="/403" />} />
             <Route exact path='/account/delete' element={<Delete /> } />
-            <Route exact path='/account/exercise/:type' element={authenticate === "logged" ? <Interface /> : <Navigate replace to="/403" />}/>
-          
+            <Route exact path='/account/exercise/:type' element={connected ? <Interface /> : <Navigate replace to="/403" />}/>
             <Route  path='/404' element={<Error404 /> } /> 
             <Route  path='*' element={<Navigate replace to="/404" /> } />
           </Routes>
-}
+          } 
       </div>
+      }
       <Footer />
     </div>
   );

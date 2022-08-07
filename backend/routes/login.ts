@@ -4,10 +4,12 @@ import { loginController } from "../controllers/users/login";
 const router = new Router()
 
 router.post('/login', async(ctx: Router.RouterContext) => {
-  let {message, status} : any = await loginController(ctx.request.body, ctx.request.header.token)
-  ctx.body = message
-  ctx.status = +status
+  const {message, status, role, token} : any = await loginController(ctx.request.body, ctx.request.header.token)
 
+  ctx.body = {role, token}
+  ctx.status = +status
+  ctx.message = message
+console.log(status, message)
 })
 
 export default router

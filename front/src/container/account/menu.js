@@ -4,7 +4,7 @@ import Menu from "../../components/account/menu";
 import { changeDisplay, sentAskPassword, } from "../../action";
 
 const mapStatetoProps = (state) => ({
- role : state.role,
+ role : state.data.role,
  displayResult : state.displayResult,
  displayAddChild : state.displayAddChild,
  askLogin : state.askLogin,

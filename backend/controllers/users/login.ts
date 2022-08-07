@@ -10,9 +10,10 @@ import { findmail } from "../../services/user";
 
 const prisma  = new PrismaClient()
 export const loginController = async(data : Iuser, autorization: any) => {
+
   if( !data.email ) {
-    let token = autorization
-    const  verif = await verifyJWT(token!)
+   
+    const  verif = await verifyJWT(autorization!)
     const  {status, message, id} : any = await verif 
     if (await status !== 200 || !id) { 
       return {
@@ -36,35 +37,35 @@ export const loginController = async(data : Iuser, autorization: any) => {
       status : 401
     }
   }
-  await login(data)
+  let { password, validate, role, id}: any = await login(data)
   try {
-    let { password}: any = await login(data)
-    if (!bcrypt.compareSync(data.password, password)) {
+    console.log("data," , password, validate, role, id)
+    if (!id) {
+      return {
+        status : 402,
+        message: 'utilisateur non trouve'
+      }
+    }
+
+    if (!bcrypt.compareSync(data.password, password)) {   
       return {
         message : 'erreur de mot de passe',
         status: 401
       }
     }
-    let {id, role, validate} : any = await login(data)
-    if (validate !== "valid" && validate.includes("validate")) {
+  
+    else if (validate !== "valid") {
       return {
-        status : 401,
-        message: 'compte non validé'
+        status : 200,
+        message: 'compte non valider'
       }
     }
-    if (!id) {
-      return {
-        status : 402,
-        message: 'utilisateur non trouvé'
-      }
-    }
-    return {
+    
+    else return {
       status: 200,
-      message : {
-        message: 'connexion ok',
-        role : role,
-        token : await JWTcreation(id, role)
-      } 
+      message :'connexion ok',
+      role : role,
+      token : await JWTcreation(id, 60 * 60 * 24, role)
     }
   }
   catch(e) {

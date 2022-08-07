@@ -1,8 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router";
-import Input from "../../container/form/input";
-
-import {faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
+import InputPassword from "../../container/form/inputPassword";
 
 const ChangePassword = ({password,  loading, updateUser, changeLoading}) => {
   const [passwordError, setPasswordError] = useState()
@@ -14,15 +12,18 @@ const ChangePassword = ({password,  loading, updateUser, changeLoading}) => {
       setTypeError()
     }
   }, [password])
+
   const handlerSubmit = (evt) => {
+    console.log('test')
     evt.preventDefault();
-    if (password.trim() ==='') {
+    if (password.trim() == '') {
       setTypeError('password')
     }
     else if (typeof password !== 'string' ) {
      setPasswordError('mot de passe non conforme')
      setTypeError('password')
     }
+
     else if (!password.match(/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/g)) {
       setTypeError("password")
       setPasswordError("le mot de passe doit obligatoirement contenir  Majuscule, 1 minuscule, 1 chiffre et un caractere special, et un minimum de 10 caractéres")
@@ -41,14 +42,7 @@ const ChangePassword = ({password,  loading, updateUser, changeLoading}) => {
       {
       !loading &&
       <form className="form__connexion" onSubmit={(evt) => handlerSubmit(evt)}>
-        <Input 
-        ico={faUnlockKeyhole} 
-        id={"password"}
-        value={password}
-        placeholder={"mot de passe"}
-        type={"password"}
-        className={typeError== 'password' ? 'form__input form__input--red' : 'form__input'}
-        />
+       <InputPassword passwordError={passwordError} password = {password}/>
         <button className="form__submit">enregistrer</button>
       </form>
       }

@@ -10,6 +10,18 @@ export const create = async (data : Iuser) => {
   return await add 
 }
 
+export const findId =async (data:Iuser) => {
+  const find = prisma.users.findUnique({
+    where : {
+      email : data.email
+    },
+    select : {
+      id : true,
+      role : true
+    }
+  })
+  return find
+}
 
 export const findAll = async (id: string, role : "student" | "parent") => {
  if (role === "parent") {
@@ -18,7 +30,7 @@ export const findAll = async (id: string, role : "student" | "parent") => {
       id
     },
     select : {
-      email : true,
+      role: true,
       student : {
         select : {
           id : true,
@@ -52,7 +64,8 @@ export const findAll = async (id: string, role : "student" | "parent") => {
         id
       },
       select : {
-        results : true
+        results : true,
+        role : true,
       }
     })
     return findData

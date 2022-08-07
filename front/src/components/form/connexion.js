@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from "react";
-import Input from "../../container/form/input";
+import InputPassword from '../../container/form/inputPassword'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {faUnlockKeyhole} from "@fortawesome/free-solid-svg-icons";
 
-const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email}) => {
+
+const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email, messageAjax}) => {
   const [passwordError, setPasswordError] = useState()
   const [typeError, setTypeError] = useState()
   const link = useLocation()
@@ -40,14 +40,7 @@ const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email}
       {
       !loading &&
       <form className="form__connexion" onSubmit={(evt) => handlerSubmit(evt)}>
-        <Input 
-        ico={faUnlockKeyhole} 
-        id={"password"}
-        value={password}
-        placeholder={"mot de passe"}
-        type={"password"}
-        className={typeError== 'password' ? 'form__input form__input--red' : 'form__input'}
-        />
+       <InputPassword />
         <button className="form__submit">connection</button>
       </form>
       }

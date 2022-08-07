@@ -61,4 +61,15 @@ enum Roles {
 
  }
 
- 
+ model Exercices_Color {
+  id Int @default(autoincrement())
+  color String
+  colorName String
+  feminine String
+ }
+
+ model Exercices_FontAwesome {
+  id Int @default(autoincrement())
+  awesome Object 
+  formName String
+ }

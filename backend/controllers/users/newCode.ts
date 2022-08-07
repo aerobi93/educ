@@ -1,62 +1,63 @@
 import { PrismaClient } from "@prisma/client";
 import { sendNewCodevalidation } from "../../config/mail";
-import { InewValidationCode  } from "../../interfaceTS";
-import { update, findmail } from "../../services/user";
-import { generateString } from "../../utils";
+import { findmail, findId } from "../../services/user";
 import verifyJWT from "../../middleware/authJWt";
-
+import JWTcreation from "../../middleware/createJWT";
 
 const prisma  = new PrismaClient()
-
-export const newCodeController =  async(data :InewValidationCode, token: any ) => {
-  const {email, type} = data
-  let found : any
-  let random = generateString(64)
-  let now : Date | number = new Date()
-  now = Math.floor(now.getTime()/1000)
-  
-  if (!email && token ) {
-    const  verif = await verifyJWT(token!)
-    const  {status, message, id, role} : any = await verif 
-    if (await status !== 200 || !id) { 
+console.log("test")
+export const newCodeController =  async(data :any, token: any ) => {
+  const {email, type} = data  
+  let newData: any = {}
+  if (email ) {
+    newData =  {
+      ...await findId(data) 
+    }
+    newData = {
+      ...newData,
+      email
+    }
+  }
+  else if (!email) {
+    let {id, role } : any = await verifyJWT(token)
+    let mailFound = await findmail({id})
+    console.log(email)
+    newData = {
+      id, 
+      role, 
+      email : mailFound?.email
+    }
+  }
+  let Jwt = await JWTcreation(newData!.id, 60 * 15, newData!.role)
+  try {
+    console.log(Jwt)
+    await sendNewCodevalidation(newData.email, type, Jwt)
+    try {
+      console.log("mail")
+      let message = "un email"
+      if (type === "validation") {message += " de validation "}
+      if (type === "delete") {message += " pour supprimer le compte "}
+      if (type === "passwordForgotten") {message += " pour changer le mot de passe "}
+      message += " a ete envoyer"
       return {
-        message,
-        status
+        status : 200,
+        message 
       }
     }
-    let data = {id}
-    found = await findmail(data)
-  }
-
-  console.log(type, "test")
-  let newData = {
-    email : email ? email : found.email,
-    validate: type === "validate"  ? 
-      random + type + '&' + now : 
-      random  + '&' + now
-  }
-
-  let datamail = {
-    email : email ? email : found.email,
-    type,
-    validate: type === "validate" ? 
-      type + '/' + random +  type + '&' + now : 
-      type + '/' + random  + '&' + now
-  }
-  await update(newData)
-  try {  
-    sendNewCodevalidation(datamail)
-    return {
-      status : 200,
-      message : "nouveau lien envoyer par mail"
+    catch {
+      return {
+        message : "une erreur innatendu est survenue",
+        status : 400
+      }
     }
   }
-  catch(e){
+  catch {
     return {
-      status : 401,
-      message : "erreur innatendu est survenu"
+      message : "une erreur innatendu est survenue",
+      status : 400
     }
   }
+  
   finally {
     prisma.$disconnect
   }

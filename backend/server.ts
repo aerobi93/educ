@@ -23,7 +23,9 @@ app
   .use(bodyParser())
   .use(
     cors({
-        origin: "*"
+        origin: "*",
+        allowMethods :['GET','POST','DELETE','PATCH'],
+       
     })
 ) 
   .use(countUser.routes())

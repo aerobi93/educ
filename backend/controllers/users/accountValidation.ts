@@ -1,50 +1,53 @@
 import { PrismaClient } from "@prisma/client";
-import { InewValidationCode } from "../../interfaceTS";
 import JWTcreation from "../../middleware/createJWT";
-import { accountValidation } from "../../services/accountValidation";
+import verifyJWT from "../../middleware/authJWt";
+
 import { update } from "../../services/user";
 
 const prisma  = new PrismaClient()
 
-export const accountValidationController = async(data : InewValidationCode) =>  {
- await accountValidation(data)
-  try {
-    let {id, role }: any = await accountValidation(data)
-    if (!id || !role ) {
-      return {
-        status : 401,
-        message: "une erreur inattendu est survenue"
+
+export const accountValidationController = async(data : any) =>  {
+  const token = data.authorization
+  const type = data.typeAsk
+  
+  let dataToken : any = await verifyJWT(token)
+  if (dataToken!.status !== 200) {
+    return {
+      message : dataToken!.message,
+      status : dataToken!.status
+    }
+  }
+  else {
+    if(type === "validation") {
+      let newData = {
+        id : dataToken.id,
+        validate : "valid"
       }
-    }
-     let userdata = {
-      ...data,
-      id,
-      validate: "valid"
-    }
-    if (await update(userdata)) {
-      await update(userdata)
-      return {
-        status: 200,
-        message : {
-          token : await JWTcreation(id, role),
-          message: 'validate',
-          role: role
+      await update(newData)
+      try{}
+      catch{
+        return {
+          message : "une erreur innatendu est survenue",
+          status : 401
         }
       }
     }
-    else if (!await update(userdata)){
+
+    let token = await JWTcreation(dataToken.id, 60 * 60 * 24, dataToken.role)
+    try {
       return {
-        status : 401,
-        message : "une erreur inattendu est survenue"
+        status : 200,
+        message : 'validation ok',
+        token,
+        role : dataToken.role
+      }
+    }
+    catch{
+      return {
+        message : "une erreur innatendu est survenue",
+        status : 401
       }
     }
   }
-  catch(e) {
-    return{
-        status : 401,
-        message : "lien non valide"
-    }
-    
-  }
-  finally {prisma.$connect}
 }

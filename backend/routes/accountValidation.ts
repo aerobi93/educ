@@ -4,9 +4,10 @@ import { accountValidationController } from "../controllers/users/accountValidat
 const router = new Router()
 
 router.post('/user/validation', async (ctx : Router.RouterContext) => {
-  const { status, message} : any= await accountValidationController(ctx.request.body)
-  ctx.body = message
-  ctx.status = status
+  const { status, message, token, role} : any= await accountValidationController(ctx.request.body)
+ 
+  ctx.status = status 
+  ctx.body = {token, role} 
+  ctx.message = message
 })
-
 export default router

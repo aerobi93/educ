@@ -1,6 +1,5 @@
 
 import jwt, { Secret } from "jsonwebtoken";
-import {countUser} from "../services/count";
 
 const verifyJWT  = async (token : any, authorize? :string) => {
   const secret: Secret = process.env.SECRET!
@@ -10,48 +9,43 @@ const verifyJWT  = async (token : any, authorize? :string) => {
       message: 'aucun token trouve'
     }
   }
-  let decrypt = jwt.verify(token,secret)
-  if (!decrypt) { 
-    return {
-      status: 401,
-      message: "token non valide"
-    }
-  }
-  let {id, role, iat, exp} : any = decrypt
-  if (!id || !role || !iat) { 
-    return {
-      status: 401,
-      message: "token non valide" 
-    }
-  }
-  if(await countUser(id) || await countUser(id)! <= 0) { 
-    return {
-        status: 401,
-        message: "aucun utilisateur trouver"
-    }
-  } 
+  let decrypt = await jwt.verify(token,secret, function(err : any, decoded : any){
+    if(err) {
+      if (err.expiredAt) {
+        return {
+          status : 401,
+          message : "token expiré",
+        }
+      }
+      else  {
 
- else if (iat > exp ) { 
- 
-    return {
-      status: 401,
-      message: "temp du token depassé"
+        return {
+          status : 401,
+          message : "erreur innatendu",
+        }
+      }
     }
-  }
-  else if (role !== authorize && authorize) {
-    return {
-      status: 401,
-      message: `necessesite le role de ${authorize} et vous avez celui de ${role}`,
-      id
+    if (decoded) {
+      if (authorize) {
+        if(authorize === decoded.role) {
+          return {
+            status : 200,
+            id : decoded.id, 
+            role : decoded.role
+          }
+        }
+        else return {
+          status : 401,
+          message : 'role limité'
+        }
+      }
+      else return { 
+        status : 200,
+        id : decoded.id, 
+        role : decoded.role
+      }
     }
-  }
-  else if(role === authorize || !authorize) {    
-    return {
-      status: 200,
-      message: 'autoriser',
-      id,
-      role
-    }
-  }
+  })
+  return decrypt
 }
 export default verifyJWT
