@@ -37,6 +37,11 @@ const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConne
     if(link.pathname.includes("validation/validation")) {navigate('/account/home')}
     if(link.pathname.includes("delete")) {navigate('/account/delete')}
   }
+  else if (messageAjax.includes("un email") && messageAjax.includes("a ete envoyer")) {
+    localStorage.removeItem("token")
+    isConnect(false)
+    navigate("/")
+  }
   }, [messageAjax]) 
 
      

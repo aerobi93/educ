@@ -7,9 +7,7 @@ import verifyJWT from "../../middleware/authJWt";
 const prisma = new PrismaClient()
 
 export const  findUser = async (autorization: any) => {
-  let token = autorization
-   const  verif = await verifyJWT(token!)
-  const  {status, message, id, role} : any = await verif 
+  const  {status, message, id, role} : any = await verifyJWT(autorization)
   if (await status !== 200 || !id) { 
     return {
       message,

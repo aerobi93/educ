@@ -14,7 +14,7 @@ const ChangePassword = ({password,  loading, updateUser, changeLoading}) => {
   }, [password])
 
   const handlerSubmit = (evt) => {
-    console.log('test')
+
     evt.preventDefault();
     if (password.trim() == '') {
       setTypeError('password')

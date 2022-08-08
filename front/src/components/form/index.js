@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 
 import './styles.scss'
 
@@ -12,9 +12,10 @@ import Input from '../../container/form/input';
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../loader/spin";
 
-const Form = ({ message, status, email, loading, count, changeLoading, sentNewLink }) => {
+const Form = ({ message, status, email, loading, count, changeLoading, sentNewLink, isConnected }) => {
   const [messageError, setMessageError] = useState(String)
   const [typeError, setTypeError] = useState(String)
+  const nav = useNavigate()
   let typeForm = useParams().typeForm
   let regexMail = /[^\s]+[@]+[\w]\w*[.]\w*/g
 
@@ -23,7 +24,11 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
       setTypeError(false)
     }
   }, [email])
-
+  useEffect(() => {
+    if (typeForm === "changeMail" && !isConnected) {
+      nav("/")
+    }
+  }, [isConnected])
 
   const Submit = async (evt) => {
     evt.preventDefault()

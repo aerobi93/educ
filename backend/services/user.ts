@@ -74,13 +74,13 @@ export const findAll = async (id: string, role : "student" | "parent") => {
 
 export const update =async (data: IuserUpdate) => {
   let {id, email} = data
-  
-  if(email) {
-    const updateUser =  prisma.users.update({where: { email }, data })
-    return updateUser
-  }
   if(id) {
     const updateUser =  prisma.users.update({where: { id }, data })
+    return updateUser
+  }
+
+  else if(email) {
+    const updateUser =  prisma.users.update({where: { email }, data })
     return updateUser
   }
 }

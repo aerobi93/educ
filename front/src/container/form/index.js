@@ -6,7 +6,8 @@ const mapStateToProps = (state) => ({
   loading: state.loading,
   message : state.messageRequest,
   status : state.statusRequest,
-  email: state.email
+  email: state.email,
+  isConnected : state.connected
 })
 
 const mapDispatchToProps = (dispatch) => ({

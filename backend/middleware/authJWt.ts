@@ -1,7 +1,7 @@
 
 import jwt, { Secret } from "jsonwebtoken";
 
-const verifyJWT  = async (token : any, authorize? :string) => {
+const verifyJWT  = async (token : any, role? :string) => {
   const secret: Secret = process.env.SECRET!
   if (!token) {
     return {
@@ -18,16 +18,15 @@ const verifyJWT  = async (token : any, authorize? :string) => {
         }
       }
       else  {
-
         return {
           status : 401,
-          message : "erreur innatendu",
+          message : "erreur de token",
         }
       }
     }
     if (decoded) {
-      if (authorize) {
-        if(authorize === decoded.role) {
+      if (role) {
+        if(role === decoded.role) {
           return {
             status : 200,
             id : decoded.id, 

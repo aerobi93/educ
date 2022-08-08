@@ -3,7 +3,7 @@
 
 
 body {
-  background: linear-gradient( grey , white)
+  background: linear-gradient( rgba(255, 255, 255, 0.871) , white)
 }
 .app {
   @media screen and (max-width : 800px) {
@@ -13,12 +13,10 @@ body {
   }
   width: 80%;
   margin: auto;
-  background: radial-gradient(grey, white);
-  font-family: vars.$basker;
-  font-size: vars.$fontSize;
-
+  background: radial-gradient(vars.$backgroundColor, white);
+ 
   &__center {
-    min-height: 40vh;
+    min-height: 50vh;
     padding-bottom: vars.$padding;
     border-bottom: 0.75rem white dotted;
   }

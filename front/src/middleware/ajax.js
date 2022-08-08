@@ -4,7 +4,7 @@ import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHI
 
 const ajax = (store) => (next) => (action) =>  {
   let token = window.localStorage.getItem('token')
-  axios.defaults.baseURL ='http://localhost:7000'
+  axios.defaults.baseURL ='http://localhost:5000'
   axios.defaults.headers.common = {
     "token": `${token}`,
   };
@@ -24,7 +24,7 @@ const ajax = (store) => (next) => (action) =>  {
       store.dispatch(changeLoading())
     })
     .catch((err) => {
-      console.log(err.request)
+
       store.dispatch(changeMessageRequest(err.request.statusText, err.request.status))
       store.dispatch(changeLoading())
     })
@@ -85,8 +85,11 @@ const ajax = (store) => (next) => (action) =>  {
         }
       })
       .catch((err) => {
-        store.dispatch(isConnect(false))
+        if(err.status === 401) {
+             store.dispatch(isConnect(false))
         localStorage.removeItem("token")
+        }
+     
       })
     break 
     case SEND_FORM_REGISTER_CHILDREN: {
@@ -125,10 +128,6 @@ const ajax = (store) => (next) => (action) =>  {
          password : store.getState().password,
          email : store.getState().email
       })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((err) => {console.log(err)})
      promiseAjax(updateAxios)
      store.dispatch(emptyFields())
     }

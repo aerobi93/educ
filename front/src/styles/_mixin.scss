@@ -1,0 +1,18 @@
+@use 'src/styles/vars';
+
+@mixin penny ($color, $fontSize, $shadowColor, $shadowReflect, $width) {
+    font-weight: bolder;
+    text-align: center;
+    font-size: $fontSize;
+    font-family: vars.$penny;
+    color : $color;
+    width: $width;
+    text-shadow: $shadowColor $shadowReflect $shadowReflect;
+}
+
+@mixin flexCenter ($width, $justify) {
+    display: flex;
+    width: $width;
+    justify-content: $justify;
+    flex-wrap: wrap;
+}

@@ -39,10 +39,9 @@ export const loginController = async(data : Iuser, autorization: any) => {
   }
   let { password, validate, role, id}: any = await login(data)
   try {
-    console.log("data," , password, validate, role, id)
     if (!id) {
       return {
-        status : 402,
+        status : 401,
         message: 'utilisateur non trouve'
       }
     }
@@ -65,12 +64,12 @@ export const loginController = async(data : Iuser, autorization: any) => {
       status: 200,
       message :'connexion ok',
       role : role,
-      token : await JWTcreation(id, 60 * 60 * 24, role)
+      token : await JWTcreation(id, (60 * 60 * 24), role)
     }
   }
   catch(e) {
     return {
-      status: 401,
+      status: 400,
       message : "erreur innatendu"
       }
   }

@@ -9,7 +9,7 @@ router.post('/login', async(ctx: Router.RouterContext) => {
   ctx.body = {role, token}
   ctx.status = +status
   ctx.message = message
-console.log(status, message)
+
 })
 
 export default router

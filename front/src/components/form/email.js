@@ -15,6 +15,8 @@ const ChangeEmail = ({email,  loading, updateUser, changeLoading}) => {
       setTypeError()
     }
   }, [email])
+  
+  
   const handlerSubmit = (evt) => {
     evt.preventDefault();
     if (email.trim() ==='') {
@@ -26,10 +28,7 @@ const ChangeEmail = ({email,  loading, updateUser, changeLoading}) => {
     }
     else {
       changeLoading()
-      updateUser()
-      window.localStorage.removeItem('token')
-      nav("/")
-      
+      updateUser()    
     }
   }
 

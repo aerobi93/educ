@@ -12,56 +12,45 @@ import Spinner from "../loader/spin";
 
 import { getAge } from "../../utils";
 
-
-const Account = ({childId, sentNewLink, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild, isConnect }) => {
+const Account = ({status, childId, sentNewLink, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild, isConnect }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
   const [displayLogin, setDisplayLogin] = useState()
-  const [displayLoginError, setDisplayLoginError] = useState()
   const [displayMessage, setDisplayMessage] = useState()
   const nav = useNavigate()
   
-
   useEffect(() => {
-    if (messageAjax !== "connection ok" && messageAjax!== 'erreur de mot de passe') {
       changeLoading()
       findAllData()
+  }, [status])
+
+  
+
+  useEffect(() => {
+    if (messageAjax === "erreur de token" || messageAjax == "token expire" ) {
+      localStorage.removeItem("token") 
+      changeMessageRequest('')
+      isConnect(false)
+      nav("/403")
     }
     if(messageAjax === "erreur de mot de passe") {
-      setDisplayLoginError(true) 
-      changeMessageRequest("")
+      setDisplayMessage('autorisation refusée')
       changeValue("", "password")
-      
-      setTimeout(() => {
-        setDisplayLoginError(false)    
-      }, 1000 * 4)
     }
     if (messageAjax == "compte enfant supprimer") {
       setDisplayMessage('le compte a été supprimer')
-      setTimeout(() =>{
-        setDisplayMessage("")
-      }, 1000 * 3)
     }
 
-    if(messageAjax == "un email de confirmation a ete envoyer") {
-      localStorage.removeItem("token")
-      isConnect(false)
-      nav("/")
-      
-    }
     if(messageAjax === "connexion ok") {
       if(askLogin === "password" || askLogin === "delete") {
-        askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten")
-        setDisplayMessage("vous allez recevoir un mail dans quelque instant")
-        setTimeout(() => {
-          setDisplayMessage("")
-          window.localStorage.removeItem('token')
-          isConnect(false)
-          nav('/')
-        }, 1000 * 4)
-        
+        loading()
+        askLogin === "delete" ? sentNewLink("delete") : sentNewLink("passwordForgotten") 
       }
+      if (messageAjax === "cette adresse email existe deja" ) {
+        setDisplayMessage(messageAjax)
+      }
+
       else if(askLogin ==="changeEmail") {
           nav('/form/changeMail') 
       }
@@ -79,6 +68,7 @@ const Account = ({childId, sentNewLink, loading, changeLoading,changeDisplay, di
       sentAskPassword('')
       changeMessageRequest("")
     }
+    setTimeout(() => {setDisplayMessage(false)}, 1000 * 2)
     
   }, [messageAjax])
 
@@ -122,8 +112,8 @@ const Account = ({childId, sentNewLink, loading, changeLoading,changeDisplay, di
       {displayLogin &&
        <div className="account__askLogin">
       <div className="account__askLogin--title">Accés restreint au parent <br />veillez entrez votre mot de passe </div>
-      {displayLoginError && <div className="account__askLogin--error">Autorisation refusée</div>}
-      <Connexion />
+      {displayMessage && <div className="account__askLogin--error">{displayMessage}</div>}
+      {!displayMessage && <Connexion />}
       </div> }
      {!displayLogin && <div className="account__container">
         {displayAddChild && 

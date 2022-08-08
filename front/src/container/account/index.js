@@ -7,6 +7,8 @@ const mapStatetoProps = (state) => ({
  data : state.data,
  birthday: state.birthday,
  message : state.messageRequest,
+  statusRequest:"",
+  statusAjax : state.statusRequest,
  nameChild : state.nameChild,
  displayResult : state.displayResult,
  displayAddChild : state.displayAddChild,

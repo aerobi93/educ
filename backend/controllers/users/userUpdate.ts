@@ -4,16 +4,15 @@ import { IuserUpdate } from "../../interfaceTS";
 import verifyJWT from "../../middleware/authJWt";
 import JWTcreation from "../../middleware/createJWT";
 
-import {sendMailCreate, sendMailChangePassword} from "../../config/mail";
+import {sendMailupdateEmail, sendMailChangePassword} from "../../config/mail";
 import bcrypt from "bcryptjs"
 import { countUser} from '../../services/count';
 
 const prisma = new PrismaClient()
 
 export const  updateController = async (data: IuserUpdate , autorization: any) => {
-  const token = autorization
-  const  verif = await verifyJWT(token!)
-  const  {status, message, id, role} : any = await verif 
+ 
+  const  {status, message, id, role} : any =  await verifyJWT(autorization!)
   if (await status !== 200 || !id) { 
     return {
       message,
@@ -25,6 +24,7 @@ export const  updateController = async (data: IuserUpdate , autorization: any) =
     let newData : IuserUpdate = {
       email, 
       id,
+      validate : "noValid"
      
     }
 
@@ -36,19 +36,19 @@ export const  updateController = async (data: IuserUpdate , autorization: any) =
       if (await count! > 0) {
         return {
           status : 400,
-          message : 'cette adresse email existe deja dans notre base'
+          message : 'cette adresse email existe deja'
         }
       }
     }
     await JWTcreation(id, 60 * 15 , role)
     try {
-      await update(newData)
+     let test = await update(newData)
       try {
-        await sendMailCreate(data.email!, token)
+        await sendMailupdateEmail(data.email!, autorization)
         try {
           return {
             status : 200,
-            message : "un message de confirmation a ete envoyer"
+            message : "un email de confirmation a ete envoyer"
           }
         }
         catch {

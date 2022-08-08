@@ -1,9 +1,8 @@
 @use 'src/styles/vars';
+@import 'src/styles/mixin';
 
 .header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  @include flexCenter(100%, "center");
   height: 20vh;
   position: relative;
   
@@ -11,29 +10,21 @@
     @media screen and (max-width : 800px) {
       width: 70%;
     }
-
-      width: 100%;
+      @include penny(vars.$titleColor, vars.$fontSize * 3, white, 2px, 100%);
       margin-top: vars.$margin;
       font-weight: bolder;
-      font-family: vars.$penny;
-      text-align: center;
-      color: vars.$titleColor;
-      &--80 {
-        width: 50%;
-       
-      }
+    &--80 {
+      width: 50%; 
+    }
   }
-
-
   &__title {
     text-decoration: none;
-      font-size: vars.$fontSize * 3;
       text-transform: capitalize;
-      text-shadow: red 3px 3px;
   }
   &__descript {
       font-size: vars.$fontSize * 1.5;
   }
+
   &__trigram { 
     margin-bottom: vars.$margin  / 2;
 

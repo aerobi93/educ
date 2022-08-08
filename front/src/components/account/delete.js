@@ -5,6 +5,7 @@ const Delete = ( { deleteUser, changeLoading }) => {
   const nav = useNavigate()
 
   useEffect(() => {
+    changeLoading()
     deleteUser()
     window.localStorage.removeItem('token')
     nav("/")

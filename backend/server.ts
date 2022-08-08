@@ -24,8 +24,7 @@ app
   .use(
     cors({
         origin: "*",
-        allowMethods :['GET','POST','DELETE','PATCH'],
-       
+        allowMethods :['GET','POST','DELETE','PATCH'],  
     })
 ) 
   .use(countUser.routes())

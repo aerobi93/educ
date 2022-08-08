@@ -32,7 +32,6 @@ export const sendMailCreate =  async(email : string, token? : string )  => {
   export const sendNewCodevalidation =  async(email : string, type: string,  token: string ) => {
    let title
    let link
-   console.log(email, type, token, "mail")
    if (type === 'passwordForgotten') {
     title = "demande de changement de mot de passe"
     link = "changer de mot de passe"
@@ -77,4 +76,21 @@ export const sendMailCreate =  async(email : string, token? : string )  => {
     }
     await connexion.sendMail(message)
    
+  }
+
+  export const sendMailupdateEmail = async (email : string, token? : string ) => {
+    const message = {
+      from: '"Studies" <studies-rom@outlook.fr>',
+      to: email,
+      subject: "modification email",
+      html: `
+      
+        <br/>
+        votre email vien d 'etre midifier et necessite la valide du mail 
+        <br/>
+        <a href="http://localhost:3000/validation/validation/${token}"> validez le compte </a>
+        <br/>
+        `
+      }
+      await connexion.sendMail(message)
   }
