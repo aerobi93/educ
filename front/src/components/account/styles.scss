@@ -1,13 +1,15 @@
+@use 'sass:color';
 @use 'src/styles/vars';
-th{
-  border: solid gray 2px;
-  padding : vars.$padding * 0.5
-}
-td {
-  border: solid white 2px;
-  padding : vars.$padding * 0.5
-}
+@import "src/styles/mixin";
 
+td , th{
+  text-align: center;
+  border: solid color.scale(vars.$titleColor, $lightness : 20%) 1px;
+  padding : vars.$padding * 0.5
+}
+th {
+  @include penny(color.scale(vars.$backgroundColor, $lightness : -60%),vars.$fontSize * 1.5, white, 1px, 25% )
+}
 
 .account {
   @media screen and (max-width : 800px) {
@@ -56,33 +58,23 @@ td {
         font-family: vars.$basker;
 
       }
+      @include penny(vars.$titleColor, vars.$fontSize * 1.25, white, 1px, 100%);
       text-decoration: none;
-      width: 100%;
       margin-top: vars.$margin;
-      font-family: vars.$penny;
-      font-size: vars.$fontSize * 1.25;
-      color: vars.$titleColor;
-      text-shadow: black 1px 1px;
+      
     }
    @media screen and (min-width  : 800px) {
       &--red {
         color: red;
         font-size: vars.$fontSize * 1.75;
-        font-weight: bolder;
-        text-shadow: white 2px 2px;
       } 
    }
     
   }
   &__errorText {
-    width: 80%;
-    text-align: center;
-    font-weight: bolder;
-    color: red;
-    text-shadow: black 1px  1px;
+    @include penny(red, vars.$fontSize * 3, black, 2px, 80%);
     line-height: 3rem;
     font-family: vars.$basker;
-    font-size: vars.$fontSize * 1.5 ;
     margin: auto;
     position: relative;
     top: 10rem;
@@ -99,21 +91,15 @@ td {
 
   &__result {
     &--container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      @include flexCenter(100%, "center", "column");
     }
 
     &--flex {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      align-items: center;
+      @include flexCenter(100%, "center", "column");
     }
     &--flexRow {
-      margin: auto;
-      margin-top: vars.$margin * 0.5;
+      margin: vars.$margin *1.5   auto;
+      border:  color.scale(vars.$backgroundColor, $lightness : -40%) solid 4px;
       width: 80%;
       justify-content: center;
     }
@@ -123,14 +109,8 @@ td {
       padding-bottom : vars.$padding * 2
     }
     &--name {
-      text-align: center;
-      font-size: vars.$fontSize * 1.5;
+      @include penny(vars.$titleColor, vars.$fontSize * 1.5, red, 1px, 100%);
       margin: vars.$margin 0;
-      margin-bottom: vars.$margin;
-      font-family: vars.$penny;
-      color: vars.$titleColor;
-      font-weight: bolder;
-      text-shadow: red 1px 1px;
     }
     &--link {
      text-align: center;
@@ -149,11 +129,16 @@ td {
       margin-right: vars.$margin / 2;
     }
     &--select {
-      width: 40%;
+      width: 20%;
       margin: auto;
       padding: vars.$padding * 0.25;
-      border: 2px solid grey;
+      border: 2px solid color.scale(vars.$backgroundColor, $lightness : -40%);
       background-color: transparent;
+    }
+    &--option {
+      background: vars.$backgroundColor;
+      font-size: vars.$fontSize * 1.25;
+      font-family: vars.$basker;
     }
   }
   &__askLogin {
@@ -169,36 +154,30 @@ td {
       font-size: vars.$fontSize * 1.25;
     }
     &--error {
-      font-weight: bolder;
-      color: red;
-      text-align: center;
+      @include penny(red, vars.$fontSize * 3, black, 2px, 100% );
       margin: vars.$margin 0;
-      font-size: vars.$fontSize * 1.5;
+
     }
   }
   &__note {
-    
+    font-weight: bolder;
+    font-size: vars.$fontSize * 2;
+
     &--red {
       color: red;
-      font-size: vars.$fontSize * 2;
-      text-align: center;
-      font-weight: bolder;
+      text-shadow: black 2px 2px;     
     }
     &--green {
-      color: yellowgreen;
-      font-size: vars.$fontSize * 2;
-      text-align: center;
-      font-weight: bolder;
+      color: rgb(0, 128, 73);
+      text-shadow: white 2px 2px;
+  
     }
   }
   &__message {
-    font-family: vars.$penny;
-    font-size: vars.$fontSize * 2;
+    @include penny(black, vars.$fontSize * 2, white, 1px, 50% );
     line-height: 4rem;
     padding-top: vars.$padding *2;
-    text-align: center;
-    width: 50%;
     margin: auto;
-    font-weight: bolder;
+   
   }
 }

@@ -1,8 +1,6 @@
-import { useNavigate, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const Menu = ({ role, changeDisplay, displayAddChild, displayResult, sentAskPassword, childId }) => {
-  
-  const nav = useNavigate()
 
   const handlerClick = ( value) => {
    let text = "etes vous sur de vouloir"

@@ -16,9 +16,10 @@ import Interface from '../../container/interface';
 
 
 
-const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConnect, setWidthWindow, sentNewLink , auth, connected}) => {
+const App =  ({messageAjax, status, isConnect, setWidthWindow, sentNewLink , auth, connected}) => {
   const navigate = useNavigate()
   const link  = useLocation()
+
   // auth is async function so he send a promise
   useEffect(() => {
     auth()
@@ -52,7 +53,7 @@ const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConne
   return (
     
     <div className="app">
-      <Header />
+     <Header />
       {
        ( messageAjax.includes("un email") && messageAjax.includes("a ete envoyer")) && 
         <div className='app__center'> 
@@ -70,7 +71,7 @@ const App =  ({messageAjax, status, loading, changeLoading, findAllData, isConne
       {
         (!messageAjax.includes("un email") && !messageAjax.includes("a ete envoyer") && messageAjax !== "compte non valider") &&  
         <div className="app__center">
-          {connected !== undefined && 
+          {(connected == true || connected == false) && 
            <Routes  > 
             <Route exact path='/' element={connected ?  <Navigate replace to="/account/home" /> : <FormConnection />} />
             <Route exact path='/form/:typeForm' element={ <FormConnection /> } />

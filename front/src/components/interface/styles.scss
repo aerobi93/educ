@@ -1,4 +1,7 @@
+@use 'sass:color';
 @use 'src/styles/vars';
+@import 'src/styles/mixin';
+
 
 .interface {
   width: 80%;
@@ -7,12 +10,7 @@
   &__begin {
     position: relative;
     top: 8rem;
-    font-size: vars.$fontSize * 4;
-    text-align: center;
-    font-family: vars.$penny;
-    font-weight: bolder;
-    color: red;
-    text-shadow: vars.$titleColor 4px 4px;
+    @include penny(red, vars.$fontSize  * 4, black, 4px, 100%);
 
   }
   &__counter {
@@ -122,18 +120,13 @@
     margin-top: vars.$margin * 4
   }
   &__category {
-    font-size:  vars.$fontSize *1.75;
-    font-family: vars.$penny;
-    color : vars.$titleColor;
-    text-align: center;
-    margin-top: vars.$margin *3;
-    font-weight: bolder;
-    text-shadow: red 1px 1px;
-    
+    &--title {
+      @include penny(color.scale(vars.$backgroundColor, $lightness : -70%), vars.$fontSize  * 2, white, 2px, 100%);
+      margin: vars.$margin * 2 0  vars.$margin 0;
+    }
     &--name {
-    margin-top: vars.$margin ;
-    font-size:  vars.$fontSize *1.5;
-    text-shadow: black 1px 1px;
+      @include penny(vars.$titleColor, vars.$fontSize  * 1.5, white, 2px, 100%);
+      margin : vars.$margin 0;
     }
   }
   &__color {

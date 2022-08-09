@@ -25,6 +25,7 @@ const initialState = {
   seconde : 0,
   askLogin : "",
   displayResultExercices : false,
+  displayResultExam : false,
   widthWindow : "",
   displayTrigram : false
  

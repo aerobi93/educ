@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email, messageAjax}) => {
   const [passwordError, setPasswordError] = useState()
-  const [typeError, setTypeError] = useState()
+  const [messsageError, setMessageError] = useState()
   const link = useLocation()
   const nav = useNavigate()
 
@@ -17,16 +17,16 @@ const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email,
 
   useEffect(() => {
     if(password.trim() !== "") {
-      setTypeError()
+      setPasswordError(false)
     }
   }, [password])
   const handlerSubmit = (evt) => {
     evt.preventDefault();
     if (password.trim() ==='') {
-      setTypeError('password')
+      setPasswordError(true)
     }
     else if (typeof password !== 'string' ) {
-     setPasswordError('mot de passe non conforme')
+     setPasswordError(true)
     }
     else {
       changeLoading()
@@ -36,11 +36,10 @@ const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email,
 
   return (
     <> 
-      {passwordError && <div className="form_message">{passwordError}</div>}
       {
       !loading &&
       <form className="form__connexion" onSubmit={(evt) => handlerSubmit(evt)}>
-       <InputPassword />
+       <InputPassword  passwordError = {passwordError} password = {password}/>
         <button className="form__submit">connection</button>
       </form>
       }

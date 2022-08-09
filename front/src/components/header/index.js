@@ -9,13 +9,12 @@ import AccountAvatar from "../../container/header/accountAvatar";
 import Trigram from "../../container/header/trigram";
 
 const Header = ({ widthWindow , displayTrigram}) => {
-
+console.log(widthWindow)
   return (
     <div className="header">
-      <Link to="/" className={ displayTrigram ? "header__title header__title--80" : "header__title"}> studies</Link> 
+      <Link to="/" className="header__title"> {widthWindow <= 800 && <Trigram />}  studies</Link> 
       <span className="header__descript">pour apprendre tous en s'amusant</span>
       { widthWindow > 800 && <AccountAvatar />}
-      {widthWindow <= 800 && <Trigram />}
     </div>
   )
 }

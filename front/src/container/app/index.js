@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
   role: state.role,
   loading : state.loading,
   student : state.data.student,
-  connected : state.connected
+  connected : state.connected,
 })
 
 const mapDispatchToProps = (dispatch) => ({

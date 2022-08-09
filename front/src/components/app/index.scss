@@ -1,16 +1,19 @@
 @use 'src/styles/vars';
-@import  'src/styles/reset';
+@use 'src/styles/reset';
+@import "src/styles/mixin";
+
 
 
 body {
-  background: linear-gradient( rgba(255, 255, 255, 0.871) , white)
+  background: linear-gradient( rgba(255, 255, 255, 0.871) , white);
+  background: url("https://pixabay.com/get/gfa8b3e12a81d3b5a44bfc17a8dfb798f38ec4155153b3ad56ccdf7991d3917847fc57d415f7f7563047ddb6cca02b31a4b42529a4b60ff57eeeef8ad0a83daf521127238f61cb7d472b342d882aa8999_1920.jpg");
 }
 .app {
   @media screen and (max-width : 800px) {
     width: 100%;
     margin: none;
-
   }
+  
   width: 80%;
   margin: auto;
   background: radial-gradient(vars.$backgroundColor, white);
@@ -21,11 +24,8 @@ body {
     border-bottom: 0.75rem white dotted;
   }
   &__message {
-    font-size: vars.$fontSize * 2;
-    font-family: vars.$penny;
+    @include penny(black, vars.$fontSize * 2, white, 2px, 50%);
     line-height: 4rem;
-    text-align: center;
-    width: 50%;
     padding-top : vars.$margin * 4;
     margin-left: 25%;
     background-color: transparent;

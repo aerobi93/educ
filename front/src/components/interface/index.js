@@ -26,8 +26,8 @@ const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute
   useEffect(() => {
     if(average !== "") {
       let timerest =  typeExercise == "simulation" ? 
-         "fait en " +minute + 'minute et ' + seconde + " seconde":
-         "temp restant: " + minute + " minute et " + seconde + "seconde sur 20 minutes"
+         "fait en " +minute + ' min et ' + seconde + " sec":
+         "fait en : " + (19 - minute) + " min et " + (60 -seconde) + " sec"
       saveResult(timerest, typeExercise === "exam", choiceCategoryID, average)
       setChoiceCategory()
       sentAverage("")
@@ -112,7 +112,8 @@ const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute
       {
         // selection one category in mode exercices
         (!begin  && !loading && !choiceCategory  && allCategories) &&
-        <div className="interface__category"> Choisir une categorie d' exercice
+        <div className="interface__category"> 
+        <div className="interface__category--title">Choisir une categorie d' exercice</div>
           {
              allCategories.map((element) => 
               <div  

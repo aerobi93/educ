@@ -12,7 +12,7 @@ import Spinner from "../loader/spin";
 
 import { getAge } from "../../utils";
 
-const Account = ({status, childId, sentNewLink, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild, isConnect }) => {
+const Account = ({status,  sentNewLink, loading, changeLoading,changeDisplay, displayAddChild, displayResult, data, nameChild,birthday, sendFormRegisterChildren, messageAjax, findAllData, askLogin, sentAskPassword, changeMessageRequest, changeValue, widthWindow, displayTrigram, deleteChild, isConnect }) => {
   const [error, setError] = useState()
   const [nameChildError, setNameChildError] = useState()
   const [birthdaydError, setBirthdayError] = useState()
@@ -36,6 +36,8 @@ const Account = ({status, childId, sentNewLink, loading, changeLoading,changeDis
     }
     if(messageAjax === "erreur de mot de passe") {
       setDisplayMessage('autorisation refusée')
+      sentAskPassword('')
+      changeMessageRequest("")
       changeValue("", "password")
     }
     if (messageAjax == "compte enfant supprimer") {
@@ -68,7 +70,8 @@ const Account = ({status, childId, sentNewLink, loading, changeLoading,changeDis
       sentAskPassword('')
       changeMessageRequest("")
     }
-    setTimeout(() => {setDisplayMessage(false)}, 1000 * 2)
+    setTimeout(() => {
+      setDisplayMessage("")}, 1000 * 3)
     
   }, [messageAjax])
 

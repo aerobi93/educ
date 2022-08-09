@@ -1,18 +1,30 @@
 @use 'src/styles/vars';
 
-@mixin penny ($color, $fontSize, $shadowColor, $shadowReflect, $width) {
+@mixin penny ($color, $fontSize, $shadowColor, $shadowReflect, $width, $basker:"") {
     font-weight: bolder;
     text-align: center;
     font-size: $fontSize;
-    font-family: vars.$penny;
+
     color : $color;
     width: $width;
     text-shadow: $shadowColor $shadowReflect $shadowReflect;
+
+    @if($basker != "") {
+        font-family: vars.$basker;
+    }
+    @else {
+        font-family: vars.$penny;
+    }
 }
 
-@mixin flexCenter ($width, $justify) {
+@mixin flexCenter ($width, $justify, $column:"") {
     display: flex;
     width: $width;
     justify-content: $justify;
     flex-wrap: wrap;
+
+    @if($column == "column") {
+        flex-direction: column;
+    }
+    
 }

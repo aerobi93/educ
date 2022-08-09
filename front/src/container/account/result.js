@@ -6,6 +6,7 @@ import { changeValue, changeDisplay, getCategories, sentAskPassword, deleteChild
 const mapStateToProps = (state) => ({
   childId : state.childId,
   displayResultExercices : state.displayResultExercices,
+  displayResultExam : state.displayResultExam,
   allCategories : state.allCategories,
   askLogin : state.askLogin
 })

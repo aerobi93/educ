@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Account from "../../components/account";
 
-import { sentNewLink, changeLoading, sendFormRegisterChildren, changeDisplay, findAllData,isConnect, sentAskPassword, sendFormConnexion, changeValue ,changeMessageRequest, deleteChild } from "../../action"
+import { sentNewLink,  changeLoading, sendFormRegisterChildren, changeDisplay, findAllData,isConnect, sentAskPassword, sendFormConnexion, changeValue ,changeMessageRequest, deleteChild } from "../../action"
 
 const mapStatetoProps = (state) => ({
  data : state.data,
@@ -52,6 +52,9 @@ const mapDispatchtoProps = (dispatch) => ({
   },
   isConnect : (value) => {
     dispatch(isConnect(value))
+  },
+  sentAskPassword : (value) => {
+    dispatch(sentAskPassword(value))
   }
 })
 

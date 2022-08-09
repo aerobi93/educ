@@ -2,10 +2,11 @@ import react, { useEffect } from "react"
 import { useState } from "react"
 
 
-const Result  = ({ data, role, changeValue, childId, displayResultExercices, changeDisplay, allCategories, getCategories, sentAskPassword}) => {
+const Result  = ({ data, role, changeValue, childId, displayResultExercices, displayResultExam, changeDisplay, allCategories, getCategories, sentAskPassword}) => {
 
   const [categories, setCategories] = useState("all")
   const [SliceresultExercices, setSliceExercices] = useState()
+  
   const [toogleExam, setToogleExam] = useState(true)
 
   useEffect(() => {
@@ -51,29 +52,38 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
        <div className="account__result--link"  onClick={() => sentAskPassword("deleteChild")}>supprime le compte de {data.name}</div>
         <div 
           className={`account__result--link ${displayResultExercices ? "account__result--open" : "account__result--close"}`}
-          onClick={() => changeDisplay("displayResultExercices", !displayResultExercices)}
+          onClick={() => {
+            changeDisplay("displayResultExercices", !displayResultExercices)
+            changeDisplay("displayResultExam", false)
+            setToogleExam(false)
+          }}
         >
-          voir les resultats des derniere exercices
+          voir les resultats des dernier exercices
+        </div>
+
+        <div 
+          className={`account__result--link ${displayResultExam ? "account__result--open" : "account__result--close"}`}
+          onClick={() =>{ 
+            changeDisplay("displayResultExam", !displayResultExam)
+            changeDisplay("displayResultExercices", false)
+            setToogleExam(true)
+          }}
+        >
+          voir les resultats des dernier examens
         </div>
         {
-          (allCategories && displayResultExercices) && 
+          (allCategories && (displayResultExercices || displayResultExam)) && 
             <>
             <select className="account__result--select" onChange={(evt) => {handlerChange(evt)}}>
-              <option value="all">tous les resultat</option> 
+              <option value="all" className="account__result--option">tous les resultat</option> 
             {
               allCategories.map((element) => 
-                <option key={element.id} value={element.name} >{element.name}</option> 
+                <option key={element.id} value={element.name} className="account__result--option"  >{element.name}</option> 
               )
             }
             </select>
             <table className="account__result--flexRow">
-              <tbody>
-                  <tr>
-                <th colSpan = "2" className="account__result--toogleExam" onClick={() => setToogleExam(true)}> resultats d'examen</th>
-                <th colSpan="2" className="account__result--toogleExam" onClick={() => setToogleExam(false)}> resultats au exercices</th>
-              </tr>
-              </tbody>
-            
+      
              { SliceresultExercices &&  SliceresultExercices.length > 0 &&  
              <tbody>
              <tr>
@@ -90,7 +100,7 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, cha
                         <td>{'le ' + newDate.getUTCDate() + "/"+ newDate.getMonth() + "/" + newDate.getFullYear()}</td>
                         <td>{element.content.name}</td>
                         <td>{element.timeRest}</td>
-                        <td className={element.note > 10 ? "account__note--green" : "account__note--red"}>{element.note}</td>
+                        <td className={element.note > 10 ? "account__note account__note--green" : "account__note account__note--red"}>{element.note}</td>
                       </tr>
                     )
                   })
