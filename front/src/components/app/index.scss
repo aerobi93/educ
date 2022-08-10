@@ -19,6 +19,11 @@ body {
   background: radial-gradient(vars.$backgroundColor, white);
  
   &__center {
+    @media screen and (max-width : 800px) {
+      width: 100%;
+      margin: none;
+    }
+    
     min-height: 50vh;
     padding-bottom: vars.$padding;
     border-bottom: 0.75rem white dotted;

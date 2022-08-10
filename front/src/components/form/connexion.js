@@ -3,7 +3,7 @@ import InputPassword from '../../container/form/inputPassword'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 
-const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email, messageAjax}) => {
+const Connexion = ({password,  loading, sendFormConnexion, changeLoading, email}) => {
   const [passwordError, setPasswordError] = useState()
   const [messsageError, setMessageError] = useState()
   const link = useLocation()

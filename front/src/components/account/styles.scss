@@ -27,6 +27,7 @@ th {
     @media screen and (max-width : 1200px) {
       margin: none;
       width: 100%;
+      border: none;
     }
     width: calc(75% - vars.$margin * 3);
     margin : 0, vars.$margin, vars.$margin 0;
@@ -50,8 +51,9 @@ th {
    
     &--link {
       @media screen and (max-width : 800px) {
-        width: 50%;
-        margin:   vars.$margin * 0.5 0  vars.$margin * 0.5 0;
+        width: 100%;
+        margin:   vars.$margin * 0.5 vars.$margin;
+        text-align: left;
         color: inherit;
         font-weight: inherit;
         text-shadow: none;
@@ -91,13 +93,16 @@ th {
 
   &__result {
     &--container {
-      @include flexCenter(100%, "center", "column");
+      @include flexCenter(100%, "center", "column"); 
     }
-
     &--flex {
       @include flexCenter(100%, "center", "column");
     }
     &--flexRow {
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      border: none;
+      }
       margin: vars.$margin *1.5   auto;
       border:  color.scale(vars.$backgroundColor, $lightness : -40%) solid 4px;
       width: 80%;
@@ -118,6 +123,12 @@ th {
       text-decoration: none;
       color: black;
     }
+    &--delete {
+      margin-top: vars.$margin;
+      font-weight: bolder;
+      color: red;
+      text-shadow: white 1px;
+    }
     &--close::before {
       content: '+';
       font-size: vars.$fontSize * 1.5 ;
@@ -129,6 +140,9 @@ th {
       margin-right: vars.$margin / 2;
     }
     &--select {
+      @media screen and (max-width  : 800px) {
+        width:  60%;
+      }
       width: 20%;
       margin: auto;
       padding: vars.$padding * 0.25;

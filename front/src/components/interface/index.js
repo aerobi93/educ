@@ -9,7 +9,7 @@ import Color from "../../container/interface/color"
 
 import './styles.scss'
 
-const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
+const Interface =  ({childId, sentAverage, minute, seconde, setMinute, setSeconde,  saveResult, loading, changeLoading, allCategories, getCategories, setBegin, begin,  average}) => {
   const params = useParams()
   const typeExercise = params.type
   const [choiceCategory, setChoiceCategory] = useState()
@@ -22,7 +22,8 @@ const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute
     if(!childId) {
       nav("/")
     }
-  }, [])
+  }, [childId])
+
   useEffect(() => {
     if(average !== "") {
       let timerest =  typeExercise == "simulation" ? 
@@ -50,7 +51,7 @@ const Interface =  ({childId, sentAverage, exercices, minute, seconde, setMinute
       getCategories() 
     } 
     if (begin) {
-      if (typeExercise == "simulation") {
+      if (typeExercise === "simulation") {
         setMinute(0)
         setMinuteState(0)
         setSeconde(0)

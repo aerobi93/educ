@@ -1,4 +1,4 @@
-import react , {useEffect, useState} from "react"
+import React  from "react"
 import { useNavigate, Link, useLocation } from "react-router-dom"
 
 import Menu from "../../container/account/menu"
@@ -14,19 +14,29 @@ const Trigram = ({ isConnect, connected, displayTrigram, changeDisplay }) => {
   }
 
   return (
-    <div className="header__trigram--flex">
-    <div className="header__trigram" onClick={() => changeDisplay("displayTrigram", !displayTrigram)}/>
-    {(displayTrigram && connected) && 
-      <>
-        <Link to ="/account/home" className="header__trigram--link"> mon compte</Link>
-        <div className="header__trigram--link" onClick={() => disconect()}> deconnection</div>
-      </>
-     }
-      {(displayTrigram  && !connected) && 
-        <Link to ="/" className="header__trigram--link"> crée un compte /<br/>me connecter</Link>
+    <div className="header__trigram">
+      <div className="header__trigram--logo" onClick={() => changeDisplay("displayTrigram", !displayTrigram)}/>
+      <div className="header__trigram--flex" >
+      {(displayTrigram && connected) && 
+        <>
+          <Link to ="/account/home" className="header__trigram--link"  onClick={()=> changeDisplay("displayTrigram", !displayTrigram)}> mon compte</Link>
+          <div className="header__trigram--link" onClick={() => {
+            disconect()
+            changeDisplay("displayTrigram", !displayTrigram)
+            }}> deconnection</div>
+        </>
       }
-      
-      {(displayTrigram  && location.pathname == "/account/home") && <Menu />}
+        {(displayTrigram  && !connected) && 
+        <>
+          <Link to ="/" className="header__trigram--link" onClick={()=> changeDisplay("displayTrigram", !displayTrigram)}> crée un compte </Link> 
+          <Link to ="/" className="header__trigram--link"  onClick={()=> changeDisplay("displayTrigram", !displayTrigram)}> me connecter </Link> 
+        </>
+         
+        
+        }
+        
+        {(displayTrigram  && location.pathname == "/account/home") && <Menu />}
+      </div>
     </div>
     
     

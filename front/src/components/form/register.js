@@ -5,7 +5,7 @@ import Input from '../../container/form/input';
 import InputPassword from "../../container/form/inputPassword";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCakeCandles, faUserNinja, faUnlockKeyhole, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {faCakeCandles, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 import { getAge } from "../../utils";

@@ -8,7 +8,8 @@ const mapStateToProps = (state) => ({
   displayResultExercices : state.displayResultExercices,
   displayResultExam : state.displayResultExam,
   allCategories : state.allCategories,
-  askLogin : state.askLogin
+  askLogin : state.askLogin,
+  widthWindow : state.widthWindow
 })
 const mapDispatchtoProps = (dispatch) => ({
   changeValue :(value, name) => {

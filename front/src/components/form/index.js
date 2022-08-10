@@ -11,6 +11,7 @@ import Input from '../../container/form/input';
 
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../loader/spin";
+import { changeValue } from "../../action";
 
 const Form = ({ message, status, email, loading, count, changeLoading, sentNewLink, isConnected }) => {
   const [messageError, setMessageError] = useState(String)
@@ -18,6 +19,11 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
   const nav = useNavigate()
   let typeForm = useParams().typeForm
   let regexMail = /[^\s]+[@]+[\w]\w*[.]\w*/g
+  useEffect(() => {
+    if(!typeForm) {
+      changeValue('')
+    }
+  }, []) 
 
   useEffect(() => {
     if(email.trim() !== "" ){
@@ -39,7 +45,7 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
       setMessageError("email non conforme")
     }
     else {
-      setMessageError()
+      setMessageError('')
       changeLoading()
       count()
       
@@ -56,7 +62,7 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
               </div>
             }
           </div>
-      {message !== "" && message !== "Unauthorized" && status !== 200  && <div className="form__message"> {message} </div>} 
+      {(message !== "erreur de mot de passe" || message == "une erreur innatendu est survenu") && status !== 200  && <div className="form__message"> {message} </div>} 
       { messageError && <div className="form__message">{messageError}</div>}
       { 
         message =='erreur de mot de passe' && 
@@ -78,7 +84,7 @@ const Form = ({ message, status, email, loading, count, changeLoading, sentNewLi
         { typeForm === 'changeMail' && <ChangeEmail /> }
 
         {!typeForm  && 
-          <form onSubmit={(evt)=> Submit(evt)}>
+          <form  onSubmit={(evt)=> Submit(evt)}>
             <Input 
               ico={faEnvelope}
               id={"email"} value={email} 

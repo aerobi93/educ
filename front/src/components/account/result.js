@@ -1,8 +1,9 @@
-import react, { useEffect } from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 
-const Result  = ({ data, role, changeValue, childId, displayResultExercices, displayResultExam, changeDisplay, allCategories, getCategories, sentAskPassword}) => {
+const Result  = ({widthWindow ,  data, role, changeValue, childId, displayResultExercices, displayResultExam, changeDisplay, allCategories, getCategories, sentAskPassword}) => {
 
   const [categories, setCategories] = useState("all")
   const [SliceresultExercices, setSliceExercices] = useState()
@@ -49,7 +50,13 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, dis
 			</div>
 
       {childId === data.id  && <div className= "account__result--container">
-       <div className="account__result--link"  onClick={() => sentAskPassword("deleteChild")}>supprime le compte de {data.name}</div>
+      
+        { widthWindow < 800 && childId &&
+          <>
+            <Link className= "account__menu--link  account__menu--red" to={`/account/exercise/simulation`} >s'entrainer</Link>
+            <Link className= "account__menu--link  account__menu--red" to={`/account/exercise/exam`}>mode examen</Link>
+          </>
+        } 
         <div 
           className={`account__result--link ${displayResultExercices ? "account__result--open" : "account__result--close"}`}
           onClick={() => {
@@ -113,8 +120,7 @@ const Result  = ({ data, role, changeValue, childId, displayResultExercices, dis
 
             </>
         }
-        
-       
+         <div className="account__result--link account__result--delete"  onClick={() => sentAskPassword("deleteChild")}>supprime le compte de {data.name}</div>     
 		  </div>
     }
     </div>

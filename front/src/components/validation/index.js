@@ -5,7 +5,7 @@ import "./styles.scss";
 import Spinner from "../loader/spin";
 
 
-const Validation = ({ loading, changeLoading, messageAjax, status, validationCode}) => {
+const Validation = ({ loading, changeLoading, validationCode}) => {
   const params = useParams()
 
   useEffect(() => {

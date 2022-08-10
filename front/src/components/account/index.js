@@ -19,11 +19,10 @@ const Account = ({status,  sentNewLink, loading, changeLoading,changeDisplay, di
   const [displayLogin, setDisplayLogin] = useState()
   const [displayMessage, setDisplayMessage] = useState()
   const nav = useNavigate()
-  
   useEffect(() => {
       changeLoading()
       findAllData()
-  }, [status])
+  }, [status, messageAjax])
 
   
 
@@ -36,8 +35,8 @@ const Account = ({status,  sentNewLink, loading, changeLoading,changeDisplay, di
     }
     if(messageAjax === "erreur de mot de passe") {
       setDisplayMessage('autorisation refusée')
-      sentAskPassword('')
       changeMessageRequest("")
+      sentAskPassword('')
       changeValue("", "password")
     }
     if (messageAjax == "compte enfant supprimer") {
@@ -110,7 +109,7 @@ const Account = ({status,  sentNewLink, loading, changeLoading,changeDisplay, di
     {error  &&  <div className="account__errorText">{error}</div>}
     {displayMessage && <div className="account__errorText">{displayMessage}</div>}
     {(data && !error && !loading && !displayMessage)  &&  
-    <div className={displayTrigram ? "account--80 account" : "account"}>
+    <div className="account">
     {widthWindow > 800 && <Menu />}
       {displayLogin &&
        <div className="account__askLogin">

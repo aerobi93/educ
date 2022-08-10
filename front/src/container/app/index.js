@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import App from "../../components/app";
 
-import { emptyFields, changeLoading, findAllData, isConnect, setWidthWindow , sentNewLink, auth} from "../../action"
+import { emptyFields, findAllData, isConnect, setWidthWindow , sentNewLink, auth, changeMessageRequest, changeLoading} from "../../action"
 
 const mapStateToProps = (state) => ({
   messageAjax: state.messageRequest,
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
   loading : state.loading,
   student : state.data.student,
   connected : state.connected,
+  loading: state.loading,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,6 +34,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   auth : () => {
     dispatch(auth())
+  },
+  changeMessageRequest : (value) => {
+    dispatch(changeMessageRequest(value))
+  },
+  changeLoading : () => {
+    dispatch(changeLoading())
   }
   
 })

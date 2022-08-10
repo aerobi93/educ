@@ -4,8 +4,15 @@
 
 
 .interface {
+  @media screen and (max-width : 800px) {
+    width: 100%;
+    margin: vars.$margin * 0.5 0 0 0;
+    border-top: dotted 8px color.scale(vars.$backgroundColor, $lightness: -40%);
+    padding-top: vars.$padding * 2;
+  }
   width: 80%;
   margin: vars.$margin auto;
+
 
   &__begin {
     position: relative;
@@ -23,6 +30,11 @@
   }
 
   &__game {
+    @media screen and (max-width : 800px) {
+      border: none;
+      margin: 0;
+      padding:  vars.$padding * 0.5;
+    }
     margin-top: vars.$margin * 2;
     padding: vars.$padding;
     border: gray 1px solid;
@@ -34,6 +46,13 @@
     }
   }
   &__question {
+    @media screen and (max-width : 800px) {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+      margin: vars.$margin * 0.5 auto;
+    }
     display: flex;
     margin-top: vars.$margin / 2;
     font-size: vars.$fontSize * 1.5;
@@ -41,10 +60,20 @@
   }
 
   &__form {
+    @media screen and (max-width : 800px) {
+      margin-top: vars.$margin;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     position: relative;
     bottom: 0.75rem;
 
     &--text {
+      @media screen and (max-width : 800px) {
+        margin : vars.$margin * 0.5 auto;
+        width: 25%;
+      }
       width: 4rem;
       height: 2.5rem;
       font-size: vars.$fontSize *1.5;
@@ -66,9 +95,16 @@
     
   }
   &__finished {
+    @media screen and (max-width : 800px) {
+    width: 80%;
+    }
     text-decoration: line-through vars.$titleColor 1px;
   }
   &__response {
+    @media screen and (max-width : 800px) {
+      width: 100%;
+      padding: vars.$padding * 0.5;
+    }
     display: flex;
     color: red;
     font-size: vars.$fontSize *1.25;
@@ -84,6 +120,10 @@
     }
   }
  &__ico {
+  @media screen and (max-width : 800px) {
+    width: 20%;
+    margin: 0;
+    }
     font-size: vars.$fontSize * 2.5;
     margin: 0 vars.$margin;
     position: relative;
@@ -121,7 +161,7 @@
   }
   &__category {
     &--title {
-      @include penny(color.scale(vars.$backgroundColor, $lightness : -70%), vars.$fontSize  * 2, white, 2px, 100%);
+      @include penny(white, vars.$fontSize  * 2, black, 4px, 100%);
       margin: vars.$margin * 2 0  vars.$margin 0;
     }
     &--name {
@@ -131,14 +171,14 @@
   }
   &__color {
     &--title {
-      font-size:  vars.$fontSize *1.75;
-      font-family: vars.$penny;
-      color : vars.$titleColor;
-      text-align: center;
-      font-weight: bolder;
-      text-shadow: red 1px 1px;
+      @include penny(white,  vars.$fontSize *1.5, black, 2px, 100%);
     }
     &--ico {
+      @media screen and (max-width : 800px) {
+        width: 8rem;
+        height: 8rem;
+        margin-left: calc(50% - 4rem) ;
+      }
       height: 5rem;
       width: 5rem;
       margin-left:  calc(50% - 2.5rem);
@@ -151,7 +191,10 @@
       margin-top: vars.$margin;
     }
     &--listIcon {
-      width: calc(25% - vars.$margin) ;
+      @media screen and (max-width : 800px) {
+        width: calc(50% - vars.$margin - 2px) 
+      }
+      width: calc(25% - vars.$margin - 2px) ;
       height: 4rem;
       margin-right: vars.$margin;
       margin-bottom: vars.$margin;
@@ -167,6 +210,9 @@
       width: 80%;
     }
     &--input {
+      @media screen and (max-width : 800px) {
+        width: 80%
+      }
       width: 25%;
       margin: auto;
       padding: vars.$padding * 0.25;
@@ -192,7 +238,6 @@
       justify-content: center;
       margin-top: vars.$margin;
       font-size: vars.$fontSize * 1.25;
-    
       text-align: center;
       font-weight: bolder;
 
@@ -206,6 +251,9 @@
       }
     }
     &--elementText {
+      @media screen and (max-width : 800px) {
+        width: calc(50% - vars.$margin - 2px) 
+      }
       width: 25%;
    
       margin: vars.$margin * 0.5  0;

@@ -12,7 +12,7 @@ const initialState = {
   messageRequest:"",
   statusRequest:"",
   loading: false,
-  connected : false,
+  connected : "",
   displayResult : true,
   displayAddChild : false,
   exercices : "",

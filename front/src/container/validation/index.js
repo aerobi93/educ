@@ -1,6 +1,6 @@
 import{ connect }from "react-redux";
 import Validation from "../../components/validation";
-import { validationCode, changeLoading, updateUser, emptyFields } from "../../action"
+import { validationCode, changeLoading } from "../../action"
 
 const mapStatetoProps = (state) => ({
   loading: state.loading,

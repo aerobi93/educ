@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, AUTH, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData, setRole, isConnect, SAVE_RESULT, getCategories, GET_CATEGORIES, setCategories, changeDisplay, DELETE_CHILD, changeValue, auth} from '../action';
+import { COUNT, SEND_FORM_CONNEXION,  SEND_FORM_REGISTER, SEND_FORM_REGISTER_CHILDREN, AUTH, changeLoading, changeMessageRequest, emptyFields, VALIDATION_CODE, SENT_NEW_LINK, UPDATE_USER, FIND_ALL_DATA, DELETE_USER, setAllData,  isConnect, SAVE_RESULT, GET_CATEGORIES, changeDisplay, DELETE_CHILD, changeValue, setCategories} from '../action';
 
 
 const ajax = (store) => (next) => (action) =>  {
@@ -17,7 +17,10 @@ const ajax = (store) => (next) => (action) =>  {
         localStorage.setItem("token", response.data.token)
         store.dispatch(isConnect(true))
       }
-      if(response.statusText.includes("data trouver")) {
+      if(response.statusText == "content data trouver") {
+        store.dispatch(setCategories(response.data))
+      }
+      else if(response.statusText.includes("data trouver")) {
         store.dispatch(setAllData(response.data))
       }
       store.dispatch(changeMessageRequest(response.statusText, response.status))
@@ -73,7 +76,10 @@ const ajax = (store) => (next) => (action) =>  {
     break;
     
     case AUTH : 
-    if(!localStorage.getItem("token")) {return}
+    if(!localStorage.getItem("token")) {
+      store.dispatch(isConnect(false))
+      return
+    }
       axios.get("/token/verifyToken")
       .then((response) => {
         if(response.statusText === "logged") {
@@ -92,22 +98,17 @@ const ajax = (store) => (next) => (action) =>  {
       })
     break 
     case SEND_FORM_REGISTER_CHILDREN: {
-      axios.post('/user/adduserChild', {
+      let sendFormChildAxios = axios.post('/user/adduserChild', {
         birthday: new Date(store.getState().birthday),
         name:  store.getState().nameChild,
         role: "student"
       })
-      .then((response) => {
-        store.dispatch(emptyFields())
-        store.dispatch(changeMessageRequest(response.data))
+      promiseAjax(sendFormChildAxios)
+
+      sendFormChildAxios.then(() => {
         store.dispatch(changeDisplay("displayResult", true))
         store.dispatch(changeDisplay("displayAddChild", false))
-        store.dispatch(changeLoading())
       })
-      .catch((err) => {
-        store.dispatch(changeMessageRequest(err.request.response))
-        store.dispatch(changeLoading())
-      });
     }
     break;
 
@@ -145,48 +146,31 @@ const ajax = (store) => (next) => (action) =>  {
       deleteAxios.then((response) => {
         store.dispatch(isConnect(false))
       })
-      
     }
     break
     
     case SAVE_RESULT : {
-      axios.post("/results/add", {
+      let saverestultAxios =axios.post("/results/add", {
         exam : action.exam ,
         note: action.note,
         timeRest : action.timerest, 
         userID : store.getState().childId, 
         contentName : action.category,
       })
-      .then((response) => {
-      })
-      .catch((err) => {
-      })
+     promiseAjax(saverestultAxios)
     }
     break
 
     case GET_CATEGORIES :{
-      axios.get("/content/findAll")
-      .then((response) => {
-        store.dispatch(setCategories(response.data))
-        store.dispatch(changeLoading())
-      })
-      .catch((e) => {
-        store.dispatch(changeLoading())
-      })
+     let getCategoriesAxios = axios.get("/content/findAll")
+     promiseAjax(getCategoriesAxios)
     }
     break
 
     case DELETE_CHILD : {
-      axios.post("/user/deleteChild", {id : store.getState().childId})
-      .then((response) => {
-        store.dispatch((changeLoading()))
-        store.dispatch(changeMessageRequest(response.data,response.status))
-        store.dispatch(changeValue("", "childId"))
-      }) 
-      .catch((err) => {
-        changeLoading()
-        store.dispatch(changeMessageRequest(err.request.response,err.request.status))
-      })
+     let deleteChildAxios = axios.post("/user/deleteChild", {id : store.getState().childId})
+      promiseAjax(deleteChildAxios)
+      deleteChildAxios.then((res) =>  store.dispatch(changeValue("", "childId")))
     }
     break
 

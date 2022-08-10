@@ -1,18 +1,23 @@
+@use 'sass:color';
 @use 'src/styles/vars';
 
 .form {
   @media screen and (max-width : 800px) {
-    width: 80%;
-    margin:0;
+    width: calc(100% - vars.$padding);
+    margin : inherit;
+    padding: inherit;
+    border: none;
   }
   width: 40%;
   height: 45vh;
   border: solid 1px rgb(114, 113, 113);
   margin: vars.$margin 30%;
   padding: vars.$padding  0;
+  
   &__flexTitle {
     display: flex;
   }
+
   &__title {
     width: 100%;
     text-align: center;
@@ -125,6 +130,11 @@
     font-style: italic;
   }
   &__passwordForgotten {
+    @media screen and (max-width : 800px) {
+      width: 80%;
+      margin: 0 10%;
+      padding: 0;
+    }
     background-color: transparent;
     width: 30%;
     text-align: center;

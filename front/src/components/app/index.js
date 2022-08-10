@@ -16,18 +16,29 @@ import Interface from '../../container/interface';
 
 
 
-const App =  ({messageAjax, status, isConnect, setWidthWindow, sentNewLink , auth, connected}) => {
+const App =  ({messageAjax,  changeMessageRequest,  status, isConnect, setWidthWindow, sentNewLink , auth, connected, changeLoading}) => {
   const navigate = useNavigate()
   const link  = useLocation()
 
+  const [stateConnect, setStateConnect] = useState()
+  useEffect(() => {
+    setStateConnect(connected)
+  }, [connected, link, messageAjax])
+
   // auth is async function so he send a promise
   useEffect(() => {
+   
     auth()
   }, [connected, link.pathname])
-  
+
+
   useEffect(() => {
-    if (messageAjax === 'utilisateur trouver') { navigate('/form/connexion')}
-    else if (messageAjax === 'aucun utilisateur') { navigate('/form/register')}
+    if (messageAjax === 'utilisateur trouver') { 
+      changeMessageRequest("")
+      navigate('/form/connexion')}
+    else if (messageAjax === 'aucun utilisateur') { 
+      
+      navigate('/form/register')}
 
     else if (link.pathname.includes("connexion") && messageAjax === "connexion ok"){
       auth()
@@ -45,7 +56,7 @@ const App =  ({messageAjax, status, isConnect, setWidthWindow, sentNewLink , aut
   }
   }, [messageAjax]) 
 
-     
+
   useEffect(() => {
     setWidthWindow()
   }, [window.innerWidth] )
@@ -71,20 +82,23 @@ const App =  ({messageAjax, status, isConnect, setWidthWindow, sentNewLink , aut
       {
         (!messageAjax.includes("un email") && !messageAjax.includes("a ete envoyer") && messageAjax !== "compte non valider") &&  
         <div className="app__center">
-          {(connected == true || connected == false) && 
-           <Routes  > 
-            <Route exact path='/' element={connected ?  <Navigate replace to="/account/home" /> : <FormConnection />} />
-            <Route exact path='/form/:typeForm' element={ <FormConnection /> } />
-            <Route exact path='/validation/:type/:token' element={ <Validation /> } />
-            <Route exact path='/form/changeEmail'  element={connected ? <FormConnection />  : <Navigate replace to="/403" /> } />
-            <Route exact path='/403' element={<Error403 /> } /> 
-            <Route exact path='/account/home' element={connected ? <Account />  :   <Navigate replace to="/403" />} />
-            <Route exact path='/account/delete' element={<Delete /> } />
-            <Route exact path='/account/exercise/:type' element={connected ? <Interface /> : <Navigate replace to="/403" />}/>
-            <Route  path='/404' element={<Error404 /> } /> 
-            <Route  path='*' element={<Navigate replace to="/404" /> } />
-          </Routes>
-          } 
+         
+         {( stateConnect === true || stateConnect === false) && 
+      <Routes  > 
+
+      <Route exact path='/' element={stateConnect?  <Navigate replace to="/account/home" /> : <FormConnection />} />
+      <Route exact path='/form/:typeForm' element={ <FormConnection /> } />
+      <Route exact path='/validation/:type/:token' element={ <Validation /> } />
+      <Route exact path='/form/changeEmail'  element={stateConnect ? <FormConnection />  : <Navigate replace to="/403" /> } />
+      <Route exact path='/403' element={<Error403 /> } /> 
+      <Route exact path='/account/home' element={stateConnect ? <Account />  :   <Navigate replace to="/403" />} />
+      <Route exact path='/account/delete' element={<Delete /> } />
+      <Route exact path='/account/exercise/:type' element={stateConnect ? <Interface /> : <Navigate replace to="/403" />}/>
+      <Route  path='/404' element={<Error404 /> } /> 
+      <Route  path='*' element={<Navigate replace to="/404" /> } />
+     
+    </Routes>}
+          
       </div>
       }
       <Footer />

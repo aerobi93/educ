@@ -1,9 +1,12 @@
+@use 'sass:color';
 @use 'src/styles/vars';
 @import 'src/styles/mixin';
 
+
 .header {
   @include flexCenter(100%, "center");
-  height: 20vh;
+  height: 100%;
+  margin-bottom: vars.$margin ;
   position: relative;
   
   &__title, &__descript {
@@ -23,40 +26,42 @@
       display: flex ;
       justify-content: center;
     }
-    text-decoration: none;
+    &--title {
+      @include penny(vars.$titleColor, vars.$fontSize * 3, white, 2px, 100%);
       text-transform: capitalize;
+      text-decoration: none;
+    }
+  
   }
   &__descript {
       font-size: vars.$fontSize * 1.5;
   }
 
   &__trigram { 
-    width: 5rem;
-    &::before{
+
+    &--logo::before{
       content: '\2630';
       font-size: vars.$fontSize * 2;
       font-weight: bolder;
       padding-bottom: vars.$margin;
       margin-right: vars.$margin;
-   
     }
+
     &--flex {
       display: flex;
       flex-direction: column;
-      position: fixed;
-      left: 2rem;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      margin: auto;
       background: radial-gradient(vars.$backgroundColor, white);
     
     }
     &--link {
+      @include penny(color.scale(vars.$backgroundColor, $lightness: -60%), vars.$fontSize * 1.5, white, 3px, 100%); 
+      text-align: left;   
+      margin: vars.$margin / 2 vars.$margin;  
       text-decoration: none;
-      font-size: vars.$fontSize ;
-      text-align: left;
-      margin-bottom: vars.$margin / 2;
-      font-family: vars.$basker;
-      color: black;
-      text-shadow: none;
-      
       &:active {
         color: black;
       }
